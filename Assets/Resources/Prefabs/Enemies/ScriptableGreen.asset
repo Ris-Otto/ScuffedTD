@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0eaeff01ead66fc468c87761b6164b1f, type: 3}
+  m_Name: ScriptableGreen
+  m_EditorClassIdentifier: 
+  speed: 3.6
+  totalHealth: 3
+  damageType: {fileID: 11400000, guid: 202782fbbb7efe0459e9cb792fccab0a, type: 2}
+  popObject: {fileID: 3990827456977193710, guid: 82c7cbcc5bf87f740a535f6e39b019a9,
+    type: 3}
+  children:
+  - {fileID: 8550935219998280147, guid: e6b738dd01129e64f9fbc902d269debf, type: 3}
+  - {fileID: 7506604163764203415, guid: 9aca5acfda664114a9f894ed682bcf36, type: 3}

@@ -34,15 +34,9 @@ namespace Upgrades
 
         public string GetNextKey(int tree) { //used for displaying upgradeName on button
             if (tree == 1) {
-                if (treeOneEnum.MoveNext()) {
-                    return treeOneEnum.Key?.ToString();
-                }
-                return "Max Upgrades";
+                return treeOneEnum.MoveNext() ? treeOneEnum.Key?.ToString() : "Max Upgrades";
             }
-            if (treeTwoEnum.MoveNext()) {
-                return treeTwoEnum.Key?.ToString();
-            }
-            return "Max Upgrades";
+            return treeTwoEnum.MoveNext() ? treeTwoEnum.Key?.ToString() : "Max Upgrades";
         }
         
         public int getBuyValue() {

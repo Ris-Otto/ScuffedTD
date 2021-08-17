@@ -111,6 +111,7 @@ namespace Units
                 return;
             }
             transform.position = cam.ScreenToWorldPoint(GetMousePos());
+            placed = TryPlaceUnit(cam.ScreenPointToRay(GetMousePos()));
         }
 
         public Vector3 GetMousePos() {
@@ -122,6 +123,9 @@ namespace Units
         public bool TryPlaceUnit(Ray rayDown) {
             if (!Physics.Raycast(rayDown, out RaycastHit hitInfo, 10f, LayerMask.GetMask("Ground"))) return false;
             GameObject hitObject = hitInfo.transform.gameObject;
+
+            Range.ChangeDisplayColor(!hitObject.GetComponent<GridThing>().isPlaceable ? Color.red : Color.white);
+
             //This could probably be better
             return Input.GetKeyDown(KeyCode.Mouse0) && hitObject.GetComponent<GridThing>().isPlaceable;
         }

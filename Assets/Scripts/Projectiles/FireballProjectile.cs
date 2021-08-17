@@ -56,6 +56,7 @@ namespace Projectiles
                 Vector3 position = transform.position;
                 AffectExplosionColliders(position);
                 Instantiate(explosion, position, Quaternion.identity);
+                ResetThis();
             }
             if (Vector3.Distance(transform.position, spawnedAt) > (range*1.5f))
                 ResetThis();

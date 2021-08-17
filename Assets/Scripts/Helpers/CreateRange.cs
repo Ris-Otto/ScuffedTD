@@ -43,7 +43,6 @@ namespace Helpers
         }
         
         public void DisplayRange(bool isActive) {
-            _spriteRenderer.color = Color.white;
             _spriteRenderer.enabled = isActive;
         }
 

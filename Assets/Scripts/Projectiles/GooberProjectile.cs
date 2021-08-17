@@ -51,18 +51,7 @@ namespace Projectiles
             if (Vector3.Distance(transform.position, spawnedAt) > (range + range*0.5f)) 
                 gameObject.SetActive(false);
         }
-
-        protected override void Hit(Collider2D col) {
-            //if (!IsTargetActive()) return;
-            if (pierce <= 0 ) {
-                ResetThis();
-            }
-            else {
-                _listener.Income(col.gameObject.GetComponent<AbstractEnemy>().Die(this));
-                _hasCollided = true;
-                pierce--;
-            }
-        }
+        
         
         protected override void ResetThis() {
             hasCollided = false;

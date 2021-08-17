@@ -43,7 +43,13 @@ namespace Helpers
         }
         
         public void DisplayRange(bool isActive) {
+            _spriteRenderer.color = Color.white;
             _spriteRenderer.enabled = isActive;
+        }
+
+        public void ChangeDisplayColor(Color color) {
+            _spriteRenderer.color = color;
+            Debug.Log(_spriteRenderer.color);
         }
 
         private static float RadiusOfChild(Vector3 parentScale) {

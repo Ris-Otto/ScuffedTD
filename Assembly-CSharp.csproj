@@ -100,7 +100,6 @@
      <Compile Include="Assets\ZSmartTile\Components\ZST_SnapToGrid.cs" />
      <Compile Include="Assets\Scripts\Helpers\Pathfinding.cs" />
      <Compile Include="Assets\Scripts\Projectiles\TackProjectile.cs" />
-     <Compile Include="Assets\Scripts\Projectiles\IProjectileUnit.cs" />
      <Compile Include="Assets\Scripts\Upgrades\GrandmaUpgradeContainer.cs" />
      <Compile Include="Assets\Scripts\Helpers\MouseManager.cs" />
      <Compile Include="Assets\Scripts\Projectiles\MagickanProjectile.cs" />

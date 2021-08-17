@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8144571126938438079}
   - component: {fileID: 2009637679458696390}
   - component: {fileID: -5413895846946308312}
-  m_Layer: 9
+  m_Layer: 6
   m_Name: Green
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -135,10 +135,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d856408ad662595409364f56d05a4897, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gameObjects:
-  - {fileID: 8550935219998280147, guid: e6b738dd01129e64f9fbc902d269debf, type: 3}
-  - {fileID: 7506604163764203415, guid: 9aca5acfda664114a9f894ed682bcf36, type: 3}
-  _speed: 3.6
-  _totalHealth: 3
-  pop: {fileID: 3990827456977193710, guid: 82c7cbcc5bf87f740a535f6e39b019a9, type: 3}
   enemy: {fileID: 11400000, guid: 6e693ac71f2f20942b84f221c2876dca, type: 2}

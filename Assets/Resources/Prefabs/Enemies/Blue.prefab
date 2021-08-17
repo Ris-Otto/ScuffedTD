@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 91142531532588652}
   - component: {fileID: 2914567564093055623}
   - component: {fileID: 55031607327737718}
-  m_Layer: 9
+  m_Layer: 6
   m_Name: Blue
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -135,9 +135,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d856408ad662595409364f56d05a4897, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gameObjects:
-  - {fileID: 8550935219998280147, guid: e6b738dd01129e64f9fbc902d269debf, type: 3}
-  _speed: 2.8
-  _totalHealth: 2
-  pop: {fileID: 3990827456977193710, guid: 82c7cbcc5bf87f740a535f6e39b019a9, type: 3}
   enemy: {fileID: 11400000, guid: 4653d0392480a9b43a71b06f2a7fd494, type: 2}

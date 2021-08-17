@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: -8968387840204801403}
   - component: {fileID: -5857888677006859197}
   - component: {fileID: -7141488148583989199}
-  m_Layer: 9
+  m_Layer: 6
   m_Name: Lead
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -136,6 +136,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _gameObjects: []
-  popObject: {fileID: 3990827456977193710, guid: 82c7cbcc5bf87f740a535f6e39b019a9,
-    type: 3}
   enemy: {fileID: 11400000, guid: 40d33a7c12fc48b4297ed417373be55e, type: 2}

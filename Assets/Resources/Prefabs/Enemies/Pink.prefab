@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8407883905750391050}
   - component: {fileID: 2923553814136555320}
   - component: {fileID: -61327049313061854}
-  m_Layer: 9
+  m_Layer: 6
   m_Name: Pink
   m_TagString: Enemy
   m_Icon: {fileID: 0}

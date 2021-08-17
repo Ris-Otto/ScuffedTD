@@ -57,7 +57,7 @@ namespace Projectiles
                 AffectExplosionColliders(position);
                 Instantiate(explosion, position, Quaternion.identity);
             }
-            if (Vector3.Distance(transform.position, spawnedAt) > (range))
+            if (Vector3.Distance(transform.position, spawnedAt) > (range*1.5f))
                 ResetThis();
         }
 
@@ -84,7 +84,7 @@ namespace Projectiles
         
         private void AffectExplosionColliders() {
             Collider2D[] cols =
-                Physics2D.OverlapCircleAll(target.transform.position, 1, 1 << LayerMask.NameToLayer("Enemy"));
+                Physics2D.OverlapCircleAll(target.transform.position, 1, LayerMask.GetMask("Enemy"));
             foreach (Collider2D aCollider in cols) {
                 _listener.Income(aCollider.gameObject.GetComponent<AbstractEnemy>().Die(this));
             }
@@ -92,7 +92,7 @@ namespace Projectiles
         
         private void AffectExplosionColliders(Vector3 pos) {
             Collider2D[] cols =
-                Physics2D.OverlapCircleAll(pos, 1, 1 << LayerMask.NameToLayer("Enemy"));
+                Physics2D.OverlapCircleAll(pos, 1, LayerMask.GetMask("Enemy"));
             foreach (Collider2D aCollider in cols) {
                 _listener.Income(aCollider.gameObject.GetComponent<AbstractEnemy>().Die(this));
             }

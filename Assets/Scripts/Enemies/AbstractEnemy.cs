@@ -60,6 +60,7 @@ namespace Enemies
         }
 
         protected virtual bool IsAppropriateDamageType(ScriptableDamageType dmgType) {
+            Debug.Log(DamageType.CompareTo(dmgType) <= 0);
             return DamageType.CompareTo(dmgType) <= 0;
         }
         

@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using Enemies;
+using Extension;
 using Helpers;
 using Projectiles;
 using Units.Guns;
@@ -105,13 +106,14 @@ namespace Units
     
         public void BeforePlaceUnit() {
             if (placed) {
+                transform.position = cam.ScreenToWorldPoint(GetMousePos(5f));
                 //This was probably stealing at least some processing power so made it initially more expensive
                 //but invocation is cancelled at time of placement
                 CancelInvoke(nameof(BeforePlaceUnit));
                 return;
             }
-            transform.position = cam.ScreenToWorldPoint(GetMousePos());
-            placed = TryPlaceUnit(cam.ScreenPointToRay(GetMousePos()));
+            transform.position = cam.ScreenToWorldPoint(GetMousePos(3f));
+            placed = TryPlaceUnit(cam.ScreenPointToRay(GetMousePos(3f)));
         }
 
         public Vector3 GetMousePos() {
@@ -119,15 +121,31 @@ namespace Units
             pos.z = 5f;
             return pos;
         }
+        
+        public Vector3 GetMousePos(float zValue) {
+            Vector3 pos = Input.mousePosition;
+            pos.z = zValue;
+            return pos;
+        }
 
         public bool TryPlaceUnit(Ray rayDown) {
-            if (!Physics.Raycast(rayDown, out RaycastHit hitInfo, 10f, LayerMask.GetMask("Ground"))) return false;
+            //TODO Let's maybe make this work next session, for now I'm content with how this method operates.
+            /*RaycastHit[] hits = Physics.SphereCastAll(transform.position, transform.localScale.x*0.5f,Vector3.forward, 10f, finalMask);
+            foreach (RaycastHit hit in hits) {
+                GameObject obj = hit.transform.gameObject;
+                if (obj.GetInterface<ISelectable>().isPlaceable) continue;
+                Range.ChangeDisplayColor(Color.red);
+                return false;
+            }*/
+            
+            if (!Physics.Raycast(transform.position, Vector3.forward, out RaycastHit hitInfo, 10f, finalMask)) 
+                return false;
+            
             GameObject hitObject = hitInfo.transform.gameObject;
-
-            Range.ChangeDisplayColor(!hitObject.GetComponent<GridThing>().isPlaceable ? Color.red : Color.white);
-
+            DeselectOthers();
+            Range.ChangeDisplayColor(!hitObject.GetInterface<ISelectable>().isPlaceable ? Color.red : Color.white);
             //This could probably be better
-            return Input.GetKeyDown(KeyCode.Mouse0) && hitObject.GetComponent<GridThing>().isPlaceable;
+            return Input.GetKeyDown(KeyCode.Mouse0) && hitObject.GetInterface<ISelectable>().isPlaceable;
         }
         
         public void OnCallDestroy() {
@@ -138,19 +156,27 @@ namespace Units
             Destroy(gameObject);
         }
 
+        public bool isPlaceable => false;
+
         public void Select() {
             //line below should make this less expensive since || only evaluates the first one if true
             placed = placed || TryPlaceUnit(cam.ScreenPointToRay(GetMousePos()));
+            if(!placed) {
+                Range.DisplayRange(true);
+                return;
+            }
             SetSelected(!isSelected && placed);
             if(isSelected) {
                 DeselectOthers();
                 //DisplayRangeAndUI()
                 uiManager.ShowMenu(this);
+                Range.DisplayRange(isSelected);
             } else {
                 //HideRangeAndUI()
                 uiManager.HideMenu();
+                Range.DisplayRange(isSelected);
             }
-            Range.DisplayRange(isSelected);
+            
         }
 
         public void Deselect() {
@@ -212,6 +238,9 @@ namespace Units
             get;
             set;
         }
+
+        protected virtual int finalMask => 1 << 8 | 1 << 9;
+
         protected abstract int sell {
             get;
         }

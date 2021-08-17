@@ -14,15 +14,15 @@ namespace Helpers
         }
 
         private void Update() {
-            var mousePos = Input.mousePosition;
+            Vector3 mousePos = Input.mousePosition;
             mousePos.z = 10;
-            var ray = _camera.ScreenPointToRay(mousePos);
+            Ray ray = _camera.ScreenPointToRay(mousePos);
         
             if (EventSystem.current.IsPointerOverGameObject()) {
                 return;
             }
 
-            if (Physics.Raycast(ray, out var hitInfo, LayerMask.GetMask("Selectable"))) {
+            if (Physics.Raycast(ray, out RaycastHit hitInfo, LayerMask.GetMask("Selectable"))) {
                 hitObject = hitInfo.transform.gameObject;
                 if(Input.GetKeyDown(KeyCode.Mouse0))
                     SelectedObject(hitObject.GetComponent<ISelectable>());

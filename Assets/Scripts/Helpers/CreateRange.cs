@@ -48,7 +48,6 @@ namespace Helpers
 
         public void ChangeDisplayColor(Color color) {
             _spriteRenderer.color = color;
-            Debug.Log(_spriteRenderer.color);
         }
 
         private static float RadiusOfChild(Vector3 parentScale) {

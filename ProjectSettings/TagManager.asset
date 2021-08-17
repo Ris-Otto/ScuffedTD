@@ -23,10 +23,10 @@ TagManager:
   - 
   - Water
   - UI
-  - Selectable
+  - Enemy
   - Projectile
   - Ground
-  - Enemy
+  - Selectable
   - 
   - 
   - 

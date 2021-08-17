@@ -8,11 +8,14 @@ namespace Helpers
     {
         private bool _isSelected;
         private ActiveObjectsTracker _et;
-        public bool isPlaceable;
+        [SerializeField]
+        private bool _isPlaceable;
 
         private void Start() {
             _et = ActiveObjectsTracker.Instance;
         }
+
+        public bool isPlaceable => _isPlaceable;
 
         public void Select() {
             SetSelected(!_isSelected);
@@ -22,8 +25,8 @@ namespace Helpers
         }
 
         public void DeselectOthers() {
-            var units = _et.units;
-            foreach (var t in units) {
+            AbstractUnit[] units = _et.units;
+            foreach (AbstractUnit t in units) {
                 t.Deselect();
             }
             Deselect();

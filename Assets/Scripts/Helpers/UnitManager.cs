@@ -29,7 +29,7 @@ namespace Helpers
 
         private AbstractUnit SpawnUnit(){
             Vector3 mousePos = Input.mousePosition;
-            mousePos.z = 5f;
+            mousePos.z = 4f;
             Vector3 objectPos = cam.ScreenToWorldPoint(mousePos);
             GameObject obj = Instantiate(unit, objectPos, Quaternion.identity);
             AbstractUnit toReturn = obj.GetComponent<AbstractUnit>();

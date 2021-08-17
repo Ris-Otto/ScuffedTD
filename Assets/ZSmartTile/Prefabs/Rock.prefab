@@ -485,4 +485,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8b2cff68ad1004429e5b7cb60f465a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isPlaceable: 1
+  _isPlaceable: 1

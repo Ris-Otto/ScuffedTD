@@ -112,13 +112,13 @@ namespace Units
                 CancelInvoke(nameof(BeforePlaceUnit));
                 return;
             }
-            transform.position = cam.ScreenToWorldPoint(GetMousePos(3f));
-            placed = TryPlaceUnit(cam.ScreenPointToRay(GetMousePos(3f)));
+            transform.position = cam.ScreenToWorldPoint(GetMousePos());
+            placed = TryPlaceUnit(cam.ScreenPointToRay(GetMousePos()));
         }
 
         public Vector3 GetMousePos() {
             Vector3 pos = Input.mousePosition;
-            pos.z = 5f;
+            pos.z = 2f;
             return pos;
         }
         
@@ -138,7 +138,7 @@ namespace Units
                 return false;
             }*/
             
-            if (!Physics.Raycast(transform.position, Vector3.forward, out RaycastHit hitInfo, 10f, finalMask)) 
+            if (!Physics.Raycast(transform.position, Vector3.forward, out RaycastHit hitInfo, 5f, finalMask)) 
                 return false;
             
             GameObject hitObject = hitInfo.transform.gameObject;
@@ -156,7 +156,7 @@ namespace Units
             Destroy(gameObject);
         }
 
-        public bool isPlaceable => false;
+        
 
         public void Select() {
             //line below should make this less expensive since || only evaluates the first one if true
@@ -234,6 +234,9 @@ namespace Units
             get;
             protected set;
         }
+        
+        public bool isPlaceable => false;
+        
         protected abstract int price {
             get;
             set;

@@ -81,6 +81,7 @@
      <Compile Include="Assets\Scripts\Helpers\EventSender.cs" />
      <Compile Include="Assets\Scripts\Helpers\CreateRange.cs" />
      <Compile Include="Assets\Scripts\Upgrades\MagickanUpgrade.cs" />
+     <Compile Include="Assets\Scripts\Units\Footprint.cs" />
      <Compile Include="Assets\Scripts\Helpers\DamageType.cs" />
      <Compile Include="Assets\Scripts\Units\Guns\GrandmaGun.cs" />
      <Compile Include="Assets\Scripts\Units\Guns\RocketGun.cs" />
@@ -129,7 +130,6 @@
      <Compile Include="Assets\Scripts\Helpers\StartToFastForward.cs" />
      <Compile Include="Assets\Scripts\Enemies\BlackBehaviour.cs" />
      <Compile Include="Assets\ZSmartTile\Classes\ZST_MapManager.cs" />
-     <Compile Include="Assets\Scripts\Units\Footprint.cs" />
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />

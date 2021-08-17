@@ -369,6 +369,10 @@ PrefabInstance:
       propertyPath: cam
       value: 
       objectReference: {fileID: 519420031}
+    - target: {fileID: 248514436, guid: 838844074ab56f34993ae7c8cc39ce8e, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 100170007168698434, guid: 838844074ab56f34993ae7c8cc39ce8e,
         type: 3}
       propertyPath: m_fontSize
@@ -509,6 +513,11 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 519420031}
+    - target: {fileID: 4825301487443675574, guid: 838844074ab56f34993ae7c8cc39ce8e,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 6064374395974461281, guid: 838844074ab56f34993ae7c8cc39ce8e,
         type: 3}
       propertyPath: cam

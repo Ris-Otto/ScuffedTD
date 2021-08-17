@@ -52,6 +52,16 @@ namespace Projectiles
                 gameObject.SetActive(false);
         }
         
+        protected override void Hit(Collider2D col) {
+            if (pierce <= 0 && hasCollided) {
+                ResetThis();
+            }
+            else {
+                _listener.Income(col.gameObject.GetComponent<AbstractEnemy>().Die(this));
+                hasCollided = true;
+                pierce--;
+            }
+        }
         
         protected override void ResetThis() {
             hasCollided = false;

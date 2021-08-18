@@ -13,9 +13,8 @@ namespace Helpers
         public static RoundInformation Instance;
 
         private void Awake() {
-            if (Instance == null) {
+            if (Instance == null) 
                 Instance = this;
-            }
         }
 
         private void Start() {

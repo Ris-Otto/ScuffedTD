@@ -1,3 +1,4 @@
+using System;
 using Helpers;
 using Projectiles;
 using UnityEngine;
@@ -6,7 +7,10 @@ namespace Enemies
 {
     public abstract class AbstractEnemy : MonoBehaviour
     {
-        
+        protected void Awake() {
+            
+        }
+
         #region SendMessages methods
         private void SendThisHasDiedToActiveObjectsTracker(ActiveObjectsTracker aot) {
             aot.RemoveEnemy(this);
@@ -64,13 +68,13 @@ namespace Enemies
             return DamageType.CompareTo(dmgType) <= 0;
         }
         
-        public int Die(Projectile projectile) {
-            if (ProjectileHasAppropriateParameters(projectile)) return ComputeOnDeathBehaviour(projectile);
+        public virtual int Die(Projectile projectile) {
+            if (ProjectileHasAppropriateParameters(projectile)) return ComputeOnHitBehaviour(projectile);
             projectile.pierce++;
             return 0;
         }
 
-        protected virtual int ComputeOnDeathBehaviour(Projectile projectile) {
+        protected virtual int ComputeOnHitBehaviour(Projectile projectile) {
             int pop = projectile.damage;
             if(pop >= Enemy.totalHealth) {
                 ResetThis();
@@ -107,10 +111,11 @@ namespace Enemies
         
         protected void InstantiateChildOnConditionsMet(GameObject childObject, Projectile projectile) {
             if (childObject.Equals(null)) return;
-            GameObject obj = Instantiate(childObject, transform.position - SpawnOffset, Quaternion.identity); 
-            obj.GetComponent<AbstractEnemy>().LastProjectile = projectile;
-            obj.GetComponent<AbstractEnemy>().waypointIdx = waypointIdx;
-            obj.GetComponent<AbstractEnemy>().distanceTravelled = distanceTravelled;
+            GameObject obj = Instantiate(childObject, transform.position - SpawnOffset, Quaternion.identity);
+            AbstractEnemy e = obj.GetComponent<AbstractEnemy>();
+            e.LastProjectile = projectile;
+            e.waypointIdx = waypointIdx;
+            e.distanceTravelled = distanceTravelled;
         }
         
         protected void InstantiateMultipleChildrenOnConditionsMet(GameObject[] childObjects, Projectile projectile) {

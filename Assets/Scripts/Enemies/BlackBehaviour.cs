@@ -25,7 +25,7 @@ namespace Enemies
             return enemy.damageType.CompareTo(dmgType) != 0;
         }
         
-        protected override int ComputeOnDeathBehaviour(Projectile projectile) {
+        protected override int ComputeOnHitBehaviour(Projectile projectile) {
             int pop = projectile.damage;
             if (pop >= enemy.totalHealth) {
                 ResetThis();

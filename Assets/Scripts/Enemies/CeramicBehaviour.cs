@@ -28,14 +28,6 @@ namespace Enemies
             return 0;
         }
 
-        protected override bool IsAppropriateDamageType(ScriptableDamageType dmgType) {
-            return DamageType.CompareTo(dmgType) >= 0;
-        }
-
-        protected override void SetOffset(Vector2 dir, float size) {
-            
-        }
-
         public override int Die(Projectile projectile) {
 
             

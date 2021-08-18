@@ -15,7 +15,8 @@ namespace Enemies
         public Enemy enemy;
         private Vector3 _spawnOffset;
 
-        private void Awake() {
+        private new void Awake() {
+            base.Awake();
             waypointIdx = 0;
             distanceTravelled = 0;
             et = ActiveObjectsTracker.Instance;

@@ -132,6 +132,7 @@
      <Compile Include="Assets\ZSmartTile\Classes\ZST_MapManager.cs" />
      <Compile Include="Assets\Scripts\Enemies\CeramicBehaviour.cs" />
      <Compile Include="Assets\Scripts\Enemies\RainbowBehaviour.cs" />
+     <Compile Include="Assets\Scripts\Enemies\ZebraBehaviour.cs" />
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />

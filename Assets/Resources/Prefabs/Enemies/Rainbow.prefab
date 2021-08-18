@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6853651986982368216}
   - component: {fileID: 4606056512634571138}
+  - component: {fileID: -3148762603190836410}
   m_Layer: 6
   m_Name: Rainbow
   m_TagString: Enemy
@@ -82,3 +83,16 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &-3148762603190836410
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1361759514642072219}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea00ec262516b21499ce8635818176cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemy: {fileID: 11400000, guid: 9fc9212ef4427f540a3f03a3716c09eb, type: 2}

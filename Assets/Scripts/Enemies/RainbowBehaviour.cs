@@ -13,27 +13,32 @@ namespace Enemies
         private Projectile lastProjectile;
         public Enemy enemy;
         private Vector3 _spawnOffset;
-        private SpriteRenderer _spriteRenderer;
-        
+
         protected new void Awake() {
             base.Awake();
-            _spriteRenderer = GetComponent<SpriteRenderer>();
         }
 
         protected override int ComputeOnHitBehaviour(Projectile projectile) {
+            int pop = projectile.damage;
+            if (pop >= enemy.totalHealth) {
+                ResetThis();
+                return enemy.totalHealth;
+            }
+            if (pop < 5) {
+                GameObject[] children = 
+                    {enemy.children[enemy.children.Length - 1], enemy.children[enemy.children.Length - (pop)]};
+                InstantiateMultipleChildrenOnConditionsMet(children, projectile);
+                ResetThis();
+                return pop;
+            }
 
-
-            return 0;
+            InstantiateChildOnConditionsMet(enemy.children[enemy.children.Length - (pop + 1)], projectile);
+            ResetThis();
+            return pop;
         }
 
-        public override int Die(Projectile projectile) {
 
-            
-            return 0;
-        }
 
-        
-        
         #region getset
         public override float distanceTravelled {
             get => _distanceTravelled;

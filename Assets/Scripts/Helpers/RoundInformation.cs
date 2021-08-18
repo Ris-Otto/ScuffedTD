@@ -1,10 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using DataStructures;
 using UnityEngine;
 
 namespace Helpers
 {
+    [SuppressMessage("ReSharper", "CommentTypo")]
     public class RoundInformation : MonoBehaviour
     {
         private Round _nextRound;

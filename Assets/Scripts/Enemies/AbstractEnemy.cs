@@ -1,4 +1,3 @@
-using System;
 using Helpers;
 using Projectiles;
 using UnityEngine;
@@ -105,20 +104,20 @@ namespace Enemies
             if (childObject.Equals(null)) return;
             SetOffset(GetDir(), childObject.transform.localScale.magnitude*0.5f*offsetMagnitude);
             if (!hasOffset) SpawnOffset = Vector3.zero;
-            GameObject obj = Instantiate(childObject, transform.position - SpawnOffset, Quaternion.identity); 
-            AbstractEnemy e = obj.GetComponent<AbstractEnemy>();
+            InstantiateChild(childObject, projectile);
+        }
+
+        private void InstantiateChild(GameObject childObject, Projectile projectile) {
+            AbstractEnemy e = Instantiate
+                (childObject, transform.position - SpawnOffset, Quaternion.identity).GetComponent<AbstractEnemy>();
             e.LastProjectile = projectile;
             e.waypointIdx = waypointIdx;
             e.distanceTravelled = distanceTravelled;
         }
-        
+
         protected void InstantiateChildOnConditionsMet(GameObject childObject, Projectile projectile) {
             if (childObject.Equals(null)) return;
-            GameObject obj = Instantiate(childObject, transform.position - SpawnOffset, Quaternion.identity);
-            AbstractEnemy e = obj.GetComponent<AbstractEnemy>();
-            e.LastProjectile = projectile;
-            e.waypointIdx = waypointIdx;
-            e.distanceTravelled = distanceTravelled;
+            InstantiateChild(childObject, projectile);
         }
         
         protected void InstantiateMultipleChildrenOnConditionsMet(GameObject[] childObjects, Projectile projectile) {

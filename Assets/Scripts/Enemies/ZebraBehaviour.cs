@@ -18,21 +18,27 @@ namespace Enemies
             base.Awake();
         }
 
+        protected override bool IsAppropriateDamageType(ScriptableDamageType dmgType) {
+            return dmgType.damageType.damageType != 3 && dmgType.damageType.damageType != 3; // XD
+        }
+
         protected override int ComputeOnHitBehaviour(Projectile projectile) {
+            
             int pop = projectile.damage;
             if (pop >= enemy.totalHealth) {
                 ResetThis();
                 return enemy.totalHealth;
             }
-            if (pop < 5) {
+            if (pop >= 2) {
                 GameObject[] children = 
-                    {enemy.children[enemy.children.Length - 1], enemy.children[enemy.children.Length - (pop)]};
+                    {enemy.children[enemy.children.Length - 1], enemy.children[enemy.children.Length - (2)]};
                 InstantiateMultipleChildrenOnConditionsMet(children, projectile);
                 ResetThis();
                 return pop;
             }
-
-            InstantiateChildOnConditionsMet(enemy.children[enemy.children.Length - (pop + 1)], projectile);
+            GameObject[] childrens =
+                {enemy.children[enemy.children.Length - 1], enemy.children[enemy.children.Length - (pop+1)]};
+            InstantiateMultipleChildrenOnConditionsMet(childrens, projectile);
             ResetThis();
             return pop;
         }

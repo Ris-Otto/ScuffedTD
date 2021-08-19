@@ -20,8 +20,6 @@ namespace Enemies
         }
 
         protected override bool IsAppropriateDamageType(ScriptableDamageType dmgType) {
-            Debug.Log(enemy.damageType.CompareTo(dmgType));
-            Debug.Log(enemy.damageType.name + " " + enemy.damageType.damageType + " - " + dmgType.name + " " + dmgType.damageType);
             return enemy.damageType.CompareTo(dmgType) != 0;
         }
 
@@ -32,8 +30,6 @@ namespace Enemies
                 return enemy.totalHealth;
             }
             if(pop < 5) {
-                //InstantiateChildOnConditionsMet(enemy.children[enemy.children.Length - 1], projectile);
-                //InstantiateChildOnConditionsMet(enemy.children[enemy.children.Length-(pop)], projectile, true, TODO);
                 GameObject[] children = 
                     {enemy.children[enemy.children.Length - 1], enemy.children[enemy.children.Length - (pop)]};
                 InstantiateMultipleChildrenOnConditionsMet(children, projectile);

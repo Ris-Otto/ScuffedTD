@@ -28,6 +28,8 @@ namespace Enemies
             if (pop > 1) {
                 GameObject[] children = 
                     {enemy.children[enemy.children.Length - 1], enemy.children[enemy.children.Length - (pop)]};
+                //TODO (Kasper) rework the child system. Some spawn two children and some only spawn one. Edge cases aren't properly handled at the moment
+                //I guess you could somehow create a dog shit workaround but that wouldn't really work in the long run
                 InstantiateMultipleChildrenOnConditionsMet(children, projectile);
                 ResetThis();
                 return pop;

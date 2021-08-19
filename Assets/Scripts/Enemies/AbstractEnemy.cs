@@ -61,7 +61,7 @@ namespace Enemies
         
         #region onHit-methods
 
-        private bool CantBePoppedByProjectile(Projectile projectile) {
+        protected virtual bool CantBePoppedByProjectile(Projectile projectile) {
             return LastProjectile != null && LastProjectile.ID.Equals(projectile.ID);
         }
 

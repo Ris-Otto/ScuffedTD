@@ -19,11 +19,10 @@ namespace Enemies
         }
 
         protected override bool IsAppropriateDamageType(ScriptableDamageType dmgType) {
-            return dmgType.damageType.damageType != 3 && dmgType.damageType.damageType != 3; // XD
+            return dmgType.damageType.damageType != 3 && dmgType.damageType.damageType != 3; //TODO XD
         }
 
         protected override int ComputeOnHitBehaviour(Projectile projectile) {
-            
             int pop = projectile.damage;
             if (pop >= enemy.totalHealth) {
                 ResetThis();

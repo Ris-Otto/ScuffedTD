@@ -24,7 +24,8 @@ namespace Enemies
                 ResetThis();
                 return enemy.totalHealth;
             }
-            if (pop < 5) {
+            
+            if (pop > 1) {
                 GameObject[] children = 
                     {enemy.children[enemy.children.Length - 1], enemy.children[enemy.children.Length - (pop)]};
                 InstantiateMultipleChildrenOnConditionsMet(children, projectile);
@@ -32,7 +33,7 @@ namespace Enemies
                 return pop;
             }
 
-            InstantiateChildOnConditionsMet(enemy.children[enemy.children.Length - (pop + 1)], projectile);
+            InstantiateChildOnConditionsMet(enemy.children[enemy.children.Length - 1], projectile);
             ResetThis();
             return pop;
         }

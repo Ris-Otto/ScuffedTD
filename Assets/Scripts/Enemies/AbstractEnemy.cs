@@ -8,15 +8,18 @@ namespace Enemies
     public abstract class AbstractEnemy : MonoBehaviour
     {
         protected void Awake() {
-            
+            waypointIdx = 0;
+            distanceTravelled = 0;
+            et = ActiveObjectsTracker.Instance;
+            SendThisHasSpawnedToActiveObjectsTracker(et);
         }
 
         #region SendMessages methods
         private void SendThisHasDiedToActiveObjectsTracker(ActiveObjectsTracker aot) {
             aot.RemoveEnemy(this);
         }
-        
-        protected void SendThisHasSpawnedToActiveObjectsTracker(ActiveObjectsTracker aot) {
+
+        private void SendThisHasSpawnedToActiveObjectsTracker(ActiveObjectsTracker aot) {
             aot.OnEnemySpawn(this);
         }
         
@@ -103,9 +106,10 @@ namespace Enemies
             SetOffset(GetDir(), childObject.transform.localScale.magnitude*0.5f*offsetMagnitude);
             if (!hasOffset) SpawnOffset = Vector3.zero;
             GameObject obj = Instantiate(childObject, transform.position - SpawnOffset, Quaternion.identity); 
-            obj.GetComponent<AbstractEnemy>().LastProjectile = projectile;
-            obj.GetComponent<AbstractEnemy>().waypointIdx = waypointIdx;
-            obj.GetComponent<AbstractEnemy>().distanceTravelled = distanceTravelled;
+            AbstractEnemy e = obj.GetComponent<AbstractEnemy>();
+            e.LastProjectile = projectile;
+            e.waypointIdx = waypointIdx;
+            e.distanceTravelled = distanceTravelled;
         }
         
         protected void InstantiateChildOnConditionsMet(GameObject childObject, Projectile projectile) {
@@ -118,9 +122,8 @@ namespace Enemies
         }
         
         protected void InstantiateMultipleChildrenOnConditionsMet(GameObject[] childObjects, Projectile projectile) {
-            for (int i = 0; i < childObjects.Length; i++) {
+            for (int i = 0; i < childObjects.Length; i++) 
                 InstantiateChildOnConditionsMet(childObjects[i], projectile, i != 0, i);
-            }
         }
 
         #endregion

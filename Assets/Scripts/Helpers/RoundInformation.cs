@@ -18,7 +18,7 @@ namespace Helpers
         }
 
         private void Start() {
-            Round1();
+            TestRound();
         }
 
         public void RoundStart(int round) {
@@ -45,7 +45,7 @@ namespace Helpers
         private void TestRound() {
             //TESTESTESTESTESTESTESTESTESTESTESTESTESTESTEST
             _nextRound = new Round(new List<Wave> {
-                new Wave(0.5f, new List<BloonType> {new BloonType("Black", 10, 1f)}),
+                new Wave(0.5f, new List<BloonType> {new BloonType("Zebra", 10, 1f)}),
             });
         }
 

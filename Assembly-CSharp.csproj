@@ -63,6 +63,7 @@
      <Compile Include="Assets\Scripts\Units\MagickanUnit.cs" />
      <Compile Include="Assets\Scripts\Upgrades\RocketUpgradeContainer.cs" />
      <Compile Include="Assets\Scripts\Helpers\IUpgrade.cs" />
+     <Compile Include="Assets\Scripts\Enemies\RainbowBehaviour.cs" />
      <Compile Include="Assets\Scripts\Enemies\PopBehaviour.cs" />
      <Compile Include="Assets\Scripts\Helpers\GridThing.cs" />
      <Compile Include="Assets\Scripts\Projectiles\WallOfFlame.cs" />
@@ -71,12 +72,14 @@
      <Compile Include="Assets\Scripts\Extension\ExtensionMethods.cs" />
      <Compile Include="Assets\Scripts\MainMenu\ButtonController.cs" />
      <Compile Include="Assets\Scripts\Projectiles\GooberProjectile.cs" />
+     <Compile Include="Assets\Scripts\Enemies\ZebraBehaviour.cs" />
      <Compile Include="Assets\Scripts\Helpers\ActiveObjectsTracker.cs" />
      <Compile Include="Assets\Scripts\Upgrades\MagickanUpgradeContainer.cs" />
      <Compile Include="Assets\Scripts\Upgrades\RocketUpgrade.cs" />
      <Compile Include="Assets\Scripts\Units\AbstractUnit.cs" />
      <Compile Include="Assets\Scripts\Helpers\EnemyListener.cs" />
      <Compile Include="Assets\Scripts\Projectiles\Projectile.cs" />
+     <Compile Include="Assets\Scripts\Enemies\CeramicBehaviour.cs" />
      <Compile Include="Assets\Scripts\Enemies\EnemyBehaviour.cs" />
      <Compile Include="Assets\Scripts\Helpers\EventSender.cs" />
      <Compile Include="Assets\Scripts\Helpers\CreateRange.cs" />
@@ -130,9 +133,6 @@
      <Compile Include="Assets\Scripts\Helpers\StartToFastForward.cs" />
      <Compile Include="Assets\Scripts\Enemies\BlackBehaviour.cs" />
      <Compile Include="Assets\ZSmartTile\Classes\ZST_MapManager.cs" />
-     <Compile Include="Assets\Scripts\Enemies\CeramicBehaviour.cs" />
-     <Compile Include="Assets\Scripts\Enemies\RainbowBehaviour.cs" />
-     <Compile Include="Assets\Scripts\Enemies\ZebraBehaviour.cs" />
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />

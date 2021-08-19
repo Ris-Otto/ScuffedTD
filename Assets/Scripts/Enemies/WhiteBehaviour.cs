@@ -17,10 +17,6 @@ namespace Enemies
     
         private new void Awake() {
             base.Awake();
-            waypointIdx = 0;
-            distanceTravelled = 0;
-            et = ActiveObjectsTracker.Instance;
-            SendThisHasSpawnedToActiveObjectsTracker(et);
         }
 
         protected override bool IsAppropriateDamageType(ScriptableDamageType dmgType) {

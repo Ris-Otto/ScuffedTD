@@ -41,8 +41,8 @@ namespace Helpers
         }
         
         private void Start() {
-            TestRound();
-            //Round1();
+            //TestRound();
+            Round1();
         }
 
         private void TestRound() {

@@ -55,11 +55,11 @@ namespace Projectiles
                 Physics2D.OverlapCircleAll(target.transform.position, _explosionRadius, 1 << LayerMask.NameToLayer("Enemy"));
             if(cols.Length > _maxPop)
                 for (int i = 0; i < _maxPop; i++) {
-                    _listener.Income(cols[i].gameObject.GetComponent<AbstractEnemy>().Die(this));
+                    _listener.Income(cols[i].gameObject.GetComponent<AbstractEnemy>().DieOverload(this, damage));
                 }
             else {
                 foreach (Collider2D aCollider in cols) {
-                    _listener.Income(aCollider.gameObject.GetComponent<AbstractEnemy>().Die(this));
+                    _listener.Income(aCollider.gameObject.GetComponent<AbstractEnemy>().DieOverload(this, damage));
                 }
             }
         }

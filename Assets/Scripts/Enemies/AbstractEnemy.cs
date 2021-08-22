@@ -100,8 +100,10 @@ namespace Enemies
             return toReturn;
         }
 
-        protected virtual bool IsAppropriateDamageType(ScriptableDamageType dmgType) {
-            return DamageType.CompareTo(dmgType) <= 0;
+        public virtual bool IsAppropriateDamageType(Projectile projectile) {
+            bool toReturn = DamageType.CompareTo(projectile.DamageType) <= 0;
+            if(!toReturn) projectile.ResetProjectileFromEnemy();
+            return toReturn;
         }
         
         public virtual int Die(Projectile projectile) {
@@ -122,8 +124,8 @@ namespace Enemies
         }
 
         private bool ProjectileHasAppropriateParameters(Projectile projectile) {
-            if (LastProjectile == null) return IsAppropriateDamageType(projectile.DamageType);
-            return !CantBePoppedByProjectile(projectile) && IsAppropriateDamageType(projectile.DamageType);
+            if (LastProjectile == null) return IsAppropriateDamageType(projectile);
+            return !CantBePoppedByProjectile(projectile) && IsAppropriateDamageType(projectile);
         }
 
         protected void ResetThis() {
@@ -172,11 +174,6 @@ namespace Enemies
         }
 
         protected abstract int waypointIdx {
-            get;
-            set;
-        }
-
-        protected abstract bool dead {
             get;
             set;
         }

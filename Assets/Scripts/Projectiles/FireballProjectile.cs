@@ -87,7 +87,7 @@ namespace Projectiles
             Collider2D[] cols =
                 Physics2D.OverlapCircleAll(target.transform.position, 1, LayerMask.GetMask("Enemy"));
             foreach (Collider2D aCollider in cols) {
-                _listener.Income(aCollider.gameObject.GetComponent<AbstractEnemy>().Die(this));
+                _listener.Income(aCollider.gameObject.GetComponent<AbstractEnemy>().DieOverload(this, damage));
             }
         }
         

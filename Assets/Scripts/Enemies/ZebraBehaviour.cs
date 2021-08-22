@@ -8,7 +8,6 @@ namespace Enemies
     {
         private float _distanceTravelled;
         private int _waypointIdx;
-        private bool _dead;
         private ActiveObjectsTracker _et;
         private Projectile lastProjectile;
         public Enemy enemy;
@@ -18,8 +17,8 @@ namespace Enemies
             base.Awake();
         }
 
-        protected override bool IsAppropriateDamageType(ScriptableDamageType dmgType) {
-            return dmgType.damageType.damageType != 3 && dmgType.damageType.damageType != 3; //TODO XD
+        public override bool IsAppropriateDamageType(Projectile projectile) {
+            return projectile.DamageType.damageType.damageType != 3 && projectile.DamageType.damageType.damageType != 3; //TODO XD
         }
 
         /*protected override int ComputeOnHitBehaviour(Projectile projectile) {
@@ -53,11 +52,6 @@ namespace Enemies
         protected override int waypointIdx {
             get => _waypointIdx;
             set => _waypointIdx = value;
-        }
-
-        protected override bool dead {
-            get => _dead;
-            set => _dead = value;
         }
 
         protected override ActiveObjectsTracker et {

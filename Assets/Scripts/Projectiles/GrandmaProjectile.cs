@@ -92,7 +92,7 @@ namespace Projectiles
         }
         
         protected override void Hit(Collider2D col) {
-            _listener.Income(col.gameObject.GetComponent<AbstractEnemy>().Die(this));
+            _listener.Income(col.gameObject.GetComponent<AbstractEnemy>().DieOverload(this, damage));
         }
 
         #region Movement

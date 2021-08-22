@@ -9,7 +9,6 @@ namespace Enemies
     {
         private float _distanceTravelled;
         private int _waypointIdx;
-        private bool _dead;
         private ActiveObjectsTracker _et;
         private Projectile lastProjectile;
         public Enemy enemy;
@@ -36,11 +35,6 @@ namespace Enemies
         }
 
         protected override int waypointIdx { get => _waypointIdx; set => _waypointIdx = value; }
-
-        protected override bool dead {
-            get => _dead;
-            set => _dead = value;
-        }
 
         protected override ActiveObjectsTracker et {
             get => _et;

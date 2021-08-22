@@ -15,7 +15,7 @@ namespace Helpers
 
         public void Start() {
             _moneyText = mainCanvas.GetComponentInChildren<Text>();
-            UpdateMoney(2000);
+            UpdateMoney(650);
             InitialiseButtons();
             if (Instance == null) Instance = this;
         }

@@ -18,3 +18,5 @@ MonoBehaviour:
   popObject: {fileID: 3990827456977193710, guid: 82c7cbcc5bf87f740a535f6e39b019a9,
     type: 3}
   children: []
+  directChild:
+  - {fileID: 1361759514642072219, guid: e551659fb7fe3bc42ac1392f843af0db, type: 3}

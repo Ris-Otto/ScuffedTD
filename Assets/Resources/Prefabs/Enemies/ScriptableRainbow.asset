@@ -26,3 +26,5 @@ MonoBehaviour:
   - {fileID: 6017309228695650412, guid: d82ee3b98b3b14648a70095cacfff290, type: 3}
   - {fileID: 703877769708926160, guid: a98eade4b65fad64e9e1394698734fe1, type: 3}
   - {fileID: 1775102864398282110, guid: 947eece02669a9f439c26f2bd68c87c1, type: 3}
+  directChild:
+  - {fileID: 1775102864398282110, guid: 947eece02669a9f439c26f2bd68c87c1, type: 3}

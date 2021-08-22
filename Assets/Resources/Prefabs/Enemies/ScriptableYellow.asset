@@ -21,3 +21,5 @@ MonoBehaviour:
   - {fileID: 8550935219998280147, guid: e6b738dd01129e64f9fbc902d269debf, type: 3}
   - {fileID: 7506604163764203415, guid: 9aca5acfda664114a9f894ed682bcf36, type: 3}
   - {fileID: 7149654550251491837, guid: 5a01e818713a94446a712bf190b14398, type: 3}
+  directChild:
+  - {fileID: 7149654550251491837, guid: 5a01e818713a94446a712bf190b14398, type: 3}

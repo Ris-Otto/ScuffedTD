@@ -17,9 +17,7 @@ namespace Helpers
                 Instance = this;
         }
 
-        private void Start() {
-            Round1();
-        }
+        
 
         public void RoundStart(int round) {
             ConfigureRound(round);
@@ -41,11 +39,16 @@ namespace Helpers
                 yield return new WaitForSeconds(t.TimeUntilNext());
             }
         }
+        
+        private void Start() {
+            TestRound();
+            //Round1();
+        }
 
         private void TestRound() {
             //TESTESTESTESTESTESTESTESTESTESTESTESTESTESTEST
             _nextRound = new Round(new List<Wave> {
-                new Wave(0.5f, new List<BloonType> {new BloonType("Zebra", 10, 1f)}),
+                new Wave(0.5f, new List<BloonType> {new BloonType("Zebra", 5, 1f)}),
             });
         }
 

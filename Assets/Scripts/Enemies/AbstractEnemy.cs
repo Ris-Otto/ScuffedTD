@@ -38,6 +38,39 @@ namespace Enemies
             distanceTravelled += 0.01f*Enemy.speed;
         }
 
+        
+        #region On-hit overloads
+        protected virtual int PassOnDamageToChild(Projectile projectile, int remainingDamage, AbstractEnemy e) {
+            return e.ComputeOnHitBehaviourOverload(projectile, remainingDamage);
+        }
+        
+        protected virtual int ComputeOnHitBehaviourOverload(Projectile projectile, int remainingDamage) {
+            if (remainingDamage <= 0) return 0;
+            if(remainingDamage >= Enemy.totalHealth) {
+                ResetThis();
+                return Enemy.totalHealth;
+            }
+            AbstractEnemy[] es = InstantiateMultipleChildrenOnConditionsMet(Enemy.directChild, projectile);
+            ResetThis();
+            //Should check for damageTypes to be fair, but we'll do that only for edge case bloons
+            return PassOnDamageToChild(projectile, remainingDamage-1, es[0]) + 1;
+        }
+        
+        private AbstractEnemy InstantiateChildOverload(GameObject childObject, Projectile projectile) {
+            AbstractEnemy e = Instantiate
+                (childObject, transform.position - SpawnOffset, Quaternion.identity).GetComponent<AbstractEnemy>();
+            e.LastProjectile = projectile;
+            e.waypointIdx = waypointIdx;
+            e.distanceTravelled = distanceTravelled;
+            return e;
+        }
+
+        public virtual int DieOverload(Projectile projectile, int remainingDamage) {
+            return ProjectileHasAppropriateParameters(projectile) ? ComputeOnHitBehaviourOverload(projectile, remainingDamage) : 0;
+        }
+        
+        #endregion
+
         private Vector2 GetDir() {
             return Pathfinding.Waypoints[waypointIdx].position - transform.position;
         }
@@ -62,7 +95,9 @@ namespace Enemies
         #region onHit-methods
 
         protected virtual bool CantBePoppedByProjectile(Projectile projectile) {
-            return LastProjectile != null && LastProjectile.ID.Equals(projectile.ID);
+            bool toReturn = LastProjectile != null && LastProjectile.ID.Equals(projectile.ID);
+            if (!toReturn) projectile.pierce++;
+            return toReturn;
         }
 
         protected virtual bool IsAppropriateDamageType(ScriptableDamageType dmgType) {
@@ -99,12 +134,13 @@ namespace Enemies
             Destroy(o, 0.1f);
         }
 
-        private void InstantiateChildOnConditionsMet(GameObject childObject, Projectile projectile, bool hasOffset,
+        private AbstractEnemy InstantiateChildOnConditionsMet(GameObject childObject, Projectile projectile, bool hasOffset,
             int offsetMagnitude) {
-            if (childObject.Equals(null)) return;
+            if (childObject.Equals(null)) return null;
             SetOffset(GetDir(), childObject.transform.localScale.magnitude*0.5f*offsetMagnitude);
             if (!hasOffset) SpawnOffset = Vector3.zero;
-            InstantiateChild(childObject, projectile);
+            AbstractEnemy e = InstantiateChildOverload(childObject, projectile);
+            return e;
         }
 
         private void InstantiateChild(GameObject childObject, Projectile projectile) {
@@ -120,9 +156,11 @@ namespace Enemies
             InstantiateChild(childObject, projectile);
         }
         
-        protected void InstantiateMultipleChildrenOnConditionsMet(GameObject[] childObjects, Projectile projectile) {
+        protected AbstractEnemy[] InstantiateMultipleChildrenOnConditionsMet(GameObject[] childObjects, Projectile projectile) {
+            AbstractEnemy[] es = new AbstractEnemy[childObjects.Length];
             for (int i = 0; i < childObjects.Length; i++) 
-                InstantiateChildOnConditionsMet(childObjects[i], projectile, i != 0, i);
+                es[i] = InstantiateChildOnConditionsMet(childObjects[i], projectile, i != 0, i);
+            return es;
         }
 
         #endregion

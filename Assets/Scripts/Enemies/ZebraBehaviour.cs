@@ -22,7 +22,7 @@ namespace Enemies
             return dmgType.damageType.damageType != 3 && dmgType.damageType.damageType != 3; //TODO XD
         }
 
-        protected override int ComputeOnHitBehaviour(Projectile projectile) {
+        /*protected override int ComputeOnHitBehaviour(Projectile projectile) {
             int pop = projectile.damage;
             if (pop >= enemy.totalHealth) {
                 ResetThis();
@@ -40,7 +40,7 @@ namespace Enemies
             InstantiateMultipleChildrenOnConditionsMet(childrens, projectile);
             ResetThis();
             return pop;
-        }
+        }*/
 
 
 

@@ -23,14 +23,16 @@ namespace Enemies
         }
 
         protected override int ComputeOnHitBehaviour(Projectile projectile) {
-
-
+            int pop = projectile.damage;
+            if (Enemy.totalHealth <= 0) return 0;
+            Enemy.totalHealth -= pop;
             return 0;
+
         }
 
         public override int Die(Projectile projectile) {
-
-            
+            if (!CantBePoppedByProjectile(projectile)) return ComputeOnHitBehaviour(projectile);
+            projectile.pierce++;
             return 0;
         }
 

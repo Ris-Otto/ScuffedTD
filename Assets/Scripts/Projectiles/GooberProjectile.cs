@@ -39,7 +39,7 @@ namespace Projectiles
             }
             ComputeMovement();
         }
-        private void Update() { if (pierce == 0) ResetThis(); }
+        private void Update() { if (pierce <= 0) ResetThis(); }
 
         protected override void ComputeMovement() {
             transform.Translate
@@ -57,9 +57,10 @@ namespace Projectiles
                 ResetThis();
             }
             else {
-                _listener.Income(col.gameObject.GetComponent<AbstractEnemy>().Die(this));
-                hasCollided = true;
                 pierce--;
+                Debug.Log(pierce);
+                _listener.Income(col.gameObject.GetComponent<AbstractEnemy>().DieOverload(this, damage));
+                hasCollided = true;
             }
         }
         

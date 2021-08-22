@@ -28,6 +28,10 @@ namespace Projectiles
             
         }
         
+        public virtual void ResetProjectileFromEnemy() {
+            ResetThis();
+        }
+        
         protected bool IsTargetActive() {
             return target != null;
         }

@@ -11,6 +11,7 @@ namespace Enemies
         public ScriptableDamageType damageType;
         public GameObject popObject;
         public GameObject[] children;
+        public GameObject[] directChild;
 
     }
 }

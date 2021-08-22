@@ -31,13 +31,9 @@ namespace Enemies
         
         protected override int ComputeOnHitBehaviour(Projectile projectile) {
             int pop = projectile.damage;
-            if(pop >= Enemy.totalHealth) {
-                ResetThis();
-                return Enemy.totalHealth;
-            }
-            InstantiateChildOnConditionsMet(Enemy.children[Enemy.children.Length-(pop)], projectile);
-            ResetThis();
-            return pop;
+            if(Enemy.totalHealth > 0)
+                Enemy.totalHealth -= pop;
+            return 0;
         }
         
         #region getters/setters

@@ -19,3 +19,5 @@ MonoBehaviour:
     type: 3}
   children:
   - {fileID: 8550935219998280147, guid: e6b738dd01129e64f9fbc902d269debf, type: 3}
+  directChild:
+  - {fileID: 8550935219998280147, guid: e6b738dd01129e64f9fbc902d269debf, type: 3}

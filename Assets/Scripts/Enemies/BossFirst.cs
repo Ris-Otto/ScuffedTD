@@ -22,16 +22,9 @@ namespace Enemies
             SpawnOffset = Vector3.zero;
         }
         
-        public override int Die(Projectile projectile) {
-            if (!CantBePoppedByProjectile(projectile)) return ComputeOnHitBehaviour(projectile);
-            projectile.pierce++;
-            return 0;
-        }
-        
-        protected override int ComputeOnHitBehaviour(Projectile projectile) {
-            int pop = projectile.damage;
+        protected override int ComputeOnHitBehaviourOverload(Projectile projectile, int remainingDamage) {
             if(Enemy.totalHealth > 0)
-                Enemy.totalHealth -= pop;
+                Enemy.totalHealth -= remainingDamage;
             return 0;
         }
         

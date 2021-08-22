@@ -41,7 +41,7 @@ namespace Projectiles
                 ResetThis();
             }
             else {
-                Listener.Income(col.gameObject.GetComponent<AbstractEnemy>().Die(this));
+                Listener.Income(col.gameObject.GetComponent<AbstractEnemy>().DieOverload(this, damage));
                 hasCollided = true;
                 pierce--;
             }

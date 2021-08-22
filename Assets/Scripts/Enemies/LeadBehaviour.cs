@@ -23,7 +23,7 @@ namespace Enemies
                 ResetThis();
                 return Enemy.totalHealth;
             }
-            AbstractEnemy[] es = InstantiateMultipleChildrenOnConditionsMet(Enemy.directChild, projectile);
+            AbstractEnemy[] es = InstantiateMultipleChildrenOnConditionsMet(Enemy.directChildren, projectile);
             ResetThis();
             if (!es[0].IsAppropriateDamageType(projectile)) return 1;
             return PassOnDamageToChild(projectile, remainingDamage-1, es[0]) + 1;

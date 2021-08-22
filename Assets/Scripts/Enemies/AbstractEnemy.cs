@@ -38,39 +38,6 @@ namespace Enemies
             distanceTravelled += 0.01f*Enemy.speed;
         }
 
-        
-        #region On-hit overloads
-        protected virtual int PassOnDamageToChild(Projectile projectile, int remainingDamage, AbstractEnemy e) {
-            return e.ComputeOnHitBehaviourOverload(projectile, remainingDamage);
-        }
-        
-        protected virtual int ComputeOnHitBehaviourOverload(Projectile projectile, int remainingDamage) {
-            if (remainingDamage <= 0) return 0;
-            if(remainingDamage >= Enemy.totalHealth) {
-                ResetThis();
-                return Enemy.totalHealth;
-            }
-            AbstractEnemy[] es = InstantiateMultipleChildrenOnConditionsMet(Enemy.directChild, projectile);
-            ResetThis();
-            //Should check for damageTypes to be fair, but we'll do that only for edge case bloons
-            return PassOnDamageToChild(projectile, remainingDamage-1, es[0]) + 1;
-        }
-        
-        private AbstractEnemy InstantiateChildOverload(GameObject childObject, Projectile projectile) {
-            AbstractEnemy e = Instantiate
-                (childObject, transform.position - SpawnOffset, Quaternion.identity).GetComponent<AbstractEnemy>();
-            e.LastProjectile = projectile;
-            e.waypointIdx = waypointIdx;
-            e.distanceTravelled = distanceTravelled;
-            return e;
-        }
-
-        public virtual int DieOverload(Projectile projectile, int remainingDamage) {
-            return ProjectileHasAppropriateParameters(projectile) ? ComputeOnHitBehaviourOverload(projectile, remainingDamage) : 0;
-        }
-        
-        #endregion
-
         private Vector2 GetDir() {
             return Pathfinding.Waypoints[waypointIdx].position - transform.position;
         }
@@ -93,6 +60,35 @@ namespace Enemies
         #endregion
         
         #region onHit-methods
+        
+        protected virtual int PassOnDamageToChild(Projectile projectile, int remainingDamage, AbstractEnemy e) {
+            return e.ComputeOnHitBehaviourOverload(projectile, remainingDamage);
+        }
+        
+        protected virtual int ComputeOnHitBehaviourOverload(Projectile projectile, int remainingDamage) {
+            if (remainingDamage <= 0) return 0;
+            if(remainingDamage >= Enemy.totalHealth) {
+                ResetThis();
+                return Enemy.totalHealth;
+            }
+            AbstractEnemy[] es = InstantiateMultipleChildrenOnConditionsMet(Enemy.directChildren, projectile);
+            ResetThis();
+            //Should check for damageTypes to be fair, but we'll do that only for edge case bloons
+            return PassOnDamageToChild(projectile, remainingDamage-1, es[0]) + 1;
+        }
+        
+        private AbstractEnemy InstantiateChildOverload(GameObject childObject, Projectile projectile) {
+            AbstractEnemy e = Instantiate
+                (childObject, transform.position - SpawnOffset, Quaternion.identity).GetComponent<AbstractEnemy>();
+            e.LastProjectile = projectile;
+            e.waypointIdx = waypointIdx;
+            e.distanceTravelled = distanceTravelled;
+            return e;
+        }
+
+        public virtual int DieOverload(Projectile projectile, int remainingDamage) {
+            return ProjectileHasAppropriateParameters(projectile) ? ComputeOnHitBehaviourOverload(projectile, remainingDamage) : 0;
+        }
 
         protected virtual bool CantBePoppedByProjectile(Projectile projectile) {
             bool toReturn = LastProjectile != null && LastProjectile.ID.Equals(projectile.ID);
@@ -106,23 +102,6 @@ namespace Enemies
             return toReturn;
         }
         
-        public virtual int Die(Projectile projectile) {
-            if (ProjectileHasAppropriateParameters(projectile)) return ComputeOnHitBehaviour(projectile);
-            projectile.pierce++;
-            return 0;
-        }
-
-        protected virtual int ComputeOnHitBehaviour(Projectile projectile) {
-            int pop = projectile.damage;
-            if(pop >= Enemy.totalHealth) {
-                ResetThis();
-                return Enemy.totalHealth;
-            }
-            InstantiateChildOnConditionsMet(Enemy.children[Enemy.children.Length-(pop)], projectile);
-            ResetThis();
-            return pop;
-        }
-
         private bool ProjectileHasAppropriateParameters(Projectile projectile) {
             if (LastProjectile == null) return IsAppropriateDamageType(projectile);
             return !CantBePoppedByProjectile(projectile) && IsAppropriateDamageType(projectile);
@@ -145,19 +124,6 @@ namespace Enemies
             return e;
         }
 
-        private void InstantiateChild(GameObject childObject, Projectile projectile) {
-            AbstractEnemy e = Instantiate
-                (childObject, transform.position - SpawnOffset, Quaternion.identity).GetComponent<AbstractEnemy>();
-            e.LastProjectile = projectile;
-            e.waypointIdx = waypointIdx;
-            e.distanceTravelled = distanceTravelled;
-        }
-
-        protected void InstantiateChildOnConditionsMet(GameObject childObject, Projectile projectile) {
-            if (childObject.Equals(null)) return;
-            InstantiateChild(childObject, projectile);
-        }
-        
         protected AbstractEnemy[] InstantiateMultipleChildrenOnConditionsMet(GameObject[] childObjects, Projectile projectile) {
             AbstractEnemy[] es = new AbstractEnemy[childObjects.Length];
             for (int i = 0; i < childObjects.Length; i++) 

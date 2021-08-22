@@ -10,8 +10,7 @@ namespace Enemies
         public int totalHealth;
         public ScriptableDamageType damageType;
         public GameObject popObject;
-        public GameObject[] children;
-        public GameObject[] directChild;
+        public GameObject[] directChildren;
 
     }
 }

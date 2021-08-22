@@ -22,24 +22,6 @@ namespace Enemies
             return enemy.damageType.CompareTo(projectile.DamageType) != 0;
         }
 
-        protected override int ComputeOnHitBehaviour(Projectile projectile) {
-            int pop = projectile.damage;
-            if(pop >= enemy.totalHealth) {
-                ResetThis();
-                return enemy.totalHealth;
-            }
-            if(pop < 5) {
-                GameObject[] children = 
-                    {enemy.children[enemy.children.Length - 1], enemy.children[enemy.children.Length - (pop)]};
-                InstantiateMultipleChildrenOnConditionsMet(children, projectile);
-                ResetThis();
-                return pop;
-            }
-            InstantiateChildOnConditionsMet(enemy.children[enemy.children.Length-(pop+1)], projectile);
-            ResetThis();
-            return pop;
-        }
-
         protected override Projectile LastProjectile {
             get => lastProjectile;
             set => lastProjectile = value;

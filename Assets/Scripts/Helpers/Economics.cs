@@ -13,7 +13,7 @@ namespace Helpers
         private Text _moneyText;
         public static Economics Instance; 
 
-        public void Start() {
+        public void Awake() {
             _moneyText = mainCanvas.GetComponentInChildren<Text>();
             UpdateMoney(650);
             InitialiseButtons();
@@ -37,7 +37,6 @@ namespace Helpers
         }
 
         private void Sell(AbstractUnit unit) {
-            Money += unit.getSellValue();
             UpdateMoney(unit.getSellValue());
             unit.OnCallDestroy();
             upgradeCanvas.GetComponent<UIManager>().HideMenu();
@@ -52,8 +51,12 @@ namespace Helpers
             _moneyText.text = Money + " €";
         }
 
-        public void ReceiveIncome(int toReceive) {
-            UpdateMoney(toReceive);
+        /// <summary>
+        /// Receive income.
+        /// </summary>
+        /// <param name="toReceive">is uint because this should only be used with positive values - can't receive negative income.</param>
+        public void ReceiveIncome(uint toReceive) {
+            UpdateMoney((int)toReceive);
         }
 
         public int Money { get; private set; }

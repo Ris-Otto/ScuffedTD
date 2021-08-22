@@ -1,8 +1,6 @@
-﻿using System;
-using Enemies;
+﻿using Enemies;
 using Helpers;
 using UnityEngine;
-using Upgrades;
 using Random = UnityEngine.Random;
 
 namespace Projectiles
@@ -11,15 +9,12 @@ namespace Projectiles
     {
         
         #region fields
-        public float _projectileSpeed;
+        private float _projectileSpeed;
         private GameObject _target;
-        public Vector2 _dir;
+        private Vector2 _dir;
         private Vector2 _spawnedAt;
-        [SerializeField]
         private float _range;
-        [SerializeField]
         private int _damage;
-        [SerializeField]
         private int _pierce;
         private EnemyListener _listener;
         private bool _hasCollided;
@@ -39,7 +34,6 @@ namespace Projectiles
             }
             ComputeMovement();
         }
-        private void Update() { if (pierce <= 0) ResetThis(); }
 
         protected override void ComputeMovement() {
             transform.Translate
@@ -49,7 +43,7 @@ namespace Projectiles
     
         protected override void CheckIfOutsideRange() {
             if (Vector3.Distance(transform.position, spawnedAt) > (range + range*0.5f)) 
-                gameObject.SetActive(false);
+                ResetThis();
         }
         
         protected override void Hit(Collider2D col) {
@@ -58,7 +52,6 @@ namespace Projectiles
             }
             else {
                 pierce--;
-                Debug.Log(pierce);
                 _listener.Income(col.gameObject.GetComponent<AbstractEnemy>().DieOverload(this, damage));
                 hasCollided = true;
             }

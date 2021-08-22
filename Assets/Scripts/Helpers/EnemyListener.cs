@@ -12,7 +12,8 @@ namespace Helpers
         }
 
         public void Income(int killReward) {
-            _economics.ReceiveIncome(killReward);
+            uint u = Convert.ToUInt32(killReward);
+            _economics.ReceiveIncome(u);
         }
     }
 }

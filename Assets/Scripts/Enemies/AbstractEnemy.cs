@@ -62,7 +62,7 @@ namespace Enemies
         #region onHit-methods
         
         protected virtual int PassOnDamageToChild(Projectile projectile, int remainingDamage, AbstractEnemy e) {
-            return e.ComputeOnHitBehaviourOverload(projectile, remainingDamage);
+            return e.KillChild(projectile, remainingDamage);
         }
         
         protected virtual int ComputeOnHitBehaviourOverload(Projectile projectile, int remainingDamage) {
@@ -88,6 +88,10 @@ namespace Enemies
 
         public virtual int DieOverload(Projectile projectile, int remainingDamage) {
             return ProjectileHasAppropriateParameters(projectile) ? ComputeOnHitBehaviourOverload(projectile, remainingDamage) : 0;
+        }
+
+        private int KillChild(Projectile projectile, int remainingDamage) {
+            return IsAppropriateDamageType(projectile) ? ComputeOnHitBehaviourOverload(projectile, remainingDamage) : 0;
         }
 
         protected virtual bool CantBePoppedByProjectile(Projectile projectile) {

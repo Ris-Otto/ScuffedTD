@@ -16,7 +16,8 @@ MonoBehaviour:
   totalHealth: 616
   selfHealth: 200
   damageType: {fileID: 11400000, guid: 202782fbbb7efe0459e9cb792fccab0a, type: 2}
-  popObject: {fileID: 0}
+  popObject: {fileID: 3990827456977193710, guid: 82c7cbcc5bf87f740a535f6e39b019a9,
+    type: 3}
   directChildren:
   - {fileID: 149420080904000998, guid: 30139ae6ec9e2164fbd67ce3696bc70b, type: 3}
   - {fileID: 149420080904000998, guid: 30139ae6ec9e2164fbd67ce3696bc70b, type: 3}

@@ -165,6 +165,8 @@ MonoBehaviour:
     type: 3}
   _secondaryProjectile: {fileID: 7590816064098119901, guid: d209079df4002da4e85c0a9e605dd31c,
     type: 3}
+  _tertiaryProjectile: {fileID: 738260024180933773, guid: 9a2664194342dc3409ed521b4b61945b,
+    type: 3}
 --- !u!114 &1396050797756673063
 MonoBehaviour:
   m_ObjectHideFlags: 0

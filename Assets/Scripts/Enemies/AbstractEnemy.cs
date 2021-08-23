@@ -61,7 +61,7 @@ namespace Enemies
         
         #region onHit-methods
         
-        protected virtual int PassOnDamageToChild(Projectile projectile, int remainingDamage, AbstractEnemy e) {
+        protected int PassOnDamageToChild(Projectile projectile, int remainingDamage, AbstractEnemy e) {
             return e.KillChild(projectile, remainingDamage);
         }
         
@@ -73,7 +73,6 @@ namespace Enemies
             }
             AbstractEnemy[] es = InstantiateMultipleChildrenOnConditionsMet(Enemy.directChildren, projectile);
             ResetThis();
-            //Should check for damageTypes to be fair, but we'll do that only for edge case bloons
             return PassOnDamageToChild(projectile, remainingDamage-1, es[0]) + 1;
         }
         
@@ -86,7 +85,7 @@ namespace Enemies
             return e;
         }
 
-        public virtual int DieOverload(Projectile projectile, int remainingDamage) {
+        public int DieOverload(Projectile projectile, int remainingDamage) {
             return ProjectileHasAppropriateParameters(projectile) ? ComputeOnHitBehaviourOverload(projectile, remainingDamage) : 0;
         }
 
@@ -94,7 +93,7 @@ namespace Enemies
             return IsAppropriateDamageType(projectile) ? ComputeOnHitBehaviourOverload(projectile, remainingDamage) : 0;
         }
 
-        protected virtual bool CantBePoppedByProjectile(Projectile projectile) {
+        private bool CantBePoppedByProjectile(Projectile projectile) {
             bool toReturn = LastProjectile != null && LastProjectile.ID.Equals(projectile.ID);
             if (!toReturn) projectile.pierce++;
             return toReturn;

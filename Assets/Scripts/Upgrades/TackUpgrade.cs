@@ -47,11 +47,11 @@ namespace Upgrades
         public TackUpgrade() {
         
         }
-        public int getBuyValue() {
+        public int GetBuyValue() {
             return price;
         }
 
-        public int getSellValue() {
+        public int GetSellValue() {
             return 0;
         }
 

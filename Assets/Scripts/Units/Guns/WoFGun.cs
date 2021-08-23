@@ -1,3 +1,4 @@
+using System;
 using Helpers;
 using Projectiles;
 using UnityEngine;
@@ -14,7 +15,40 @@ namespace Units.Guns
         private GameObject _parent;
         private MagickanUnit _parentMagickan;
         private EnemyListener _listener;
-        private const float BASE_ATTACK_SPEED = 7;
+        private const float BASE_ATTACK_SPEED = 5;
+
+        private new void Awake() {
+            base.Awake();
+            Time = BASE_ATTACK_SPEED;
+        }
+
+        private new void Update() {
+            ComputeShooting<Projectile>(_parentMagickan.TargetPathTile());
+        }
+        
+        protected override void Shoot<T>() {
+            if (Target == null) return;
+            ParentUnit.ComputeRotationFromChild();
+            HandleProjectileSpawn<T>();
+            Time = 0.0f;
+        }
+
+        protected override void HandleProjectileSpawn<T>() {
+            GameObject p = Pooler.SpawnFromPool(Name, _target.transform.position, Quaternion.identity);
+            Vector3 position = ConfigureProjectile<T>(p, out Projectile projectile);
+            ShootProjectile(projectile, Vector2.zero, position);
+        }
+
+        private Vector3 ConfigureProjectileTransform() {
+            Vector3 position = Parent.transform.position;
+            return position;
+        }
+        
+        private Vector3 ConfigureProjectile<T>(GameObject p, out Projectile projectile) where T : Projectile {
+            Vector3 position = ConfigureProjectileTransform();
+            projectile = p.GetComponent<T>();
+            return position;
+        }
 
         #region getset
         protected override ProjectilePooler Pooler {
@@ -61,7 +95,7 @@ namespace Units.Guns
 
         protected override bool UsesSecondary => true;
 
-        protected override string Name => "WallOfFlame";
+        protected override string Name => "WoF";
 
         #endregion
     }

@@ -40,7 +40,7 @@ namespace Helpers
                 "P.Speed: " + unit.currentUpgrade.projectileSpeed + "\n" +
                 "Range: " + unit.currentUpgrade.range + "\n" +
                 "Atk/s: " + 1/(unit.currentUpgrade.secondsPerAttackModifier*unit.baseAttackSpeed) + "\n" +
-                "Value: " + unit.getSellValue();
+                "Value: " + unit.GetSellValue();
             _firstTreeText.text = unit.abstractUpgradeContainer.GetKey(1);
             _secondTreeText.text = unit.abstractUpgradeContainer.GetKey(2);
         }

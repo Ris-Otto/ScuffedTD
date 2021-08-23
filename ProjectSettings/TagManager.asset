@@ -16,6 +16,7 @@ TagManager:
   - Dropdown
   - Panel
   - Start
+  - Placeable
   layers:
   - Default
   - TransparentFX

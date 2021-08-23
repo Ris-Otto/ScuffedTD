@@ -23,7 +23,7 @@ namespace Upgrades
             MagickanUpgrade upgrade21 = new MagickanUpgrade
                 ("Fireball", "Fireball", 280);
             MagickanUpgrade upgrade22 = new MagickanUpgrade
-                ("Wall of Flame", "Wall of Flame", 970);
+                ("Wall of Flame", "WoF", 970);
             MagickanUpgrade upgrade13 = new MagickanUpgrade
                 ("Arcane Mastery", 1, 1, 1, 0.5f, 1560, 0);
             Initialise(1, upgrade11);
@@ -41,7 +41,7 @@ namespace Upgrades
             IUpgrade current = new MagickanUpgrade();
             if(tree == 1) {
                 if(treeOneDict.TryGetValue(upgradeName, out IUpgrade upgrade)) {
-                    if(money < upgrade.getBuyValue()) {
+                    if(money < upgrade.GetBuyValue()) {
                         thisUpgrade = null;
                         return false;
                     }
@@ -50,7 +50,7 @@ namespace Upgrades
                 }
             } else {
                 if(treeTwoDict.TryGetValue(upgradeName, out IUpgrade upgrade)) {
-                    if(money < upgrade.getBuyValue()) {
+                    if(money < upgrade.GetBuyValue()) {
                         thisUpgrade = null;
                         return false;
                     }

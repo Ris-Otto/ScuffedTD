@@ -39,18 +39,18 @@ namespace Upgrades
             return treeTwoEnum.MoveNext() ? treeTwoEnum.Key?.ToString() : "Max Upgrades";
         }
         
-        public int getBuyValue() {
+        public int GetBuyValue() {
             try {
                 if(treeOneDict.TryGetValue(lastUpgrade.ToString(), out IUpgrade up)) 
-                    return up.getBuyValue();
+                    return up.GetBuyValue();
                 treeTwoDict.TryGetValue(lastUpgrade.ToString(), out IUpgrade up1);
-                return up1.getBuyValue();
+                return up1.GetBuyValue();
             } catch (System.NullReferenceException ) {
                 return 0;
             }
         }
     
-        public int getSellValue() {
+        public int GetSellValue() {
             return 0;
         }
         

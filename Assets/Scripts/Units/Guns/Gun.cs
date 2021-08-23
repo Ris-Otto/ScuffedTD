@@ -6,11 +6,11 @@ namespace Units.Guns
 {
     public abstract class Gun : MonoBehaviour 
     {
-        private void Awake() {
+        protected void Awake() {
             Time = 0.0f;
         }
 
-        private void Update() {
+        protected void Update() {
             ComputeShooting<Projectile>(ParentUnit.TargetEnemy(ParentUnit.targetingStyle));
         }
 
@@ -70,7 +70,7 @@ namespace Units.Guns
             return position;
         }
         
-        protected Vector3 ConfigureProjectile<T>(GameObject p, out Vector2 direction, out Projectile projectile) where T : Projectile {
+        protected virtual Vector3 ConfigureProjectile<T>(GameObject p, out Vector2 direction, out Projectile projectile) where T : Projectile {
             Vector3 position = ConfigureProjectileTransform(out direction);
             projectile = p.GetComponent<T>();
             return position;

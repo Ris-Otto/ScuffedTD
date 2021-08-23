@@ -48,11 +48,11 @@ namespace Upgrades
         public RocketUpgrade() {
         
         }
-        public int getBuyValue() {
+        public int GetBuyValue() {
             return price;
         }
 
-        public int getSellValue() {
+        public int GetSellValue() {
             return 0;
         }
 

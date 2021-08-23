@@ -24,7 +24,7 @@ namespace Units.Guns
             Upgrade = ParentUnit1.currentUpgrade;
         }
 
-        private void Update() {
+        private new void Update() {
             ComputeShooting<Projectile>(ParentUnit1.TargetEnemy());
         }
 

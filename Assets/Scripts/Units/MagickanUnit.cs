@@ -1,8 +1,11 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Helpers;
 using Units.Guns;
 using UnityEngine;
 using Upgrades;
+using Random = UnityEngine.Random;
 
 namespace Units
 {
@@ -24,17 +27,29 @@ namespace Units
         private const float BASE_ATTACK_SPEED = 1f;
         private int _targetingStyle;
         private Animation _anim;
+        [SerializeField]
+        private GameObject _tertiaryProjectile;
+        private GameObject[] pathTiles;
         #endregion
 
         protected override void Awake() {
             base.Awake();
-            uiManager = GameObject.Find("GooberCanvas").GetComponent<UIManager>();
-            target = null;
-            isSelected = false;
-            abstractUpgradeContainer = GetComponent<AbstractUpgradeContainer>();
-            InitialiseUnitParameters();
             _anim = GetComponentInChildren<Animation>();
             GenerateGun<MagickanGun>(_projectile);
+        }
+
+        private void InitialisePathTargets() {
+            List<GameObject> objList = GameObject.FindGameObjectsWithTag("Placeable").ToList();
+            IEnumerable<GameObject> removalList = 
+                objList.Where(tile => Vector3.Distance(transform.position, tile.transform.position) <= _currentUpgrade.range);
+            /*foreach (GameObject tile in objList.Where(tile => Vector3.Distance(transform.position, tile.transform.position) > _currentUpgrade.range)) {
+                removalList.Remove(tile);
+            }*/
+            pathTiles = removalList.ToArray();
+        }
+        
+        public GameObject TargetPathTile() {
+            return pathTiles[Random.Range(0, pathTiles.Length)];
         }
 
         public override void ComputeRotationFromChild() {
@@ -50,7 +65,27 @@ namespace Units
             MagickanUpgrade up = (MagickanUpgrade) upgrade;
             currentUpgrade.CumulateUpgrades(upgrade);
             price += upgrade.price;
-            if (up.newProjectile == "Fireball") GenerateGun<FireballGun>(_secondaryProjectile);
+            switch (up.newProjectile) {
+                case "Fireball":
+                    GenerateGun<FireballGun>(_secondaryProjectile);
+                    break;
+                case "WoF":
+                    GenerateGun<WoFGun>(_tertiaryProjectile);
+                    break;
+            }
+        }
+        
+        public override void BeforePlaceUnit() {
+            if (placed) {
+                transform.position = cam.ScreenToWorldPoint(GetMousePos(5f));
+                //This was probably stealing at least some processing power so made it initially more expensive
+                //but invocation is cancelled at time of placement
+                InitialisePathTargets();
+                CancelInvoke(nameof(BeforePlaceUnit));
+                return;
+            }
+            transform.position = cam.ScreenToWorldPoint(GetMousePos());
+            placed = TryPlaceUnit(cam.ScreenPointToRay(GetMousePos()));
         }
 
         public override void InitialiseUnitParameters() {

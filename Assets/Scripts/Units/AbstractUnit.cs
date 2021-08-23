@@ -13,6 +13,11 @@ namespace Units
     {
         protected virtual void Awake() {
             InvokeRepeating(nameof(BeforePlaceUnit), 0f, Time.deltaTime);
+            uiManager = GameObject.Find("GooberCanvas").GetComponent<UIManager>();
+            target = null;
+            isSelected = false;
+            abstractUpgradeContainer = GetComponent<AbstractUpgradeContainer>();
+            InitialiseUnitParameters();
         }
         
         protected void GenerateGun<T>(GameObject projectile) where T : Gun {
@@ -32,6 +37,7 @@ namespace Units
         }
 
         #region Targeting
+
         public GameObject TargetEnemy(int style = 0) {
             target = null;
             AbstractEnemy[] eb = et.enemies;
@@ -104,7 +110,7 @@ namespace Units
         
         #endregion
     
-        public void BeforePlaceUnit() {
+        public virtual void BeforePlaceUnit() {
             if (placed) {
                 transform.position = cam.ScreenToWorldPoint(GetMousePos(5f));
                 //This was probably stealing at least some processing power so made it initially more expensive
@@ -121,7 +127,7 @@ namespace Units
             pos.z = 2f;
             return pos;
         }
-        
+
         public Vector3 GetMousePos(float zValue) {
             Vector3 pos = Input.mousePosition;
             pos.z = zValue;
@@ -129,23 +135,14 @@ namespace Units
         }
 
         public bool TryPlaceUnit(Ray rayDown) {
-            //TODO Let's maybe make this work next session, for now I'm content with how this method operates.
-            /*RaycastHit[] hits = Physics.SphereCastAll(transform.position, transform.localScale.x*0.5f,Vector3.forward, 10f, finalMask);
-            foreach (RaycastHit hit in hits) {
-                GameObject obj = hit.transform.gameObject;
-                if (obj.GetInterface<ISelectable>().isPlaceable) continue;
-                Range.ChangeDisplayColor(Color.red);
-                return false;
-            }*/
-            
             if (!Physics.Raycast(transform.position, Vector3.forward, out RaycastHit hitInfo, 5f, finalMask)) 
                 return false;
             
-            GameObject hitObject = hitInfo.transform.gameObject;
+            bool placeableObject = hitInfo.transform.gameObject.GetInterface<ISelectable>().isPlaceable;
             DeselectOthers();
-            Range.ChangeDisplayColor(!hitObject.GetInterface<ISelectable>().isPlaceable ? Color.red : Color.white);
+            Range.ChangeDisplayColor(!placeableObject ? Color.red : Color.white);
             //This could probably be better
-            return Input.GetKeyDown(KeyCode.Mouse0) && hitObject.GetInterface<ISelectable>().isPlaceable;
+            return Input.GetKeyDown(KeyCode.Mouse0) && placeableObject;
         }
         
         public void OnCallDestroy() {
@@ -168,20 +165,18 @@ namespace Units
             SetSelected(!isSelected && placed);
             if(isSelected) {
                 DeselectOthers();
-                //DisplayRangeAndUI()
                 uiManager.ShowMenu(this);
-                Range.DisplayRange(isSelected);
+                Range.DisplayRange(true);
             } else {
-                //HideRangeAndUI()
                 uiManager.HideMenu();
-                Range.DisplayRange(isSelected);
+                Range.DisplayRange(false);
             }
             
         }
 
         public void Deselect() {
             SetSelected(false);
-            if(Range != null) Range.DisplayRange(false);
+            Range.DisplayRange(false);
             uiManager.HideMenu();
         }
 
@@ -199,10 +194,10 @@ namespace Units
             return isSelected;
         }
 
-        public int getBuyValue() {
+        public int GetBuyValue() {
             return price;
         }
-        public int getSellValue() {
+        public int GetSellValue() {
             return sell;
         }
     

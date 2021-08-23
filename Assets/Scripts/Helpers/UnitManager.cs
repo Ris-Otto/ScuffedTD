@@ -33,7 +33,7 @@ namespace Helpers
             Vector3 objectPos = cam.ScreenToWorldPoint(mousePos);
             GameObject obj = Instantiate(unit, objectPos, Quaternion.identity);
             AbstractUnit toReturn = obj.GetComponent<AbstractUnit>();
-            if(_eco.Money < toReturn.getBuyValue()) {
+            if(_eco.Money < toReturn.GetBuyValue()) {
                 toReturn.OnCallDestroy();
                 return null;
             }
@@ -92,7 +92,7 @@ namespace Helpers
                 SetCanUndo(false);
                 return;
             }
-            _eco.UpdateMoney(u.getBuyValue());
+            _eco.UpdateMoney(u.GetBuyValue());
             SetCanUndo(false);
             u.OnCallDestroy();
             currentObject = null;

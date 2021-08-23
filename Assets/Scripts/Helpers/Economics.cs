@@ -15,7 +15,7 @@ namespace Helpers
 
         public void Awake() {
             _moneyText = mainCanvas.GetComponentInChildren<Text>();
-            UpdateMoney(650);
+            UpdateMoney(5000);
             InitialiseButtons();
             if (Instance == null) Instance = this;
         }
@@ -33,11 +33,11 @@ namespace Helpers
 
         private void Buy(IMoneyObject moneyObject) {
             if(moneyObject == null) return;
-            UpdateMoney(-moneyObject.getBuyValue());
+            UpdateMoney(-moneyObject.GetBuyValue());
         }
 
         private void Sell(AbstractUnit unit) {
-            UpdateMoney(unit.getSellValue());
+            UpdateMoney(unit.GetSellValue());
             unit.OnCallDestroy();
             upgradeCanvas.GetComponent<UIManager>().HideMenu();
         }

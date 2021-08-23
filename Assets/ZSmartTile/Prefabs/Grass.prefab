@@ -343,7 +343,7 @@ GameObject:
   - component: {fileID: 6752725786677608866}
   m_Layer: 8
   m_Name: Grass
-  m_TagString: Ground
+  m_TagString: Placeable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

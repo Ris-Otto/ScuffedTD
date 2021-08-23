@@ -46,11 +46,11 @@ namespace Upgrades
             _shotCount += gu._shotCount;
         }
     
-        public int getBuyValue() {
+        public int GetBuyValue() {
             return price;
         }
 
-        public int getSellValue() {
+        public int GetSellValue() {
             return 0;
         }
 

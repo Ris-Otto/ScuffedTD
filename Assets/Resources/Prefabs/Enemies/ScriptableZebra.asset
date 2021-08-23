@@ -17,4 +17,6 @@ MonoBehaviour:
   damageType: {fileID: 11400000, guid: 202782fbbb7efe0459e9cb792fccab0a, type: 2}
   popObject: {fileID: 3990827456977193710, guid: 82c7cbcc5bf87f740a535f6e39b019a9,
     type: 3}
-  directChildren: []
+  directChildren:
+  - {fileID: 6017309228695650412, guid: d82ee3b98b3b14648a70095cacfff290, type: 3}
+  - {fileID: 703877769708926160, guid: a98eade4b65fad64e9e1394698734fe1, type: 3}

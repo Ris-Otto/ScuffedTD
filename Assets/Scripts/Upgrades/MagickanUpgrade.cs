@@ -15,7 +15,7 @@ namespace Upgrades
         private int _shotCount;
         private readonly int _price;
         private float _projectileSpeed;
-        public string newProjectile;
+        public readonly string newProjectile;
 
 
         public MagickanUpgrade() {
@@ -53,11 +53,11 @@ namespace Upgrades
             _price = price;
         }
 
-        public int getBuyValue() {
+        public int GetBuyValue() {
             return price;
         }
 
-        public int getSellValue() {
+        public int GetSellValue() {
             return 0;
         }
 
@@ -69,7 +69,7 @@ namespace Upgrades
             _secondsPerAttackModifier = next.secondsPerAttackModifier * secondsPerAttackModifier;
             _damageType = next.damageType ?? _damageType;
             _projectileSpeed += next.projectileSpeed;
-            var gu = (MagickanUpgrade) next;
+            MagickanUpgrade gu = (MagickanUpgrade) next;
             _shotCount += gu._shotCount;
         }
 

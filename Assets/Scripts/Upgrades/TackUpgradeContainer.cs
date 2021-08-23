@@ -46,7 +46,7 @@ namespace Upgrades
             IUpgrade current = new TackUpgrade();
             if(tree == 1) {
                 if(treeOneDict.TryGetValue(upgradeName, out IUpgrade upgrade)) {
-                    if(money < upgrade.getBuyValue()) {
+                    if(money < upgrade.GetBuyValue()) {
                         thisUpgrade = null;
                         return false;
                     }
@@ -55,7 +55,7 @@ namespace Upgrades
                 }
             } else {
                 if(treeTwoDict.TryGetValue(upgradeName, out IUpgrade upgrade)) {
-                    if(money < upgrade.getBuyValue()) {
+                    if(money < upgrade.GetBuyValue()) {
                         thisUpgrade = null;
                         return false;
                     }

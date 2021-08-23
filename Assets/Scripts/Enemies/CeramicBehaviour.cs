@@ -25,11 +25,11 @@ namespace Enemies
 
         protected override int ComputeOnHitBehaviourOverload(Projectile projectile, int remainingDamage) {
             if (remainingDamage <= 0) return 0;
-            selfHealth -= remainingDamage;
             if(remainingDamage >= Enemy.totalHealth) {
                 ResetThis();
                 return Enemy.totalHealth;
             }
+            selfHealth -= remainingDamage;
             if (selfHealth <= 0) {
                 AbstractEnemy[] es = InstantiateMultipleChildrenOnConditionsMet(Enemy.directChildren, projectile);
                 ResetThis();

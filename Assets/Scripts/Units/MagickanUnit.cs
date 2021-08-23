@@ -35,7 +35,7 @@ namespace Units
         protected override void Awake() {
             base.Awake();
             _anim = GetComponentInChildren<Animation>();
-            GenerateGun<MagickanGun>(_projectile);
+            //GenerateGun<MagickanGun>(_projectile);
         }
 
         private void InitialisePathTargets() {

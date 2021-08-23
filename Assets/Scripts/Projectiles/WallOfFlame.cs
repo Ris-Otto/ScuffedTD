@@ -40,6 +40,12 @@ namespace Projectiles
             }
         }
 
+        protected override void ResetThis() {
+            _timeToLive = 0f;
+            _time = 0f;
+            base.ResetThis();
+        }
+
         protected void Awake() {
             _timeToLive = 0f;
             _time = 0f;
@@ -68,7 +74,6 @@ namespace Projectiles
         }
 
         #region getters/setters
-
         protected override float projectileSpeed {
             get => _projectileSpeed;
             set => _projectileSpeed = value;

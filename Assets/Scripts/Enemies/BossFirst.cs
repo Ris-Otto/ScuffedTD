@@ -25,6 +25,7 @@ namespace Enemies
                 selfHealth -= remainingDamage;
                 return 0;
             }
+            ResetThis();
             //Executive decision to not carry over damage to BossChildren
             InstantiateMultipleChildrenOnConditionsMet(Enemy.directChildren, projectile);
             return 1;

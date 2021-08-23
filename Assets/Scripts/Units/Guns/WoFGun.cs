@@ -1,4 +1,3 @@
-using System;
 using Helpers;
 using Projectiles;
 using UnityEngine;
@@ -40,7 +39,7 @@ namespace Units.Guns
         }
 
         private Vector3 ConfigureProjectileTransform() {
-            Vector3 position = Parent.transform.position;
+            Vector3 position = _target.transform.position;
             return position;
         }
         

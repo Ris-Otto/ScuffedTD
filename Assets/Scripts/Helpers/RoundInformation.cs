@@ -48,7 +48,7 @@ namespace Helpers
         private void TestRound() {
             //TESTESTESTESTESTESTESTESTESTESTESTESTESTESTEST
             _nextRound = new Round(new List<Wave> {
-                new Wave(0.5f, new List<BloonType> {new BloonType("Ceramic", 5, 1f)}),
+                new Wave(0.5f, new List<BloonType> {new BloonType("BossTemp", 1, 1f)}),
             });
         }
 
@@ -386,6 +386,10 @@ namespace Helpers
             _nextRound = new Round(new List<Wave> {
                 new Wave(0f, new List<BloonType> {new BloonType("BossTemp", 1, 1f)}),
             });
+        }
+
+        private void Round41() {
+            
         }
         
     }

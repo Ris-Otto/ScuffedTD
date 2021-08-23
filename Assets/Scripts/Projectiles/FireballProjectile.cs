@@ -33,6 +33,7 @@ namespace Projectiles
         }
         
         private void FixedUpdate() {
+            CheckIfOutsideRange();
             ComputeMovement();
         }
         
@@ -43,7 +44,6 @@ namespace Projectiles
         }
         
         protected override void ComputeMovement() {
-            CheckIfOutsideRange();
             transform.rotation = Quaternion.LookRotation(Vector3.forward, (Vector3)RotateVector(target.transform.position-transform.position));
             transform.Translate
                 (dir.normalized * (projectileSpeed * Time.deltaTime), Space.World);

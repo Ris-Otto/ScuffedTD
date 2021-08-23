@@ -12,9 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0eaeff01ead66fc468c87761b6164b1f, type: 3}
   m_Name: ScriptablePurple
   m_EditorClassIdentifier: 
-  speed: 0
-  totalHealth: 0
-  selfHealth: 0
-  damageType: {fileID: 0}
-  popObject: {fileID: 0}
-  directChildren: []
+  speed: 6
+  totalHealth: 11
+  selfHealth: 1
+  damageType: {fileID: 11400000, guid: cda22a72f403267409eb2439cb4af9df, type: 2}
+  popObject: {fileID: 3990827456977193710, guid: 82c7cbcc5bf87f740a535f6e39b019a9,
+    type: 3}
+  directChildren:
+  - {fileID: 1870265811911748501, guid: ac2fbb63005d3c44d9b7d41b7edb6892, type: 3}
+  - {fileID: 1870265811911748501, guid: ac2fbb63005d3c44d9b7d41b7edb6892, type: 3}

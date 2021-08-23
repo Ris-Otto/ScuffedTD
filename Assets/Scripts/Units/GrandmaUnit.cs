@@ -22,7 +22,6 @@ namespace Units
         private int _targetingStyle;
         #endregion
         
-
         protected override void Awake() {
             base.Awake();
             _listener = gameObject.AddComponent<EnemyListener>();

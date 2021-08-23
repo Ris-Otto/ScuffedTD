@@ -12,20 +12,22 @@ namespace Enemies
         private ActiveObjectsTracker _et;
         private Projectile lastProjectile;
         public Enemy enemy;
+        private int selfHealth;
         private Vector3 _spawnOffset;
 
         private new void Awake() {
             base.Awake();
+            selfHealth = Enemy.selfHealth;
         }
 
-        protected override void SetOffset(Vector2 dir, float size) {
-            SpawnOffset = Vector3.zero;
-        }
-        
         protected override int ComputeOnHitBehaviourOverload(Projectile projectile, int remainingDamage) {
-            if(Enemy.totalHealth > 0)
-                Enemy.totalHealth -= remainingDamage;
-            return 0;
+            if (selfHealth > 0) {
+                selfHealth -= remainingDamage;
+                return 0;
+            }
+            //Executive decision to not carry over damage to BossChildren
+            InstantiateMultipleChildrenOnConditionsMet(Enemy.directChildren, projectile);
+            return 1;
         }
         
         #region getters/setters

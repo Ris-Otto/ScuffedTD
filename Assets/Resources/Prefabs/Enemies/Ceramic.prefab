@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5670332797945036219}
   - component: {fileID: 541166388880365061}
   - component: {fileID: -2348919303850707813}
+  - component: {fileID: 1932427039223366861}
   m_Layer: 6
   m_Name: Ceramic
   m_TagString: Enemy
@@ -97,3 +98,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemy: {fileID: 11400000, guid: 4e1f9815f0232974a86ba05fac147e33, type: 2}
+--- !u!58 &1932427039223366861
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 149420080904000998}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.5

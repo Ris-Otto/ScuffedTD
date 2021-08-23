@@ -133,7 +133,6 @@ namespace Units
         }
 
         public bool TryPlaceUnit(Ray rayDown) {
-            Debug.Log("Trying.");
             if (!Physics.Raycast(transform.position, Vector3.forward, out RaycastHit hitInfo, 5f, finalMask)) 
                 return false;
             
@@ -163,7 +162,6 @@ namespace Units
             }
             SetSelected(!isSelected && placed);
             if(isSelected) {
-                Debug.Log("Should be placed now");
                 DeselectOthers();
                 uiManager.ShowMenu(this);
                 Range.DisplayRange(true);

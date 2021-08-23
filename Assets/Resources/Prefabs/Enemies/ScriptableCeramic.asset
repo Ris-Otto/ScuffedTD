@@ -12,10 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0eaeff01ead66fc468c87761b6164b1f, type: 3}
   m_Name: ScriptableCeramic
   m_EditorClassIdentifier: 
-  speed: 0
-  totalHealth: 0
+  speed: 2.4
+  totalHealth: 104
+  selfHealth: 10
   damageType: {fileID: 11400000, guid: 202782fbbb7efe0459e9cb792fccab0a, type: 2}
   popObject: {fileID: 3990827456977193710, guid: 82c7cbcc5bf87f740a535f6e39b019a9,
     type: 3}
   directChildren:
+  - {fileID: 1361759514642072219, guid: e551659fb7fe3bc42ac1392f843af0db, type: 3}
   - {fileID: 1361759514642072219, guid: e551659fb7fe3bc42ac1392f843af0db, type: 3}

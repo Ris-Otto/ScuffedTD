@@ -62,6 +62,7 @@
      <Compile Include="Assets\Scripts\Upgrades\TackUpgradeContainer.cs" />
      <Compile Include="Assets\Scripts\Units\MagickanUnit.cs" />
      <Compile Include="Assets\Scripts\Upgrades\RocketUpgradeContainer.cs" />
+     <Compile Include="Assets\Scripts\Units\Guns\WoFGun.cs" />
      <Compile Include="Assets\Scripts\Helpers\IUpgrade.cs" />
      <Compile Include="Assets\Scripts\Enemies\RainbowBehaviour.cs" />
      <Compile Include="Assets\Scripts\Enemies\PopBehaviour.cs" />
@@ -134,7 +135,6 @@
      <Compile Include="Assets\Scripts\Helpers\StartToFastForward.cs" />
      <Compile Include="Assets\Scripts\Enemies\BlackBehaviour.cs" />
      <Compile Include="Assets\ZSmartTile\Classes\ZST_MapManager.cs" />
-     <Compile Include="Assets\Scripts\Units\Guns\WoFGun.cs" />
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />

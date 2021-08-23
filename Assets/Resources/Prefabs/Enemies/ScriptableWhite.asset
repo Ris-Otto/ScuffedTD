@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 1.8
   totalHealth: 11
+  selfHealth: 1
   damageType: {fileID: 11400000, guid: c256edb6191bb794f9bb78f2938d04eb, type: 2}
   popObject: {fileID: 3990827456977193710, guid: 82c7cbcc5bf87f740a535f6e39b019a9,
     type: 3}

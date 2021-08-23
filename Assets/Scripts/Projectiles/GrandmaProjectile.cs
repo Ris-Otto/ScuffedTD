@@ -123,7 +123,7 @@ namespace Projectiles
 
         public override void SendParams(IUpgrade upgrade, EnemyListener listener) {
             _listener = listener;
-            SendParams(upgrade);
+            SendParams(upgrade);//wtf
             if (_currentUpgrade._gun == 1) {
                 GenerateGun<GrandmaGun>(secondaryProjectile);
             }
@@ -131,7 +131,7 @@ namespace Projectiles
         }
 
         private void SendParams(IUpgrade upgrade) {
-            currentUpgrade = (GrandmaUpgrade) upgrade;
+            currentUpgrade = (GrandmaUpgrade) upgrade;//?XD
         }
 
         private long GetID() {

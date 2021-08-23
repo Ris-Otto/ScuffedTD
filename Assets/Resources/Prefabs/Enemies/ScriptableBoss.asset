@@ -14,13 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 1.5
   totalHealth: 540
+  selfHealth: 200
   damageType: {fileID: 11400000, guid: 202782fbbb7efe0459e9cb792fccab0a, type: 2}
   popObject: {fileID: 0}
-  children: []
-  directChild:
-  - {fileID: 149420080904000998, guid: 30139ae6ec9e2164fbd67ce3696bc70b, type: 3}
-  - {fileID: 149420080904000998, guid: 30139ae6ec9e2164fbd67ce3696bc70b, type: 3}
-  - {fileID: 149420080904000998, guid: 30139ae6ec9e2164fbd67ce3696bc70b, type: 3}
-  - {fileID: 149420080904000998, guid: 30139ae6ec9e2164fbd67ce3696bc70b, type: 3}
-  - {fileID: 149420080904000998, guid: 30139ae6ec9e2164fbd67ce3696bc70b, type: 3}
-  - {fileID: 149420080904000998, guid: 30139ae6ec9e2164fbd67ce3696bc70b, type: 3}
+  directChildren: []

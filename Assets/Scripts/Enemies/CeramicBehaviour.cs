@@ -13,19 +13,30 @@ namespace Enemies
         private ActiveObjectsTracker _et;
         private Projectile lastProjectile;
         public Enemy enemy;
+        private int selfHealth;
         private Vector3 _spawnOffset;
         private SpriteRenderer _spriteRenderer;
         
         protected new void Awake() {
             base.Awake();
+            selfHealth = Enemy.selfHealth;
             _spriteRenderer = GetComponent<SpriteRenderer>();
         }
 
         protected override int ComputeOnHitBehaviourOverload(Projectile projectile, int remainingDamage) {
-            if (Enemy.totalHealth <= 0) return 0;
-            Enemy.totalHealth -= remainingDamage;
+            if (remainingDamage <= 0) return 0;
+            selfHealth -= remainingDamage;
+            if(remainingDamage >= Enemy.totalHealth) {
+                ResetThis();
+                return Enemy.totalHealth;
+            }
+            if (selfHealth <= 0) {
+                AbstractEnemy[] es = InstantiateMultipleChildrenOnConditionsMet(Enemy.directChildren, projectile);
+                ResetThis();
+                return PassOnDamageToChild(projectile, remainingDamage-1, es[0]) + 1;
+            }
+            projectile.ResetProjectileFromEnemy();
             return 0;
-
         }
         
         #region getset

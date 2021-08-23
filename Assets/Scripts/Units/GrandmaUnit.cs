@@ -26,11 +26,6 @@ namespace Units
         protected override void Awake() {
             base.Awake();
             _listener = gameObject.AddComponent<EnemyListener>();
-            uiManager = GameObject.Find("GooberCanvas").GetComponent<UIManager>();
-            target = null;
-            isSelected = false;
-            abstractUpgradeContainer = GetComponent<AbstractUpgradeContainer>();
-            InitialiseUnitParameters();
             MakeChild();
         }
         
@@ -45,16 +40,12 @@ namespace Units
             projectileUnit.GetComponent<GrandmaProjectile>().SendParams(_currentUpgrade, _listener);
         }
 
-        private void Update() {
-            BeforePlaceUnit();
-        }
-        
         public override void ComputeRotationFromChild() {
             
         }
 
-        public override void InitialiseUnitParameters() {
-            _currentUpgrade = new GrandmaUpgrade((string) "default", 1, 3, 20f, 1, 1250, 20f, 8);
+        protected override void InitialiseUnitParameters() {
+            _currentUpgrade = new GrandmaUpgrade("default", 1, 3, 20f, 1, 1250, 20f, 8);
             price = _currentUpgrade.price;
         }
 

@@ -51,7 +51,7 @@ namespace Units
             Gizmos.DrawWireSphere(transform.position, _currentUpgrade.range);
         }
 
-        public override void InitialiseUnitParameters() {
+        protected override void InitialiseUnitParameters() {
             _currentUpgrade = new TackUpgrade
                 ("default", 1, 1, 1.5f, 1f, 350, 20f, 0, 8,  DamageType.SHARP);
             price = _currentUpgrade.price;

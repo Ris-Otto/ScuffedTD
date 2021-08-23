@@ -88,7 +88,7 @@ namespace Units
             placed = TryPlaceUnit(cam.ScreenPointToRay(GetMousePos()));
         }
 
-        public override void InitialiseUnitParameters() {
+        protected override void InitialiseUnitParameters() {
             _currentUpgrade = new MagickanUpgrade("default", 1, 2, 3, 1, 450, 25f, DamageType.FIRE, 1);
             _price = _currentUpgrade.price;
         }

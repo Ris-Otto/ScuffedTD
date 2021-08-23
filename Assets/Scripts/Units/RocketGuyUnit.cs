@@ -45,7 +45,7 @@ namespace Units
             Gizmos.DrawWireSphere(transform.position, _currentUpgrade.range);
         }
 
-        public override void InitialiseUnitParameters() {
+        protected override void InitialiseUnitParameters() {
             _currentUpgrade = new RocketUpgrade
                 ("default", 1, 1, 3, 1f, 650, 20f, 1f, 6, DamageType.EXPLOSIVE);
             price = _currentUpgrade.price;

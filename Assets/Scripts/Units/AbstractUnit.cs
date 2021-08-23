@@ -29,7 +29,7 @@ namespace Units
 
         public abstract void ComputeRotationFromChild();
 
-        public abstract void InitialiseUnitParameters();
+        protected abstract void InitialiseUnitParameters();
         
         public virtual void MakeUpgrade(IUpgrade upgrade) {
             currentUpgrade.CumulateUpgrades(upgrade);
@@ -113,8 +113,6 @@ namespace Units
         public virtual void BeforePlaceUnit() {
             if (placed) {
                 transform.position = cam.ScreenToWorldPoint(GetMousePos(5f));
-                //This was probably stealing at least some processing power so made it initially more expensive
-                //but invocation is cancelled at time of placement
                 CancelInvoke(nameof(BeforePlaceUnit));
                 return;
             }
@@ -128,13 +126,14 @@ namespace Units
             return pos;
         }
 
-        public Vector3 GetMousePos(float zValue) {
+        protected Vector3 GetMousePos(float zValue) {
             Vector3 pos = Input.mousePosition;
             pos.z = zValue;
             return pos;
         }
 
         public bool TryPlaceUnit(Ray rayDown) {
+            Debug.Log("Trying.");
             if (!Physics.Raycast(transform.position, Vector3.forward, out RaycastHit hitInfo, 5f, finalMask)) 
                 return false;
             
@@ -164,6 +163,7 @@ namespace Units
             }
             SetSelected(!isSelected && placed);
             if(isSelected) {
+                Debug.Log("Should be placed now");
                 DeselectOthers();
                 uiManager.ShowMenu(this);
                 Range.DisplayRange(true);

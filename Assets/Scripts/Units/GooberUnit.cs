@@ -43,7 +43,7 @@ namespace Units
             Gizmos.DrawWireSphere(transform.position, _currentUpgrade.range);
         }
 
-        public override void InitialiseUnitParameters() {
+        protected override void InitialiseUnitParameters() {
             _currentUpgrade = new GooberUpgrade("default", 1, 2, 3f, 1, 250, 30f, 1);
             price = _currentUpgrade.price;
         }

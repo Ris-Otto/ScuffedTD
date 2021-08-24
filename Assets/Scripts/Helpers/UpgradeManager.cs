@@ -1,3 +1,5 @@
+using System;
+using TMPro;
 using Units;
 using UnityEngine;
 using UnityEngine.UI;
@@ -19,19 +21,35 @@ namespace Helpers
 
         public AbstractUpgradeContainer OnUpgradeClicked(int money, Button button) {
             AbstractUnit unit = GetSelectedUnit();
-            Text currentButtonText = _uiManager.GetText(button);
-            if (!unit.abstractUpgradeContainer.TryApplyUpgrade(currentButtonText.text, unit, tree, money, out IUpgrade upgrade)) return null;
-            unit.abstractUpgradeContainer.lastUpgrade = upgrade;
-            currentButtonText.text = unit.abstractUpgradeContainer.GetNextKey(tree);
-            return unit.abstractUpgradeContainer;
+            return TryApplyUpgradeFromContainer(money, button, unit);
         }
+
+        private AbstractUpgradeContainer TryApplyUpgradeFromContainer(int money, Button button, AbstractUnit unit) {
+            AbstractUpgradeContainer container = unit.abstractUpgradeContainer;
+            return CanApplyUpgrade(money, button, unit, container) ? null : container;
+        }
+
+        private bool CanApplyUpgrade(int money, Button button, AbstractUnit unit, AbstractUpgradeContainer container) {
+            if (!container.TryApplyUpgrade(_uiManager.GetText(button), unit, tree, money, out IUpgrade upgrade)) return true;
+            Text buttonTextComponent = _uiManager.GetTextComponent(button);
+            container.lastUpgrade = upgrade;
+            ApplyTextToButton(container, buttonTextComponent);
+            return false;
+        }
+
+        private void ApplyTextToButton(AbstractUpgradeContainer container, Text buttonTextComponent) {
+            IUpgrade nextUpgrade = container.GetNextUpgrade(tree);
+            string bandaid = container.GetKey(tree);
+            buttonTextComponent.text = nextUpgrade == null ? bandaid : nextUpgrade.upgradeName + " " + nextUpgrade.price;
+        }
+
         private void FixedUpdate() {
             GetSelectedUnit();
         }
 
         private AbstractUnit GetSelectedUnit() {
-            var objects = _activeObjects.units;
-            foreach(var u in objects) {
+            AbstractUnit[] objects = _activeObjects.units;
+            foreach(AbstractUnit u in objects) {
                 if(!u.isSelected) continue;
                 _uiManager.DisplayStats(u, _uiManager.displayStats);
                 return u;

@@ -33,8 +33,8 @@ namespace Upgrades
             Initialise(2, upgrade22);
             treeOneEnum = treeOneDict.GetEnumerator();
             treeTwoEnum = treeTwoDict.GetEnumerator();
-            GetNextKey(1);
-            GetNextKey(2);
+            GetNextUpgrade(1);
+            GetNextUpgrade(2);
         }
 
         public override bool TryApplyUpgrade(string upgradeName, AbstractUnit b, int tree, int money, out IUpgrade thisUpgrade) {

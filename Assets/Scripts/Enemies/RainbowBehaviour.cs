@@ -12,6 +12,7 @@ namespace Enemies
         private Projectile lastProjectile;
         public Enemy enemy;
         private Vector3 _spawnOffset;
+        private float _timeToSave;
 
         protected new void Awake() {
             base.Awake();
@@ -43,10 +44,16 @@ namespace Enemies
         }
         protected override ScriptableDamageType DamageType => enemy.damageType;
 
-        protected override Vector3 SpawnOffset {
+        protected override float timeToSave {
+            get => _timeToSave;
+            set => _timeToSave = value;
+        }
+        
+        protected override Vector3 savedPos {
             get => _spawnOffset;
             set => _spawnOffset = value;
         }
+        
         #endregion
     }
 }

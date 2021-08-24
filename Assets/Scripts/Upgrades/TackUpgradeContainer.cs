@@ -37,8 +37,8 @@ namespace Upgrades
             Initialise(2, upgrade24);
             treeOneEnum = treeOneDict.GetEnumerator();
             treeTwoEnum = treeTwoDict.GetEnumerator();
-            GetNextKey(1);
-            GetNextKey(2);
+            GetNextUpgrade(1);
+            GetNextUpgrade(2);
         }
     
 

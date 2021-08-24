@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Helpers;
@@ -13,7 +14,7 @@ namespace Upgrades
             AddUpgrade(upgrade.upgradeName, upgrade, tree);
         }
 
-        private void AddUpgrade(string upgradeName, IUpgrade upgrade, int tree) { //adds upgrade to corresponding upgradeTree
+        private void AddUpgrade(string upgradeName, IUpgrade upgrade, int tree) {
             if(tree == 1)
                 treeOneDict.Add(upgradeName, upgrade);
             else
@@ -38,6 +39,35 @@ namespace Upgrades
             }
             return treeTwoEnum.MoveNext() ? treeTwoEnum.Key?.ToString() : "Max Upgrades";
         }
+
+        public IUpgrade GetNextUpgrade(int tree) {
+            IUpgrade toReturn;
+            if (tree == 1) {
+                toReturn = treeOneEnum.MoveNext() ? (IUpgrade)treeOneEnum.Value : null;
+            }
+            else {
+                toReturn = treeTwoEnum.MoveNext() ? (IUpgrade)treeTwoEnum.Value : null;
+            }
+            return toReturn;
+        }
+
+        public IUpgrade GetUpgrade(int tree) {
+            IUpgrade toReturn = null;
+            try {
+                if (tree == 1 && treeOneEnum.Current != null) {
+                    toReturn = (IUpgrade)treeOneEnum.Value;
+                }
+                else {
+                    if(treeTwoEnum.Current != null)
+                        toReturn = (IUpgrade)treeTwoEnum.Value;
+                }
+            }
+            catch (InvalidOperationException) {
+                return toReturn;
+            }
+            
+            return toReturn;
+        }
         
         public int GetBuyValue() {
             try {
@@ -45,7 +75,7 @@ namespace Upgrades
                     return up.GetBuyValue();
                 treeTwoDict.TryGetValue(lastUpgrade.ToString(), out IUpgrade up1);
                 return up1.GetBuyValue();
-            } catch (System.NullReferenceException ) {
+            } catch (NullReferenceException ) {
                 return 0;
             }
         }
@@ -75,7 +105,5 @@ namespace Upgrades
             get;
             set;
         }
-
-
     }
 }

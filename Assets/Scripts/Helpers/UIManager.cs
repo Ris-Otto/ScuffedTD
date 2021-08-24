@@ -1,8 +1,11 @@
+using System;
 using System.Linq;
 using TMPro;
 using Units;
+using UnityEditor.U2D.Animation;
 using UnityEngine;
 using UnityEngine.UI;
+using Upgrades;
 
 namespace Helpers
 {
@@ -19,8 +22,12 @@ namespace Helpers
         private Text _secondTreeText;
         public TextMeshProUGUI displayRound;
         private Canvas shittoCanvas;
+        private char space;
+        private char newLine;
 
         private void Start() {
+            newLine = char.Parse("\n");
+            space = char.Parse(" ");
             shittoCanvas = GameObject.FindWithTag("Panel").GetComponent<Canvas>();
             shittoCanvas.enabled = false;
             _activeObjects = ActiveObjectsTracker.Instance;
@@ -34,6 +41,7 @@ namespace Helpers
     
         public void DisplayStats(AbstractUnit unit, TextMeshProUGUI textMesh) {
             if (unit == null ) return;
+            AbstractUpgradeContainer container = unit.abstractUpgradeContainer;
             textMesh.text =
                 "Damage: " + unit.currentUpgrade.damage + "\n" +
                 "Pierce: " + unit.currentUpgrade.pierce + "\n" +
@@ -41,8 +49,14 @@ namespace Helpers
                 "Range: " + unit.currentUpgrade.range + "\n" +
                 "Atk/s: " + 1/(unit.currentUpgrade.secondsPerAttackModifier*unit.baseAttackSpeed) + "\n" +
                 "Value: " + unit.GetSellValue();
-            _firstTreeText.text = unit.abstractUpgradeContainer.GetKey(1);
-            _secondTreeText.text = unit.abstractUpgradeContainer.GetKey(2);
+            //usch helvete
+            _firstTreeText.text = container.GetUpgrade(1) == null
+                ? "Max Upgrades"
+                : container.GetUpgrade(1).upgradeName + "\n" + container.GetUpgrade(1).price;
+
+            _secondTreeText.text = container.GetUpgrade(2) == null
+                ? "Max Upgrades"
+                : container.GetUpgrade(2).upgradeName + "\n" + container.GetUpgrade(2).price;
         }
     
         public void ShowMenu(AbstractUnit unit) {
@@ -57,10 +71,10 @@ namespace Helpers
         public void DisplayRound(string round) {
             displayRound.text = round;
             if (!round.Equals("Round 21")) return;
-            //shittoCanvas.enabled = true;
-            //foreach (Button btn in GetComponents<Button>()) {
-              //  btn.enabled = false;
-            //}
+            shittoCanvas.enabled = true;
+            foreach (Button btn in GetComponents<Button>()) { 
+                btn.enabled = false;
+            }
         }
 
         private AbstractUnit GetSelectedUnit() {
@@ -72,8 +86,20 @@ namespace Helpers
             return button == firstTree ? firstTree : secondTree;
         }
 
-        public Text GetText(Button button) {
+        public Text GetTextComponent(Button button) {
             return GetButton(button).GetComponentInChildren<Text>();
+        }
+
+        public string GetText(Button button) {
+            string toReturn = GetButton(button).GetComponentInChildren<Text>().text;
+            string[] splitted = toReturn.Split(newLine);
+            for (int i = 0; i < splitted.Length; i++) 
+                if (int.TryParse(splitted[i], out int toRemove))
+                    splitted[i] = "";
+            
+            toReturn = splitted.Aggregate("", (current, s) => current + (s + " "));
+            toReturn = toReturn.Trim();
+            return toReturn;
         }
 
         public void ShowWin() {

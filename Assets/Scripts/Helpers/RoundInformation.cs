@@ -30,7 +30,7 @@ namespace Helpers
         }
 
         private void ConfigureRound(int round) {
-            Invoke("Round" +round, 0.1f);
+            Invoke("Round" +round, 0.001f);
         }
 
         private IEnumerator Spawn(IEnumerable<Wave> waves) {
@@ -48,7 +48,7 @@ namespace Helpers
         private void TestRound() {
             //TESTESTESTESTESTESTESTESTESTESTESTESTESTESTEST
             _nextRound = new Round(new List<Wave> {
-                new Wave(0.5f, new List<BloonType> {new BloonType("BossTemp", 1, 1f)}),
+                new Wave(0.5f, new List<BloonType> {new BloonType("Black", 5, 1f)}),
             });
         }
 

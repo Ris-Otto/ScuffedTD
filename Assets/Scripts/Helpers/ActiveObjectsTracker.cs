@@ -40,12 +40,6 @@ namespace Helpers
 
         public void OnEnemySpawn(AbstractEnemy e) {
             _hasAdded = true;
-            if (!e.IsCamo) {
-                _enemies.Add(e);
-            }
-            else {
-                _camo.Add(e);
-            }
             _allEnemies.Add(e);
         }
     
@@ -58,12 +52,6 @@ namespace Helpers
         }
 
         public void RemoveEnemy(AbstractEnemy e) {
-            if (!e.IsCamo) {
-                _enemies.Remove(e);
-            }
-            else {
-                _camo.Remove(e);
-            }
             _allEnemies.Remove(e);
         }
 

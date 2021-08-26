@@ -20,6 +20,7 @@ namespace Upgrades
         private readonly int _price;
         private float _projectileSpeed;
         public int _gun;
+        private bool _hasAccessToCamo;
 
         public GrandmaUpgrade(string upgradeName, int damage, int pierce, float range, float secondsPerAttackModifier,
             int price, float projectileSpeed, int shotCount) {
@@ -94,5 +95,7 @@ namespace Upgrades
         public string upgradeName => _upgradeName;
 
         public float projectileSpeed => _projectileSpeed;
+        
+        public bool hasAccessToCamo => _hasAccessToCamo;
     }
 }

@@ -33,7 +33,7 @@ namespace Enemies
 
         private void ComputeMovement() {
             Vector3 pos = transform.position;
-            if(timeToSave > 0.2f*Enemy.speed) {
+            if(timeToSave > 0.15f) {
                 SavePos(pos);
                 timeToSave = 0f;
             }
@@ -104,10 +104,6 @@ namespace Enemies
         }
         
         private bool ProjectileHasAppropriateParameters(Projectile projectile) {
-            if (IsCamo) {
-                projectile.pierce++;
-                return false;
-            }
             if (LastProjectile == null) return IsAppropriateDamageType(projectile);
             return !CantBePoppedByProjectile(projectile) && IsAppropriateDamageType(projectile);
         }
@@ -121,10 +117,11 @@ namespace Enemies
         }
 
         private AbstractEnemy InstantiateChildOnConditionsMet(GameObject childObject, Projectile projectile, bool hasOffset,
-            int offsetMagnitude) {
+            float offsetMagnitude) {
             if (childObject.Equals(null)) return null;
-            //SetOffset(GetDir(), childObject.transform.localScale.magnitude*0.5f*offsetMagnitude);
-            AbstractEnemy e = InstantiateChildOverload(childObject, projectile, hasOffset ? savedPos*offsetMagnitude : transform.position);
+            Vector3 offset = transform.position;
+            if (hasOffset && savedPos != Vector3.zero) offset = savedPos;
+            AbstractEnemy e = InstantiateChildOverload(childObject, projectile, offset);
             return e;
         }
         
@@ -140,7 +137,7 @@ namespace Enemies
         protected AbstractEnemy[] InstantiateMultipleChildrenOnConditionsMet(GameObject[] childObjects, Projectile projectile) {
             AbstractEnemy[] es = new AbstractEnemy[childObjects.Length];
             for (int i = 0; i < childObjects.Length; i++) 
-                es[i] = InstantiateChildOnConditionsMet(childObjects[i], projectile, i != 0, i);
+                es[i] = InstantiateChildOnConditionsMet(childObjects[i], projectile, i != 0, 1f);
             return es;
         }
 
@@ -184,8 +181,6 @@ namespace Enemies
             get;
             set;
         }
-
-        public virtual bool IsCamo => TryGetComponent(out Camo camo);
 
         #endregion
     }

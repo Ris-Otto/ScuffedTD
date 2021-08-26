@@ -11,8 +11,9 @@ GameObject:
   - component: {fileID: 1624474271645128743}
   - component: {fileID: 9214685397031637298}
   - component: {fileID: 4836501889076569843}
-  - component: {fileID: 3125924209709896350}
   - component: {fileID: 8359804697201247193}
+  - component: {fileID: 7836778128384101920}
+  - component: {fileID: 5478513644031651274}
   m_Layer: 6
   m_Name: Purple
   m_TagString: Untagged
@@ -102,19 +103,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
---- !u!114 &3125924209709896350
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2082038158582378530}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d856408ad662595409364f56d05a4897, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemy: {fileID: 11400000, guid: f58ac39c0f5c67e4f840ed98764f8eca, type: 2}
 --- !u!50 &8359804697201247193
 Rigidbody2D:
   serializedVersion: 4
@@ -136,3 +124,29 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 0
+--- !u!114 &7836778128384101920
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2082038158582378530}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0faa770922dada4aafc395b3739c54b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isCamo: 0
+--- !u!114 &5478513644031651274
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2082038158582378530}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1820940458f63f4f8531db34ba0f2eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemy: {fileID: 11400000, guid: f58ac39c0f5c67e4f840ed98764f8eca, type: 2}

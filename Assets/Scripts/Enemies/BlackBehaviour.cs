@@ -16,7 +16,6 @@ namespace Enemies
     
         private new void Awake() {
             base.Awake();
-            
         }
 
         public override bool IsAppropriateDamageType(Projectile projectile) {

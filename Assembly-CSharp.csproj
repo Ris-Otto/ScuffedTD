@@ -55,6 +55,7 @@
      <Compile Include="Assets\Scripts\Helpers\IPlaceable.cs" />
      <Compile Include="Assets\Scripts\Projectiles\ProjectilePooler.cs" />
      <Compile Include="Assets\Scripts\Enemies\Camo.cs" />
+     <Compile Include="Assets\Scripts\Enemies\PurpleBehaviour.cs" />
      <Compile Include="Assets\ZSmartTile\Components\ZST_SmartTile.cs" />
      <Compile Include="Assets\Scripts\Units\Guns\TackGun.cs" />
      <Compile Include="Assets\Scripts\Helpers\UIManager.cs" />

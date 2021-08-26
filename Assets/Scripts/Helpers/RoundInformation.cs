@@ -18,7 +18,6 @@ namespace Helpers
         }
 
         
-
         public void RoundStart(int round) {
             ConfigureRound(round);
             StartCoroutine(Spawn(_nextRound.Get));
@@ -48,7 +47,7 @@ namespace Helpers
         private void TestRound() {
             //TESTESTESTESTESTESTESTESTESTESTESTESTESTESTEST
             _nextRound = new Round(new List<Wave> {
-                new Wave(0.5f, new List<BloonType> {new BloonType("Black", 5, 1f)}),
+                new Wave(0.5f, new List<BloonType> {new BloonType("Purple", 5, 1f)}),
             });
         }
 
@@ -260,7 +259,7 @@ namespace Helpers
         private void Round24() {
             _nextRound = new Round(new List<Wave> {
                 new Wave(0.4f, new List<BloonType> {new BloonType("Blue", 20, 0.5f)}),
-                new Wave(0f, new List<BloonType> {new BloonType("Green"/*(Camo)*/, true, 1, 1f)}),
+                new Wave(0f, new List<BloonType> {new BloonType("Green"/*(Camo)*/, 1, 1f)}),
             });
         }
         
@@ -324,8 +323,8 @@ namespace Helpers
         
         private void Round33() {
             _nextRound = new Round(new List<Wave> {
-                new Wave(2f, new List<BloonType> {new BloonType("Red"/*Camo*/, true, 20, 0.7f)}),
-                new Wave(0f, new List<BloonType> {new BloonType("Yellow"/*Camo*/, true, 13, 0.7f)}),
+                new Wave(2f, new List<BloonType> {new BloonType("Red"/*Camo*/, 20, 0.7f)}),
+                new Wave(0f, new List<BloonType> {new BloonType("Yellow"/*Camo*/, 13, 0.7f)}),
             });
         }
         
@@ -348,7 +347,7 @@ namespace Helpers
         private void Round36() {
             _nextRound = new Round(new List<Wave> {
                 new Wave(40f, new List<BloonType> {new BloonType("Pink", 140, 0.4f)}),
-                new Wave(0f, new List<BloonType> {new BloonType("Green"/*Camo*/, true, 20, 0.5f)}),
+                new Wave(0f, new List<BloonType> {new BloonType("Green"/*Camo*/, 20, 0.5f)}),
             });
         }
         
@@ -356,7 +355,7 @@ namespace Helpers
             _nextRound = new Round(new List<Wave> {
                 new Wave(0f, new List<BloonType> {new BloonType("Black", 25, 0.4f)}),
                 new Wave(0f, new List<BloonType> {new BloonType("White", 25, 0.4f)}),
-                new Wave(0f, new List<BloonType> {new BloonType("White"/*Camo*/, true, 7, 0.4f)}),
+                new Wave(0f, new List<BloonType> {new BloonType("White"/*Camo*/, 7, 0.4f)}),
                 new Wave(0f, new List<BloonType> {new BloonType("Zebra", 10, 0.4f)}),
                 new Wave(0f, new List<BloonType> {new BloonType("Lead", 15, 0.4f)}),
             });

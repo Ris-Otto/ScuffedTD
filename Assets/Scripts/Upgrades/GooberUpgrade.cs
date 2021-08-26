@@ -15,10 +15,24 @@ namespace Upgrades
         private int _shotCount;
         private readonly int _price;
         private float _projectileSpeed;
+        private bool _hasAccessToCamo;
         
     
         public GooberUpgrade(string upgradeName, int damage, int pierce, float range, float secondsPerAttackModifier,
             int price, float projectileSpeed, int shotCount) {
+            _upgradeName = upgradeName;
+            _damage = damage;
+            _pierce = pierce;
+            _range = range;
+            _secondsPerAttackModifier = secondsPerAttackModifier;
+            _projectileSpeed = projectileSpeed;
+            _price = price;
+            _shotCount = shotCount;
+        }
+        
+        public GooberUpgrade(string upgradeName, int damage, int pierce, float range, float secondsPerAttackModifier,
+            int price, float projectileSpeed, int shotCount, bool camoAccess) {
+            _hasAccessToCamo = camoAccess;
             _upgradeName = upgradeName;
             _damage = damage;
             _pierce = pierce;
@@ -35,6 +49,7 @@ namespace Upgrades
 
         public void CumulateUpgrades(IUpgrade next) {
             _upgradeName = next.upgradeName;
+            _hasAccessToCamo = next.hasAccessToCamo ? next.hasAccessToCamo : _hasAccessToCamo;
             _damage += next.damage;
             _pierce += next.pierce;
             _range += next.range;
@@ -75,5 +90,7 @@ namespace Upgrades
         public string upgradeName => _upgradeName;
 
         public float projectileSpeed => _projectileSpeed;
+
+        public bool hasAccessToCamo => _hasAccessToCamo;
     }
 }

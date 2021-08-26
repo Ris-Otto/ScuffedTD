@@ -50,8 +50,7 @@ namespace Enemies
             get => _et;
             set => _et = value;
         }
-
-
+        
         public override Enemy Enemy => enemy;
         protected override ScriptableDamageType DamageType => enemy.damageType;
 

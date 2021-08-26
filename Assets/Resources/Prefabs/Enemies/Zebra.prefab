@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6784303578154806456}
   - component: {fileID: 3604422478447471401}
   - component: {fileID: -534928514791262697}
+  - component: {fileID: 4825101358947882998}
   m_Layer: 6
   m_Name: Zebra
   m_TagString: Enemy
@@ -135,3 +136,15 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 1.28
+--- !u!114 &4825101358947882998
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1775102864398282110}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0faa770922dada4aafc395b3739c54b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -16,6 +16,7 @@ namespace Upgrades
         private DamageType _damageType;
         private float _explosionRadius;
         private int _maxPop;
+        private bool _hasAccessToCamo;
 
 
         public RocketUpgrade(string upgradeName, int damage, int pierce, float range, float secondsPerAttackModifier,
@@ -89,5 +90,7 @@ namespace Upgrades
         public float projectileSpeed => _projectileSpeed;
         public float explosionRadius => _explosionRadius;
         public int maxPop => _maxPop;
+        
+        public bool hasAccessToCamo => _hasAccessToCamo;
     }
 }

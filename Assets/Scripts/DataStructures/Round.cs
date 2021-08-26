@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Enemies;
+using UnityEditor;
 using UnityEngine;
 
 
@@ -14,15 +15,7 @@ namespace DataStructures
             _amount = amount;
             _interval = interval;
         }
-        
-        public BloonType(string type, bool isCamo, int amount, float interval) {
-            _type = Resources.Load<GameObject>("Prefabs/Enemies/" + type);
-            if (isCamo) 
-                _type.AddComponent<Camo>();
-            _amount = amount;
-            _interval = interval;
-        }
-        
+
         private readonly GameObject _type;
         private readonly int _amount;
         private readonly float _interval;

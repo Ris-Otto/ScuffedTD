@@ -13,24 +13,30 @@ namespace Upgrades
         private IDictionaryEnumerator _treeTwoEnum;
         private IUpgrade _lastUpgrade;
 
-        void Awake() {
+        private void Awake() {
             GooberUpgrade upgrade11 = new GooberUpgrade
-                ((string) "Sharp Shots", (int) 0, (int) 1, (float) 0, (float) 1, (int) 120, (float) 0f, (int) 0);
+                ("Sharpened Albins", 0, 1, 0, 1, 120, 0f, 0);
             GooberUpgrade upgrade12 = new GooberUpgrade
-                ("Razor Sharp Shots", 0, 1, 0, 1, 185, 0f, 0);
+                ("Perfectly Honed Albins", 0, 1, 0, 1, 185, 0f, 0);
             GooberUpgrade upgrade13 = new GooberUpgrade
-                ("Triple Shot", 0, 0, 0, 1, 350, 0, 2);
+                ("Thrice The Fun", 0, 0, 0, 1, 350, 0, 2);
+            GooberUpgrade upgrade14 = new GooberUpgrade
+                ("Overclocked", 1, 1, 0, 1, 1000, 0, 0);
             GooberUpgrade upgrade21 = new GooberUpgrade
-                ("Quick Shots", 0, 0, 0, (float)(1/1.15), 85, 0f, 0);
+                ("Sleight of Hand", 0, 0, 0, (float)(1/1.15), 85, 0f, 0);
             GooberUpgrade upgrade22 = new GooberUpgrade
-                ("Very Quick Shots", 0, 0, 0, (float)(1/1.33), 140, 0f, 0);
+                ("Kossu Buff", 0, 0, 0, (float)(1/1.33), 140, 0f, 0);
             GooberUpgrade upgrade23 = new GooberUpgrade
-                ("Longer Range", 0, 0, 1, 1, 120, 0f, 0);
+                ("20/20", 0, 0, 0, 1, 120, 0f, 0, true);
+            GooberUpgrade upgrade24 = new GooberUpgrade
+                ("Piribrillor", 0, 0, 1, 1, 150, 0f, 0);
             Initialise(1, upgrade11);
             Initialise(1, upgrade12);
             Initialise(1, upgrade13);
+            Initialise(1, upgrade14);
             Initialise(2, upgrade21);
             Initialise(2, upgrade22);
+            Initialise(2, upgrade24);
             Initialise(2, upgrade23);
             treeOneEnum = treeOneDict.GetEnumerator();
             treeTwoEnum = treeTwoDict.GetEnumerator();

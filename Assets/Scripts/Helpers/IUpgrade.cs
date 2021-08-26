@@ -14,5 +14,6 @@ namespace Helpers
         public int price { get; }
         public string upgradeName { get; }
         public float projectileSpeed { get; }
+        public bool hasAccessToCamo { get; }
     }
 }

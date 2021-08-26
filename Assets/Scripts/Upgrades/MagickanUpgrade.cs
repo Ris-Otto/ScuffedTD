@@ -16,6 +16,7 @@ namespace Upgrades
         private readonly int _price;
         private float _projectileSpeed;
         public readonly string newProjectile;
+        private bool _hasAccessToCamo;
 
 
         public MagickanUpgrade() {
@@ -96,5 +97,7 @@ namespace Upgrades
         public string upgradeName => _upgradeName;
 
         public float projectileSpeed => _projectileSpeed;
+        
+        public bool hasAccessToCamo => _hasAccessToCamo;
     }
 }

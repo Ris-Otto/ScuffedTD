@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 8407883905750391050}
   - component: {fileID: 2923553814136555320}
   - component: {fileID: -61327049313061854}
+  - component: {fileID: 6740466557531525733}
   m_Layer: 6
   m_Name: Pink
   m_TagString: Enemy
@@ -136,3 +137,15 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 0
+--- !u!114 &6740466557531525733
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1870265811911748501}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0faa770922dada4aafc395b3739c54b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

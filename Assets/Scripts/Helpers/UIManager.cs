@@ -76,7 +76,7 @@ namespace Helpers
         }
 
         private AbstractUnit GetSelectedUnit() {
-            AbstractUnit[] objects = _activeObjects.units;
+            AbstractUnit[] objects = _activeObjects.Units;
             return objects.FirstOrDefault(u => u.isSelected);
         }
 

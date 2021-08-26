@@ -9,8 +9,10 @@ namespace Helpers
 {
     public class ActiveObjectsTracker : MonoBehaviour {
     
-        private List<AbstractEnemy> _enemies = new List<AbstractEnemy>();
-        private List<AbstractUnit> _units = new List<AbstractUnit>();
+        private List<AbstractEnemy> _enemies;
+        private List<AbstractUnit> _units;
+        private List<AbstractEnemy> _camo;
+        private List<AbstractEnemy> _allEnemies;
         private UnityEvent m_event;
         public static ActiveObjectsTracker Instance;
         private bool _hasAdded;
@@ -20,6 +22,8 @@ namespace Helpers
             m_event.AddListener(SendRoundEndMessage);
             _enemies = new List<AbstractEnemy>();
             _units = new List<AbstractUnit>();
+            _camo = new List<AbstractEnemy>();
+            _allEnemies = new List<AbstractEnemy>();
             if (Instance != null && Instance != this) {
                 Debug.Log("Invalid Instance");
             }
@@ -35,8 +39,14 @@ namespace Helpers
         }
 
         public void OnEnemySpawn(AbstractEnemy e) {
-            _enemies.Add(e);
             _hasAdded = true;
+            if (!e.IsCamo) {
+                _enemies.Add(e);
+            }
+            else {
+                _camo.Add(e);
+            }
+            _allEnemies.Add(e);
         }
     
         public void OnUnitSpawn(AbstractUnit u) {
@@ -48,7 +58,13 @@ namespace Helpers
         }
 
         public void RemoveEnemy(AbstractEnemy e) {
-            _enemies.Remove(e);
+            if (!e.IsCamo) {
+                _enemies.Remove(e);
+            }
+            else {
+                _camo.Remove(e);
+            }
+            _allEnemies.Remove(e);
         }
 
         public void RemoveUnit(AbstractUnit u) {
@@ -61,7 +77,8 @@ namespace Helpers
             _hasAdded = false;
         }
 
-        public AbstractEnemy[] enemies => _enemies.ToArray();
-        public AbstractUnit[] units => _units.ToArray();
+        public AbstractEnemy[] NonCamo => _enemies.ToArray();
+        public AbstractUnit[] Units => _units.ToArray();
+        public AbstractEnemy[] AllEnemies => _allEnemies.ToArray();
     }
 }

@@ -104,6 +104,10 @@ namespace Enemies
         }
         
         private bool ProjectileHasAppropriateParameters(Projectile projectile) {
+            if (IsCamo) {
+                projectile.pierce++;
+                return false;
+            }
             if (LastProjectile == null) return IsAppropriateDamageType(projectile);
             return !CantBePoppedByProjectile(projectile) && IsAppropriateDamageType(projectile);
         }
@@ -180,6 +184,8 @@ namespace Enemies
             get;
             set;
         }
+
+        public virtual bool IsCamo => TryGetComponent(out Camo camo);
 
         #endregion
     }

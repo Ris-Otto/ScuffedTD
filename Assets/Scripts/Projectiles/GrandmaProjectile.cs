@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using Enemies;
 using Helpers;
@@ -30,6 +31,7 @@ namespace Projectiles
         private Animation _anim;
         private List<Vector2> _availableTargets; //x = -9 to 7; y = -5 to 2;
         private long _ID;
+        private CircleCollider2D myCollider;
         #endregion
 
         private void Awake() {
@@ -39,9 +41,10 @@ namespace Projectiles
             _moveSpeed = 1f;
             _damage = 1;
             _range = 20f;
-            _anim = GetComponentInChildren<Animation>();
+            _anim = GetComponent<Animation>();
             InitialiseTargets();
             _moveTarget = ComputeDirection();
+            myCollider = GetComponent<CircleCollider2D>();
         }
 
         private void InitialiseTargets() {
@@ -54,17 +57,13 @@ namespace Projectiles
             }
         }
 
-        private void OnDrawGizmosSelected() {
-            Gizmos.DrawWireSphere(transform.position, _range);
-        }
-
         public override void ComputeMovementFromOther() {
             _anim.Play();
         }
 
         public GameObject TargetEnemy() {
             target = null;
-            AbstractEnemy[] eb = et.enemies;
+            AbstractEnemy[] eb = et.NonCamo;
             return eb.Length == 0 ? null : eb[0].gameObject;
         }
 
@@ -84,16 +83,32 @@ namespace Projectiles
             ComputeMovement();
         }
 
-        private void OnTriggerStay2D(Collider2D other) {
-            if (!(_time > 0.5f)) return;
+        private void OnTriggerEnter2D(Collider2D other) {
             _ID = GetID();
-            Hit(other);
-            _time = 0.0f;
+            StartCoroutine(DealDamage(other));
         }
         
         protected override void Hit(Collider2D col) {
-            _listener.Income(col.gameObject.GetComponent<AbstractEnemy>().DieOverload(this, damage));
+            AffectExplosionColliders();
         }
+
+        private IEnumerator DealDamage(Collider2D other) {
+            _anim.Play();
+            yield return new WaitUntil(() => AnimationStopped(_anim));
+            Hit(other);
+        }
+        
+        private void AffectExplosionColliders() {
+            Collider2D[] cols =
+                // ReSharper disable once Unity.PreferNonAllocApi
+                Physics2D.OverlapCircleAll(transform.position, myCollider.radius, 1 << LayerMask.NameToLayer("Enemy"));
+            foreach (Collider2D aCollider in cols) 
+                _listener.Income(aCollider.gameObject.GetComponent<AbstractEnemy>().DieOverload(this, damage));
+            
+            
+        }
+
+        private static bool AnimationStopped(Animation anim) => !anim.isPlaying;
 
         #region Movement
         

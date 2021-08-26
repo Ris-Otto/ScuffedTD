@@ -45,7 +45,7 @@ namespace Helpers
 
         public AbstractUnit DestroyUnit() {
             AbstractUnit toReturn = null;
-            foreach (AbstractUnit u in _activeObjects.units) {
+            foreach (AbstractUnit u in _activeObjects.Units) {
                 if (!u.IsSelected()) continue;
                 toReturn = u;
             }

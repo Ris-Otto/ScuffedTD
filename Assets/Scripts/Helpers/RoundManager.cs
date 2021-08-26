@@ -26,13 +26,11 @@ namespace Helpers
 
         public void StartRound() {
             if (!canStartRound) {
-                Debug.Log("Round still going on.");
                 return;
             }
             ui.DisplayRound("Round " + CurrentRound);
             CurrentRound++;
             _roundInformation.RoundStart(CurrentRound);
-            Debug.Log("Called StartRound() from RoundManager");
             SetCanStartRound(false);
         }
 

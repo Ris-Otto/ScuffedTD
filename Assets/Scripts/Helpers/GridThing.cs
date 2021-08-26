@@ -25,7 +25,7 @@ namespace Helpers
         }
 
         public void DeselectOthers() {
-            AbstractUnit[] units = _et.units;
+            AbstractUnit[] units = _et.Units;
             foreach (AbstractUnit t in units) {
                 t.Deselect();
             }

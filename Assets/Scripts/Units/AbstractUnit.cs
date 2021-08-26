@@ -40,7 +40,7 @@ namespace Units
 
         public GameObject TargetEnemy(int style = 0) {
             target = null;
-            AbstractEnemy[] eb = et.enemies;
+            AbstractEnemy[] eb = et.NonCamo;
 
             switch (style) {
                 default:
@@ -63,33 +63,21 @@ namespace Units
         }
 
         private void TargetFirstEnemy(AbstractEnemy[] eb) {
-            float longest = Mathf.NegativeInfinity;
-            foreach (AbstractEnemy t in eb) {
-                longest = GetTargetUsingCorrespondingTargetingStyle
-                    (t, t.distanceTravelled, longest, 1);
-            }
+            float longest = eb.Aggregate(Mathf.NegativeInfinity, (current, t) => 
+                GetTargetUsingCorrespondingTargetingStyle(t, t.distanceTravelled, current, 1));
         }
 
         private void TargetLastEnemy(AbstractEnemy[] eb) {
-            float shortest = Mathf.Infinity;
-            foreach (AbstractEnemy t in eb) {
-                shortest = GetTargetUsingCorrespondingTargetingStyle
-                    (t, t.distanceTravelled, shortest, -1);
-            }
+            float shortest = eb.Aggregate(Mathf.Infinity, (current, t) => 
+                GetTargetUsingCorrespondingTargetingStyle(t, t.distanceTravelled, current, -1));
         }
         private void TargetStrongestEnemy(AbstractEnemy[] eb) {
-            float strongest = Mathf.NegativeInfinity;
-            foreach (AbstractEnemy t in eb) 
-                strongest = GetTargetUsingCorrespondingTargetingStyle
-                    (t, t.Enemy.totalHealth, strongest, 1);
+            float strongest = eb.Aggregate(Mathf.NegativeInfinity, (current, t) => 
+                GetTargetUsingCorrespondingTargetingStyle(t, t.Enemy.totalHealth, current, 1));
         }
         private void TargetClosestEnemy(AbstractEnemy[] eb) {
-            float shortest = Mathf.Infinity;
-            foreach (AbstractEnemy t in eb) {
-                var distance = Vector3.Distance(t.transform.position, transform.position);
-                shortest = GetTargetUsingCorrespondingTargetingStyle
-                    (t, distance, shortest, -1);
-            }
+            float closest = eb.Aggregate(Mathf.Infinity, (current, t) => 
+                GetTargetUsingCorrespondingTargetingStyle(t, Vector3.Distance(t.transform.position, transform.position), current, -1));
         }
 
         private float GetTargetUsingCorrespondingTargetingStyle(AbstractEnemy t, float style, 
@@ -179,7 +167,7 @@ namespace Units
         }
 
         public void DeselectOthers() {
-            AbstractUnit[] units = et.units;
+            AbstractUnit[] units = et.Units;
             foreach (AbstractUnit t in units) 
                 if (t != this) t.Deselect();
         }
@@ -199,6 +187,8 @@ namespace Units
             return sell;
         }
     
+        
+        
         #region getset
         
         protected abstract Camera cam {

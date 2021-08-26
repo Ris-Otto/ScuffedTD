@@ -44,11 +44,13 @@ namespace Projectiles
         }
         
         protected override void ComputeMovement() {
-            if (!target.activeSelf) ResetThis();
+            if (!target.activeSelf) {
+                ResetThis();
+                return;
+            }
             transform.rotation = Quaternion.LookRotation(Vector3.forward, (Vector3)RotateVector(target.transform.position-transform.position));
             transform.Translate
                 (dir.normalized * (projectileSpeed * Time.deltaTime), Space.World);
-            
         }
         
 

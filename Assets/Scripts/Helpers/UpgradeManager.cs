@@ -48,7 +48,7 @@ namespace Helpers
         }
 
         private AbstractUnit GetSelectedUnit() {
-            AbstractUnit[] objects = _activeObjects.units;
+            AbstractUnit[] objects = _activeObjects.Units;
             foreach(AbstractUnit u in objects) {
                 if(!u.isSelected) continue;
                 _uiManager.DisplayStats(u, _uiManager.displayStats);

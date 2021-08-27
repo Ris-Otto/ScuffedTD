@@ -40,7 +40,7 @@ namespace Helpers
 
         public void OnEnemySpawn(AbstractEnemy e) {
             _hasAdded = true;
-            _allEnemies.Add(e);
+            _enemies.Add(e);
         }
     
         public void OnUnitSpawn(AbstractUnit u) {
@@ -52,7 +52,7 @@ namespace Helpers
         }
 
         public void RemoveEnemy(AbstractEnemy e) {
-            _allEnemies.Remove(e);
+            _enemies.Remove(e);
         }
 
         public void RemoveUnit(AbstractUnit u) {

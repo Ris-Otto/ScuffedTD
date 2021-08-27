@@ -68,11 +68,11 @@ namespace Helpers
 
         public void DisplayRound(string round) {
             displayRound.text = round;
-            if (!round.Equals("Round 21")) return;
-            shittoCanvas.enabled = true;
+            /*if (!round.Equals("Round 21")) return;
+            /*shittoCanvas.enabled = true;
             foreach (Button btn in GetComponents<Button>()) { 
                 btn.enabled = false;
-            }
+            }*/
         }
 
         private AbstractUnit GetSelectedUnit() {

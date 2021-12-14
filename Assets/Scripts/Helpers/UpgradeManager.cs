@@ -30,11 +30,13 @@ namespace Helpers
         }
 
         private bool CanApplyUpgrade(int money, Button button, AbstractUnit unit, AbstractUpgradeContainer container) {
-            if (!container.TryApplyUpgrade(_uiManager.GetText(button), unit, tree, money, out IUpgrade upgrade)) return true;
+            if (!container.TryApplyUpgrade(_uiManager.GetText(button), unit, tree, money, out IUpgrade upgrade))
+                return true;
             Text buttonTextComponent = _uiManager.GetTextComponent(button);
             container.lastUpgrade = upgrade;
             ApplyTextToButton(container, buttonTextComponent);
             return false;
+
         }
 
         private void ApplyTextToButton(AbstractUpgradeContainer container, Text buttonTextComponent) {

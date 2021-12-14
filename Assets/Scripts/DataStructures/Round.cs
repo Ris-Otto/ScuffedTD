@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using Enemies;
-using UnityEditor;
+using System.Linq;
 using UnityEngine;
 
 
@@ -34,12 +33,11 @@ namespace DataStructures
             _wavesList.AddRange(listOfWaves);
         }
 
-        public IEnumerator SpawnWave(Wave wave) {
-            foreach (var type in wave.Get()) 
-                yield return wave.SpawnEnemies(type);
+        public static IEnumerator SpawnWave(Wave wave) {
+            return wave.Get().Select(wave.SpawnEnemies).GetEnumerator();
         }
         
-        public List<Wave> Get => _wavesList;
+        public IEnumerable<Wave> Get => _wavesList;
 
 
     }

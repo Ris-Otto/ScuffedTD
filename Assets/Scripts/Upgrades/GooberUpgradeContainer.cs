@@ -23,9 +23,9 @@ namespace Upgrades
             GooberUpgrade upgrade14 = new GooberUpgrade
                 ("Overclocked", 1, 1, 0, 1, 1000, 0, 0);
             GooberUpgrade upgrade21 = new GooberUpgrade
-                ("Sleight of Hand", 0, 0, 0, (float)(1/1.15), 85, 0f, 0);
+                ("Sleight of Hand", 0, 0, 0, (1/1.15f), 85, 0f, 0);
             GooberUpgrade upgrade22 = new GooberUpgrade
-                ("Kossu Buff", 0, 0, 0, (float)(1/1.33), 140, 0f, 0);
+                ("Kossu Buff", 0, 0, 0, (1/1.33f), 140, 0f, 0);
             GooberUpgrade upgrade23 = new GooberUpgrade
                 ("20/20", 0, 0, 0, 1, 120, 0f, 0, true);
             GooberUpgrade upgrade24 = new GooberUpgrade

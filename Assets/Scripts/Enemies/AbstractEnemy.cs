@@ -68,7 +68,7 @@ namespace Enemies
         
         #region onHit-methods
         
-        protected int PassOnDamageToChild(Projectile projectile, int remainingDamage, AbstractEnemy e) {
+        protected static int PassOnDamageToChild(Projectile projectile, int remainingDamage, AbstractEnemy e) {
             return e.KillChild(projectile, remainingDamage);
         }
         
@@ -78,7 +78,7 @@ namespace Enemies
                 ResetThis();
                 return Enemy.totalHealth;
             }
-            AbstractEnemy[] es = InstantiateMultipleChildrenOnConditionsMet(Enemy.directChildren, projectile);
+            AbstractEnemy[] es = InstantiateChildrenOnConditionsMet(Enemy.directChildren, projectile);
             ResetThis();
             return PassOnDamageToChild(projectile, remainingDamage-1, es[0]) + 1;
         }
@@ -134,7 +134,7 @@ namespace Enemies
             return e;
         }
 
-        protected AbstractEnemy[] InstantiateMultipleChildrenOnConditionsMet(GameObject[] childObjects, Projectile projectile) {
+        protected AbstractEnemy[] InstantiateChildrenOnConditionsMet(GameObject[] childObjects, Projectile projectile) {
             AbstractEnemy[] es = new AbstractEnemy[childObjects.Length];
             for (int i = 0; i < childObjects.Length; i++) 
                 es[i] = InstantiateChildOnConditionsMet(childObjects[i], projectile, i != 0, 1f);

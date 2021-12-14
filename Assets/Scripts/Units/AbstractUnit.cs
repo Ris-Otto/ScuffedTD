@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Enemies;
 using Extension;
 using Helpers;
@@ -9,7 +10,7 @@ using Upgrades;
 
 namespace Units
 {
-    public abstract class AbstractUnit : MonoBehaviour, IMoneyObject, ISelectable, IPlaceable
+    public abstract class AbstractUnit : MonoBehaviour, IMoneyObject, ISelectable, IPlaceable, IMouseUser
     {
         protected virtual void Awake() {
             InvokeRepeating(nameof(BeforePlaceUnit), 0f, Time.deltaTime);
@@ -62,22 +63,23 @@ namespace Units
             return target;
         }
 
-        private void TargetFirstEnemy(AbstractEnemy[] eb) {
-            float longest = eb.Aggregate(Mathf.NegativeInfinity, (current, t) => 
+        private void TargetFirstEnemy(IEnumerable<AbstractEnemy> eb) {
+            eb.Aggregate(Mathf.NegativeInfinity, (current, t) => 
                 GetTargetUsingCorrespondingTargetingStyle(t, t.distanceTravelled, current, 1));
         }
 
-        private void TargetLastEnemy(AbstractEnemy[] eb) {
-            float shortest = eb.Aggregate(Mathf.Infinity, (current, t) => 
+        private void TargetLastEnemy(IEnumerable<AbstractEnemy> eb) {
+            eb.Aggregate(Mathf.Infinity, (current, t) => 
                 GetTargetUsingCorrespondingTargetingStyle(t, t.distanceTravelled, current, -1));
         }
-        private void TargetStrongestEnemy(AbstractEnemy[] eb) {
-            float strongest = eb.Aggregate(Mathf.NegativeInfinity, (current, t) => 
+        private void TargetStrongestEnemy(IEnumerable<AbstractEnemy> eb) {
+            eb.Aggregate(Mathf.NegativeInfinity, (current, t) => 
                 GetTargetUsingCorrespondingTargetingStyle(t, t.Enemy.totalHealth, current, 1));
         }
-        private void TargetClosestEnemy(AbstractEnemy[] eb) {
-            float closest = eb.Aggregate(Mathf.Infinity, (current, t) => 
-                GetTargetUsingCorrespondingTargetingStyle(t, Vector3.Distance(t.transform.position, transform.position), current, -1));
+        private void TargetClosestEnemy(IEnumerable<AbstractEnemy> eb) {
+            eb.Aggregate(Mathf.Infinity, (current, t) => 
+                GetTargetUsingCorrespondingTargetingStyle(t, Vector3.Distance(t.transform.position, transform.position), 
+                    current, -1));
         }
 
         private float GetTargetUsingCorrespondingTargetingStyle(AbstractEnemy t, float style, 
@@ -114,7 +116,7 @@ namespace Units
             return pos;
         }
 
-        protected Vector3 GetMousePos(float zValue) {
+        public Vector3 GetMousePos(float zValue) {
             Vector3 pos = Input.mousePosition;
             pos.z = zValue;
             return pos;
@@ -255,9 +257,7 @@ namespace Units
             set;
         }
 
-        public virtual bool IsHangar {
-            get => false;
-        }
+        public virtual bool IsHangar => false;
 
         protected abstract CreateRange Range { get; }
 

@@ -34,7 +34,7 @@ namespace Helpers
 
         private IEnumerator Spawn(IEnumerable<Wave> waves) {
             foreach (Wave t in waves) {
-                StartCoroutine(_nextRound.SpawnWave(t));
+                StartCoroutine(Round.SpawnWave(t));
                 yield return new WaitForSeconds(t.TimeUntilNext());
             }
         }

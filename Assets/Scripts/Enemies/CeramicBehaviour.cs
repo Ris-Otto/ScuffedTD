@@ -32,7 +32,7 @@ namespace Enemies
             }
             selfHealth -= remainingDamage;
             if (selfHealth <= 0) {
-                AbstractEnemy[] es = InstantiateMultipleChildrenOnConditionsMet(Enemy.directChildren, projectile);
+                AbstractEnemy[] es = InstantiateChildrenOnConditionsMet(Enemy.directChildren, projectile);
                 ResetThis();
                 return PassOnDamageToChild(projectile, remainingDamage-1, es[0]) + 1;
             }

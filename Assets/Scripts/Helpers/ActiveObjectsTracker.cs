@@ -24,9 +24,6 @@ namespace Helpers
             _units = new List<AbstractUnit>();
             _camo = new List<AbstractEnemy>();
             _allEnemies = new List<AbstractEnemy>();
-            if (Instance != null && Instance != this) {
-                Debug.Log("Invalid Instance");
-            }
             if (Instance == null) {
                 Instance = this;
             }

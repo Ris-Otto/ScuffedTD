@@ -28,7 +28,7 @@ namespace Enemies
             }
             ResetThis();
             //Executive decision to not carry over damage to BossChildren
-            InstantiateMultipleChildrenOnConditionsMet(Enemy.directChildren, projectile);
+            InstantiateChildrenOnConditionsMet(Enemy.directChildren, projectile);
             return 1;
         }
         

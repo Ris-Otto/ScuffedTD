@@ -27,7 +27,7 @@ namespace Upgrades
             string toReturn;
             try {
                 toReturn = tree == 1 ? treeOneEnum.Key?.ToString() : treeTwoEnum.Key?.ToString();
-            } catch (System.InvalidOperationException){
+            } catch (InvalidOperationException){
                 toReturn = "Max Upgrades";
             }
             return toReturn;
@@ -42,12 +42,12 @@ namespace Upgrades
 
         public IUpgrade GetNextUpgrade(int tree) {
             IUpgrade toReturn;
-            if (tree == 1) {
+            if (tree == 1) 
                 toReturn = treeOneEnum.MoveNext() ? (IUpgrade)treeOneEnum.Value : null;
-            }
-            else {
+            
+            else 
                 toReturn = treeTwoEnum.MoveNext() ? (IUpgrade)treeTwoEnum.Value : null;
-            }
+            
             return toReturn;
         }
 
@@ -63,9 +63,8 @@ namespace Upgrades
                 }
             }
             catch (InvalidOperationException) {
-                return toReturn;
+                
             }
-            
             return toReturn;
         }
         

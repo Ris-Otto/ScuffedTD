@@ -5,7 +5,7 @@ using Upgrades;
 
 namespace Units
 {
-    public class GrandmaUnit : AbstractUnit
+    public class GrandmaUnit : AbstractHangar
     {
         
         #region fields
@@ -98,8 +98,6 @@ namespace Units
             get => _targetingStyle;
             set => _targetingStyle = value;
         }
-
-        public override bool IsHangar => true;
 
         protected override CreateRange Range => GetComponentInChildren<CreateRange>();
 

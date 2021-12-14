@@ -67,6 +67,7 @@
      <Compile Include="Assets\Scripts\Units\Guns\WoFGun.cs" />
      <Compile Include="Assets\Scripts\Helpers\IUpgrade.cs" />
      <Compile Include="Assets\Scripts\Enemies\RainbowBehaviour.cs" />
+     <Compile Include="Assets\Scripts\Units\AbstractHangar.cs" />
      <Compile Include="Assets\Scripts\Enemies\PopBehaviour.cs" />
      <Compile Include="Assets\Scripts\Helpers\GridThing.cs" />
      <Compile Include="Assets\Scripts\Projectiles\WallOfFlame.cs" />
@@ -136,6 +137,7 @@
      <Compile Include="Assets\Scripts\Enemies\AbstractEnemy.cs" />
      <Compile Include="Assets\Scripts\Helpers\StartToFastForward.cs" />
      <Compile Include="Assets\Scripts\Enemies\BlackBehaviour.cs" />
+     <Compile Include="Assets\Scripts\Helpers\IMouseUser.cs" />
      <Compile Include="Assets\ZSmartTile\Classes\ZST_MapManager.cs" />
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />

@@ -42,10 +42,6 @@ namespace Helpers
             upgradeCanvas.GetComponent<UIManager>().HideMenu();
         }
 
-        private void UpdateMoney() {
-            _moneyText.text = Money + " €";
-        }
-
         public void UpdateMoney(int addSubtract) {
             Money += addSubtract;
             _moneyText.text = Money + " €";

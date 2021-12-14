@@ -19,15 +19,11 @@ namespace Helpers
         private Text _firstTreeText;
         private Text _secondTreeText;
         public TextMeshProUGUI displayRound;
-        private Canvas shittoCanvas;
-        private char space;
+        
         private char newLine;
 
         private void Start() {
             newLine = char.Parse("\n");
-            space = char.Parse(" ");
-            shittoCanvas = GameObject.FindWithTag("Panel").GetComponent<Canvas>();
-            shittoCanvas.enabled = false;
             _activeObjects = ActiveObjectsTracker.Instance;
             _firstTreeText = firstTree.GetComponentInChildren<Text>();
             _secondTreeText = secondTree.GetComponentInChildren<Text>();
@@ -90,12 +86,12 @@ namespace Helpers
 
         public string GetText(Button button) {
             string toReturn = GetButton(button).GetComponentInChildren<Text>().text;
-            string[] splitted = toReturn.Split(newLine);
-            for (int i = 0; i < splitted.Length; i++) 
-                if (int.TryParse(splitted[i], out int toRemove))
-                    splitted[i] = "";
+            string[] split = toReturn.Split(newLine);
+            for (int i = 0; i < split.Length; i++) 
+                if (int.TryParse(split[i], out int toRemove))
+                    split[i] = "";
             
-            toReturn = splitted.Aggregate("", (current, s) => current + (s + " "));
+            toReturn = split.Aggregate("", (current, s) => current + (s + " "));
             toReturn = toReturn.Trim();
             return toReturn;
         }

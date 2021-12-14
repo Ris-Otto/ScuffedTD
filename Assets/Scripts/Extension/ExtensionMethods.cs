@@ -51,7 +51,7 @@ namespace Extension
         public static T[] GetInterfacesInChildren<T>(this GameObject gObj) {
             if (!typeof(T).IsInterface) throw new SystemException("Specified type is not an interface!");
 
-            var mObjs = gObj.GetComponentsInChildren<MonoBehaviour>();
+            MonoBehaviour[] mObjs = gObj.GetComponentsInChildren<MonoBehaviour>();
 
             return (from a in mObjs where a.GetType().GetInterfaces().Any(k => k == typeof(T)) select (T) (object) a)
                 .ToArray();

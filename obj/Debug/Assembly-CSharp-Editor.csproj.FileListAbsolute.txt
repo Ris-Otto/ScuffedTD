@@ -7,7 +7,6 @@ A:\UnityHub\UnityRepos\Repos\TDver1.1\Temp\Bin\Debug\mscorlib.dll
 A:\UnityHub\UnityRepos\Repos\TDver1.1\Temp\Bin\Debug\netstandard.dll
 A:\UnityHub\UnityRepos\Repos\TDver1.1\Temp\Bin\Debug\Newtonsoft.Json.dll
 A:\UnityHub\UnityRepos\Repos\TDver1.1\Temp\Bin\Debug\nunit.framework.dll
-A:\UnityHub\UnityRepos\Repos\TDver1.1\Temp\Bin\Debug\PackageManagerAssembly.dll
 A:\UnityHub\UnityRepos\Repos\TDver1.1\Temp\Bin\Debug\PsdPlugin.dll
 A:\UnityHub\UnityRepos\Repos\TDver1.1\Temp\Bin\Debug\System.AppContext.dll
 A:\UnityHub\UnityRepos\Repos\TDver1.1\Temp\Bin\Debug\System.Collections.Concurrent.dll

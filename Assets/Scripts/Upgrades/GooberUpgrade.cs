@@ -57,7 +57,7 @@ namespace Upgrades
                 = next.secondsPerAttackModifier * secondsPerAttackModifier;
             _damageType = next.damageType ?? _damageType;
             _projectileSpeed += next.projectileSpeed;
-            var gu = (GooberUpgrade) next;
+            GooberUpgrade gu = (GooberUpgrade) next;
             _shotCount += gu._shotCount;
         }
     

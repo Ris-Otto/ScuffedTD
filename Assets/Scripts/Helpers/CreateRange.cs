@@ -23,9 +23,8 @@ namespace Helpers
         }
         
         private void FixedUpdate() {
-            float tempradius = radius;
+            if (ConfigureRadius(parent.IsHangar).Equals(radius)) return;
             radius = ConfigureRadius(parent.IsHangar);
-            if (tempradius.Equals(radius)) return;
             ChangeRadius();
         }
         
@@ -51,8 +50,6 @@ namespace Helpers
         }
 
         private static float RadiusOfChild(Vector3 parentScale) {
-            //Don't think this is very fun for the processor but it's such a rarely called method WH OMEGALUL cares
-            //But basically this is needed, because I'm using a sprite to render range instead of a LineRenderer; can't be bothered with learning that shit
             if (parentScale.x >= 0.5f)
                 return parentScale.x / 3;
             return 1 + parentScale.x / 3;

@@ -10,9 +10,12 @@ namespace Helpers
         public Button startButton;
 
         public Button mainMenuButton;
+
+        private RoundManager _roundManager;
         //TODO move to UIManager
         
         private void Start() {
+            _roundManager = startButton.GetComponent<RoundManager>();
             mainMenu = GameObject.FindGameObjectWithTag("MainMenuCanvas").GetComponent<Canvas>();
             exitButton.onClick.AddListener(ExitGame);
             mainMenuButton.onClick.AddListener(GoToMain);
@@ -23,7 +26,7 @@ namespace Helpers
             if (Input.GetKeyDown(KeyCode.Escape)) 
                 ToggleCanvas();
             if (Input.GetKeyDown(KeyCode.Space)) 
-                startButton.GetComponent<RoundManager>().StartRound();
+                _roundManager.StartRound();
             
         }
         private void ToggleCanvas() {

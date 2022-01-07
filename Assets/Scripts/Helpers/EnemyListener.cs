@@ -8,7 +8,7 @@ namespace Helpers
         private Economics _economics;
 
         private void Awake() {
-            _economics = GameObject.FindGameObjectWithTag("EconomicsHandler").GetComponent<Economics>();
+            _economics = Economics.Instance;
         }
 
         public void Income(int killReward) {

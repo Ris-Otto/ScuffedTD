@@ -103,7 +103,7 @@ namespace Projectiles
                 // ReSharper disable once Unity.PreferNonAllocApi
                 Physics2D.OverlapCircleAll(transform.position, myCollider.radius, 1 << LayerMask.NameToLayer("Enemy"));
             foreach (Collider2D aCollider in cols) 
-                _listener.Income(aCollider.gameObject.GetComponent<AbstractEnemy>().DieOverload(this, damage));
+                _listener.Income(aCollider.gameObject.GetComponent<AbstractEnemy>().Die(this, damage));
             
             
         }
@@ -180,6 +180,11 @@ namespace Projectiles
         protected override Vector2 spawnedAt { get; set; }
         public override ScriptableDamageType DamageType => _damageType;
         protected override bool hasCollided { get; set; }
+
+        public override AbstractUnit Master {
+            get;
+            set;
+        }
 
         public override long ID => _ID;
 

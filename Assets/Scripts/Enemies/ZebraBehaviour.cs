@@ -13,13 +13,14 @@ namespace Enemies
         public Enemy enemy;
         private Vector3 _spawnOffset;
         private float _timeToSave;
+        private bool _isCamo;
 
         protected new void Awake() {
             base.Awake();
         }
 
         public override bool IsAppropriateDamageType(Projectile projectile) {
-            return projectile.DamageType.damageType.damageType != 3 && projectile.DamageType.damageType.damageType != 3; //TODO XD
+            return projectile.DamageType.damageType != DamageType.ICE && projectile.DamageType.damageType != DamageType.EXPLOSIVE; //TODO XD
         }
 
         /*protected override int ComputeOnHitBehaviour(Projectile projectile) {
@@ -66,7 +67,7 @@ namespace Enemies
             get => lastProjectile;
             set => lastProjectile = value;
         }
-        protected override ScriptableDamageType DamageType => enemy.damageType;
+        protected override ScriptableDamageType damageType => enemy.damageType;
 
         protected override float timeToSave {
             get => _timeToSave;

@@ -61,7 +61,7 @@ namespace Units.Guns
             set => _projectile = value;
         }
 
-        protected override bool UsesSecondary => true;
+        protected virtual bool UsesSecondary => true;
 
         protected override string Name => "Fireball";
 

@@ -515,6 +515,11 @@ PrefabInstance:
       propertyPath: m_RenderMode
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 626682866921513757, guid: 838844074ab56f34993ae7c8cc39ce8e,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4825301487443675574, guid: 838844074ab56f34993ae7c8cc39ce8e,
         type: 3}
       propertyPath: m_Layer
@@ -1003,7 +1008,7 @@ PrefabInstance:
     - target: {fileID: 4300868333555202129, guid: aca51377ce428c8448f3d7aceb2c95fe,
         type: 3}
       propertyPath: m_Volume
-      value: 0.145
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4300868333555202129, guid: aca51377ce428c8448f3d7aceb2c95fe,
         type: 3}
@@ -3612,7 +3617,8 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: 0.7071068
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 752752778, guid: a03838a9454d46d4d8eec4d9887f0e50, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: a03838a9454d46d4d8eec4d9887f0e50, type: 3}
 --- !u!1001 &6283717773106824560
 PrefabInstance:

@@ -13,13 +13,14 @@ namespace Enemies
         public Enemy enemy;
         private Vector3 _spawnOffset;
         private float _timeToSave;
+        private bool _isCamo;
 
         private new void Awake() {
             base.Awake();
         }
         
         public override bool IsAppropriateDamageType(Projectile projectile) {
-            bool toReturn = DamageType.CompareTo(projectile.DamageType) != 0;
+            bool toReturn = damageType.damageType != DamageType.MAGIC;
             if(!toReturn) projectile.ResetProjectileFromEnemy();
             return toReturn;
         }
@@ -45,7 +46,7 @@ namespace Enemies
 
 
         public override Enemy Enemy => enemy;
-        protected override ScriptableDamageType DamageType => enemy.damageType;
+        protected override ScriptableDamageType damageType => enemy.damageType;
 
         protected override float timeToSave {
             get => _timeToSave;

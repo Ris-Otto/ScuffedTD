@@ -34,7 +34,7 @@ namespace Units.Guns
             set => _time = value;
         }
 
-        protected override bool UsesSecondary => false;
+        protected virtual bool UsesSecondary => false;
         
         protected override IUpgrade Upgrade {
             get => _upgrade;

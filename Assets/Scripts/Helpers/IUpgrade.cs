@@ -2,7 +2,7 @@ namespace Helpers
 {
     public interface IUpgrade : IMoneyObject
     {
-        //Simply a container for Upgrade types. idk.
+        
         public string ToString();
         public void CumulateUpgrades(IUpgrade next);
 

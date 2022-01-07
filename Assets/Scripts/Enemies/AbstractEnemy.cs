@@ -21,6 +21,12 @@ namespace Enemies
         private void SendThisHasSpawnedToActiveObjectsTracker(ActiveObjectsTracker aot) {
             aot.OnEnemySpawn(this);
         }
+
+        public void SetCamo(ActiveObjectsTracker aot, bool camo) {
+            IsCamo = camo;
+            SendThisHasDiedToActiveObjectsTracker(aot);
+            SendThisHasSpawnedToActiveObjectsTracker(aot);
+        }
         
         #endregion
         
@@ -43,10 +49,6 @@ namespace Enemies
             if(HasReachedTarget(targetPos)) GetNextWaypoint();
             distanceTravelled += 0.01f*Enemy.speed;
             
-        }
-
-        private Vector2 GetDir() {
-            return Pathfinding.Waypoints[waypointIdx].position - transform.position;
         }
 
         private void SavePos(Vector3 pos) {
@@ -72,23 +74,23 @@ namespace Enemies
             return e.KillChild(projectile, remainingDamage);
         }
         
-        protected virtual int ComputeOnHitBehaviourOverload(Projectile projectile, int remainingDamage) {
+        protected virtual int ComputeOnHitBehaviour(Projectile projectile, int remainingDamage) {
             if (remainingDamage <= 0) return 0;
             if(remainingDamage >= Enemy.totalHealth) {
                 ResetThis();
                 return Enemy.totalHealth;
             }
-            AbstractEnemy[] es = InstantiateChildrenOnConditionsMet(Enemy.directChildren, projectile);
+            AbstractEnemy[] es = InstantiateChildren(Enemy.directChildren, projectile);
             ResetThis();
             return PassOnDamageToChild(projectile, remainingDamage-1, es[0]) + 1;
         }
 
-        public int DieOverload(Projectile projectile, int remainingDamage) {
-            return ProjectileHasAppropriateParameters(projectile) ? ComputeOnHitBehaviourOverload(projectile, remainingDamage) : 0;
+        public int Die(Projectile projectile, int remainingDamage) {
+            return ProjectileHasAppropriateParameters(projectile) ? ComputeOnHitBehaviour(projectile, remainingDamage) : 0;
         }
 
         private int KillChild(Projectile projectile, int remainingDamage) {
-            return IsAppropriateDamageType(projectile) ? ComputeOnHitBehaviourOverload(projectile, remainingDamage) : 0;
+            return IsAppropriateDamageType(projectile) ? ComputeOnHitBehaviour(projectile, remainingDamage) : 0;
         }
 
         private bool CantBePoppedByProjectile(Projectile projectile) {
@@ -98,7 +100,11 @@ namespace Enemies
         }
 
         public virtual bool IsAppropriateDamageType(Projectile projectile) {
-            bool toReturn = DamageType.CompareTo(projectile.DamageType) <= 0;
+            if (IsCamo && !projectile.Master.CanAccessCamo) {
+                projectile.pierce++;
+                return false;
+            }
+            bool toReturn = damageType.CompareTo(projectile.DamageType) <= 0;
             if(!toReturn) projectile.ResetProjectileFromEnemy();
             return toReturn;
         }
@@ -116,16 +122,15 @@ namespace Enemies
             Destroy(o, 0.1f);
         }
 
-        private AbstractEnemy InstantiateChildOnConditionsMet(GameObject childObject, Projectile projectile, bool hasOffset,
-            float offsetMagnitude) {
+        private AbstractEnemy InstantiateChild(GameObject childObject, Projectile projectile, bool hasOffset) {
             if (childObject.Equals(null)) return null;
             Vector3 offset = transform.position;
             if (hasOffset && savedPos != Vector3.zero) offset = savedPos;
-            AbstractEnemy e = InstantiateChildOverload(childObject, projectile, offset);
+            AbstractEnemy e = InstantiateChild(childObject, projectile, offset);
             return e;
         }
         
-        private AbstractEnemy InstantiateChildOverload(GameObject childObject, Projectile projectile, Vector3 spawnPos) {
+        private AbstractEnemy InstantiateChild(GameObject childObject, Projectile projectile, Vector3 spawnPos) {
             AbstractEnemy e = Instantiate
                 (childObject, spawnPos, Quaternion.identity).GetComponent<AbstractEnemy>();
             e.LastProjectile = projectile;
@@ -134,10 +139,10 @@ namespace Enemies
             return e;
         }
 
-        protected AbstractEnemy[] InstantiateChildrenOnConditionsMet(GameObject[] childObjects, Projectile projectile) {
+        protected AbstractEnemy[] InstantiateChildren(GameObject[] childObjects, Projectile projectile) {
             AbstractEnemy[] es = new AbstractEnemy[childObjects.Length];
             for (int i = 0; i < childObjects.Length; i++) 
-                es[i] = InstantiateChildOnConditionsMet(childObjects[i], projectile, i != 0, 1f);
+                es[i] = InstantiateChild(childObjects[i], projectile, i != 0);
             return es;
         }
 
@@ -168,7 +173,7 @@ namespace Enemies
             set;
         }
 
-        protected abstract ScriptableDamageType DamageType {
+        protected abstract ScriptableDamageType damageType {
             get;
         }
 
@@ -178,6 +183,11 @@ namespace Enemies
         }
 
         protected abstract Vector3 savedPos {
+            get;
+            set;
+        }
+
+        public virtual bool IsCamo {
             get;
             set;
         }

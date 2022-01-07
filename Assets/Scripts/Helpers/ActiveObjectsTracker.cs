@@ -36,8 +36,15 @@ namespace Helpers
         }
 
         public void OnEnemySpawn(AbstractEnemy e) {
-            _hasAdded = true;
-            _enemies.Add(e);
+            if (!e.IsCamo) {
+                _hasAdded = true;
+                _enemies.Add(e);
+                _allEnemies.Add(e);
+            }
+            else {
+                _allEnemies.Add(e);
+            }
+            
         }
     
         public void OnUnitSpawn(AbstractUnit u) {
@@ -49,7 +56,9 @@ namespace Helpers
         }
 
         public void RemoveEnemy(AbstractEnemy e) {
-            _enemies.Remove(e);
+            if(_enemies.Contains(e))
+                _enemies.Remove(e);
+            _allEnemies.Add(e);
         }
 
         public void RemoveUnit(AbstractUnit u) {

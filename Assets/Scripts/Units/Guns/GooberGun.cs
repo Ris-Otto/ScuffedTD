@@ -24,8 +24,9 @@ namespace Units.Guns
             GooberUpgrade up = (GooberUpgrade) _upgrade;
             for (int i = 0; i < up.shotCount; i++) {
                 GameObject p = Pooler.SpawnFromPool(Name, transform.position, Quaternion.identity);
-                var position = ConfigureProjectile<T>(p, out var direction, out var tp);
+                Vector3 position = ConfigureProjectile<T>(p, out Vector2 direction, out Projectile tp);
                 if(i != 0) direction = RotateVector(direction, i % 2 == 0 ,SHOT_ROTATION);
+                tp.Master = _parentGoober;
                 tp.SendParams(Upgrade, _listener);
                 tp.SeekTarget(Target, direction , position);
             }
@@ -72,7 +73,7 @@ namespace Units.Guns
             set => _parentGoober = (GooberUnit)value;
         }
         
-        protected override bool UsesSecondary => false;
+        protected virtual bool UsesSecondary => false;
 
         protected override EnemyListener Listener {
             get => _listener;

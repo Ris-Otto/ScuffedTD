@@ -12,6 +12,15 @@ namespace Units
 {
     public abstract class AbstractUnit : MonoBehaviour, IMoneyObject, ISelectable, IPlaceable, IMouseUser
     {
+        protected bool _canAccessCamo;
+        private bool _isSelected;
+        protected bool _placed;
+        protected GameObject _target;
+        protected int _targetingStyle;
+        protected Animation _anim;
+        protected int _price;
+        protected UIManager _uiManager;
+
         protected virtual void Awake() {
             InvokeRepeating(nameof(BeforePlaceUnit), 0f, Time.deltaTime);
             uiManager = GameObject.Find("GooberCanvas").GetComponent<UIManager>();
@@ -35,13 +44,14 @@ namespace Units
         public virtual void MakeUpgrade(IUpgrade upgrade) {
             currentUpgrade.CumulateUpgrades(upgrade);
             price += upgrade.price;
+            CanAccessCamo = upgrade.hasAccessToCamo;
         }
 
         #region Targeting
 
         public GameObject TargetEnemy(int style = 0) {
             target = null;
-            AbstractEnemy[] eb = et.NonCamo;
+            AbstractEnemy[] eb = CanAccessCamo ? et.AllEnemies : et.NonCamo;
 
             switch (style) {
                 default:
@@ -84,6 +94,7 @@ namespace Units
 
         private float GetTargetUsingCorrespondingTargetingStyle(AbstractEnemy t, float style, 
             float toCompare, int expected) {
+            if (t.Equals(null)) return style;
             if (style.CompareTo(toCompare) != expected || 
                 !(Vector3.Distance(t.transform.position, transform.position) < currentUpgrade.range)) return toCompare;
             target = t.gameObject;
@@ -100,6 +111,7 @@ namespace Units
         
         #endregion
     
+        #region everything
         public virtual void BeforePlaceUnit() {
             if (placed) {
                 transform.position = cam.ScreenToWorldPoint(GetMousePos(5f));
@@ -188,7 +200,7 @@ namespace Units
         public int GetSellValue() {
             return sell;
         }
-    
+        #endregion
         
         
         #region getset
@@ -205,14 +217,15 @@ namespace Units
         public abstract Animation Anim {
             get;
         }
-        
-        public abstract bool isSelected {
-            get;
-            protected set;
+
+        public bool isSelected {
+            get => _isSelected;
+            protected set => _isSelected = value;
         }
+
         public abstract AbstractUpgradeContainer abstractUpgradeContainer {
             get;
-            set;
+            protected set;
         }
 
         public abstract bool placed {
@@ -227,7 +240,7 @@ namespace Units
             set;
         }
 
-        protected virtual int finalMask => 1 << 8 | 1 << 9;
+        private static int finalMask => 1 << 8 | 1 << 9;
 
         protected abstract int sell {
             get;
@@ -260,6 +273,11 @@ namespace Units
         public virtual bool IsHangar => false;
 
         protected abstract CreateRange Range { get; }
+
+        public virtual bool CanAccessCamo {
+            get => _canAccessCamo;
+            protected set => _canAccessCamo = value;
+        }
 
         #endregion
         

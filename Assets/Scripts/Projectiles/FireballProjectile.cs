@@ -26,6 +26,7 @@ namespace Projectiles
         private float _shotRotation;
         public GameObject explosion;
         private long _ID;
+        private AbstractUnit _master;
         #endregion
 
         private void Awake() {
@@ -90,7 +91,7 @@ namespace Projectiles
             Collider2D[] cols =
                 Physics2D.OverlapCircleAll(target.transform.position, 1, LayerMask.GetMask("Enemy"));
             foreach (Collider2D aCollider in cols) {
-                _listener.Income(aCollider.gameObject.GetComponent<AbstractEnemy>().DieOverload(this, damage));
+                _listener.Income(aCollider.gameObject.GetComponent<AbstractEnemy>().Die(this, damage));
             }
         }
         
@@ -98,7 +99,7 @@ namespace Projectiles
             Collider2D[] cols =
                 Physics2D.OverlapCircleAll(pos, 1, LayerMask.GetMask("Enemy"));
             foreach (Collider2D aCollider in cols) {
-                _listener.Income(aCollider.gameObject.GetComponent<AbstractEnemy>().DieOverload(this, damage));
+                _listener.Income(aCollider.gameObject.GetComponent<AbstractEnemy>().Die(this, damage));
             }
         }
         
@@ -111,6 +112,11 @@ namespace Projectiles
         protected override GameObject target {
             get => _target;
             set => _target = value;
+        }
+        
+        public override AbstractUnit Master {
+            get;
+            set;
         }
 
         protected override Vector2 dir {

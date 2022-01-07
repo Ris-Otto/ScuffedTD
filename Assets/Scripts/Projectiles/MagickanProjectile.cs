@@ -1,6 +1,7 @@
 using System;
 using Enemies;
 using Helpers;
+using Units;
 using UnityEngine;
 using Upgrades;
 using Random = UnityEngine.Random;
@@ -21,6 +22,7 @@ namespace Projectiles
         private bool _hasCollided;
         public ScriptableDamageType _damageType;
         private long _ID;
+        private AbstractUnit _master;
         #endregion
 
         private void Awake() {
@@ -53,7 +55,7 @@ namespace Projectiles
             }
             else {
                 try {
-                    _listener.Income(col.gameObject.GetComponent<AbstractEnemy>().DieOverload(this, damage));
+                    _listener.Income(col.gameObject.GetComponent<AbstractEnemy>().Die(this, damage));
                     _hasCollided = true;
                     pierce--;
                 }
@@ -89,6 +91,11 @@ namespace Projectiles
         protected override GameObject target {
             get => _target;
             set => _target = value;
+        }
+        
+        public override AbstractUnit Master {
+            get;
+            set;
         }
 
         protected override Vector2 dir {

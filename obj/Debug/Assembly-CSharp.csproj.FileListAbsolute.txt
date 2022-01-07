@@ -337,3 +337,6 @@ A:\UnityHub\UnityRepos\Repos\TDver1.1\obj\Debug\Assembly-CSharp.csprojAssemblyRe
 A:\UnityHub\UnityRepos\Repos\TDver1.1\obj\Debug\Assembly-CSharp.csproj.CopyComplete
 A:\UnityHub\UnityRepos\Repos\TDver1.1\obj\Debug\Assembly-CSharp.dll
 A:\UnityHub\UnityRepos\Repos\TDver1.1\obj\Debug\Assembly-CSharp.pdb
+A:\UnityHub\UnityRepos\Repos\TDver1.1\Temp\Bin\Debug\nunit.framework.dll
+A:\UnityHub\UnityRepos\Repos\TDver1.1\Temp\Bin\Debug\unityplastic.dll
+A:\UnityHub\UnityRepos\Repos\TDver1.1\Temp\Bin\Debug\Unity.Plastic.Antlr3.Runtime.dll

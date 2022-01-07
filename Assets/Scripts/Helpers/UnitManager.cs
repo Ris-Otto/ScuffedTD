@@ -57,22 +57,6 @@ namespace Helpers
         }
 
         public AbstractUnit Execute() {
-            //Borde i princip adda ti nån shitty list/stack haista paska juttu
-            //men man kan oberoende int undo mer än ett inköp åt gången å sen kan de int undoas så w/e fuck you h8rz get off my case 
-            /*
-                          /´¯/) 
-                        /¯../ 
-                      /..../ 
-                 /´¯/'...'/´¯¯`·¸ 
-             /'/.../..../......./¨¯\ 
-            ('(...´...´.... ¯~/'...') 
-             \.................'...../ 
-              ''...\.......... _.·´ 
-                \..............( 
-                 \.............\
-             */
-            
-            //Dehä e btw helt vitun onödit ja behöver ba en Undo() metod men helt samma kolla ett par rader uppåt ba. bitch.
             return SpawnUnit();
         }
 
@@ -85,7 +69,6 @@ namespace Helpers
         private static bool IsPointerOverUIFunc() => !EventSystem.current.IsPointerOverGameObject();
         
         public void Undo() {
-            //idk maby dogshit sluta läsa koden
             AbstractUnit u = currentObject.GetComponent<AbstractUnit>();
             if (u.placed) {
                 currentObject = null;

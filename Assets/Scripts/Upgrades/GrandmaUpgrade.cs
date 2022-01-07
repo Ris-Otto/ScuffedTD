@@ -23,13 +23,15 @@ namespace Upgrades
         private bool _hasAccessToCamo;
 
         public GrandmaUpgrade(string upgradeName, int damage, int pierce, float range, float secondsPerAttackModifier,
-            int price, float projectileSpeed, int shotCount) {
+            int price, float projectileSpeed, int shotCount, bool hasAccessToCamo = false, DamageType damageType = DamageType.FIRE) {
             _pierce = pierce;
             _upgradeName = upgradeName;
             _damage = damage;
             _range = range;
+            _damageType = damageType;
             _secondsPerAttackModifier = secondsPerAttackModifier;
             _projectileSpeed = projectileSpeed;
+            _hasAccessToCamo = hasAccessToCamo;
             _price = price;
             _shotCount = shotCount;
         }
@@ -42,10 +44,14 @@ namespace Upgrades
             
         }
 
-        public GrandmaUpgrade(string upgradeName, int damage, int price, int gun, float secondsPerAttackModifier) {
+        public GrandmaUpgrade(string upgradeName, int damage, int price, int gun, float secondsPerAttackModifier, 
+            bool hasAccessToCamo = false,
+            DamageType damageType = DamageType.FIRE) {
             _upgradeName = upgradeName;
             _damage = damage;
+            _damageType = damageType;
             _price = price;
+            _hasAccessToCamo = hasAccessToCamo;
             _gun = gun;
         }
 
@@ -55,7 +61,7 @@ namespace Upgrades
             _range += next.range != 0 ? next.range : 0;
             _secondsPerAttackModifier 
                 = next.secondsPerAttackModifier != 0 ? next.secondsPerAttackModifier : 1 * (secondsPerAttackModifier);
-            _damageType = next.damageType ?? _damageType;
+            _damageType = next.damageType;
             _projectileSpeed += next.projectileSpeed != 0 ? next.projectileSpeed : 0;
             GrandmaUpgrade gu = (GrandmaUpgrade) next;
             _gun = gu._gun != 0 ? gu._gun : _gun;

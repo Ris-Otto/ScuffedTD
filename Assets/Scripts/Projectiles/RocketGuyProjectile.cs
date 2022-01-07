@@ -1,5 +1,6 @@
 using Enemies;
 using Helpers;
+using Units;
 using UnityEngine;
 using Upgrades;
 // ReSharper disable ConvertToAutoProperty
@@ -25,6 +26,7 @@ namespace Projectiles
         public ScriptableDamageType _damageType;
         private int _maxPop;
         private long _ID;
+        private AbstractUnit _master;
         #endregion
     
         private void Awake() {
@@ -55,11 +57,11 @@ namespace Projectiles
                 Physics2D.OverlapCircleAll(target.transform.position, _explosionRadius, 1 << LayerMask.NameToLayer("Enemy"));
             if(cols.Length > _maxPop)
                 for (int i = 0; i < _maxPop; i++) {
-                    _listener.Income(cols[i].gameObject.GetComponent<AbstractEnemy>().DieOverload(this, damage));
+                    _listener.Income(cols[i].gameObject.GetComponent<AbstractEnemy>().Die(this, damage));
                 }
             else {
                 foreach (Collider2D aCollider in cols) {
-                    _listener.Income(aCollider.gameObject.GetComponent<AbstractEnemy>().DieOverload(this, damage));
+                    _listener.Income(aCollider.gameObject.GetComponent<AbstractEnemy>().Die(this, damage));
                 }
             }
         }
@@ -92,6 +94,11 @@ namespace Projectiles
         protected override GameObject target {
             get => _target;
             set => _target = value;
+        }
+        
+        public override AbstractUnit Master {
+            get;
+            set;
         }
 
         protected override Vector2 dir {

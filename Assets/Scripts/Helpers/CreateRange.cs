@@ -50,6 +50,7 @@ namespace Helpers
         }
 
         private static float RadiusOfChild(Vector3 parentScale) {
+            //Magic number O_o
             if (parentScale.x >= 0.5f)
                 return parentScale.x / 3;
             return 1 + parentScale.x / 3;

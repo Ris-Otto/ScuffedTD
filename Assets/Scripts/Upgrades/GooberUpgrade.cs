@@ -19,7 +19,7 @@ namespace Upgrades
         
     
         public GooberUpgrade(string upgradeName, int damage, int pierce, float range, float secondsPerAttackModifier,
-            int price, float projectileSpeed, int shotCount) {
+            int price, float projectileSpeed, int shotCount, DamageType damageType = DamageType.SHARP) {
             _upgradeName = upgradeName;
             _damage = damage;
             _pierce = pierce;
@@ -28,10 +28,11 @@ namespace Upgrades
             _projectileSpeed = projectileSpeed;
             _price = price;
             _shotCount = shotCount;
+            _damageType = damageType;
         }
         
         public GooberUpgrade(string upgradeName, int damage, int pierce, float range, float secondsPerAttackModifier,
-            int price, float projectileSpeed, int shotCount, bool camoAccess) {
+            int price, float projectileSpeed, int shotCount, bool camoAccess, DamageType damageType = DamageType.SHARP) {
             _hasAccessToCamo = camoAccess;
             _upgradeName = upgradeName;
             _damage = damage;
@@ -41,6 +42,7 @@ namespace Upgrades
             _projectileSpeed = projectileSpeed;
             _price = price;
             _shotCount = shotCount;
+            _damageType = damageType;
         }
 
         public GooberUpgrade() {
@@ -55,7 +57,7 @@ namespace Upgrades
             _range += next.range;
             _secondsPerAttackModifier 
                 = next.secondsPerAttackModifier * secondsPerAttackModifier;
-            _damageType = next.damageType ?? _damageType;
+            _damageType = next.damageType;
             _projectileSpeed += next.projectileSpeed;
             GooberUpgrade gu = (GooberUpgrade) next;
             _shotCount += gu._shotCount;

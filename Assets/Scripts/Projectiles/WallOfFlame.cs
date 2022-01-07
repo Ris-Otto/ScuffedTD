@@ -1,6 +1,7 @@
 using System;
 using Enemies;
 using Helpers;
+using Units;
 using UnityEngine;
 using Upgrades;
 using Random = UnityEngine.Random;
@@ -23,6 +24,7 @@ namespace Projectiles
         private long _ID;
         private float _timeToLive;
         private float _time;
+        private AbstractUnit _master;
         #endregion
 
         protected override void ComputeMovement() {
@@ -62,7 +64,7 @@ namespace Projectiles
         }
         
         protected override void Hit(Collider2D col) {
-            _listener.Income(col.gameObject.GetComponent<AbstractEnemy>().DieOverload(this, damage));
+            _listener.Income(col.gameObject.GetComponent<AbstractEnemy>().Die(this, damage));
         }
 
         
@@ -82,6 +84,11 @@ namespace Projectiles
         protected override GameObject target {
             get => _target;
             set => _target = value;
+        }
+        
+        public override AbstractUnit Master {
+            get;
+            set;
         }
 
         protected override Vector2 dir {

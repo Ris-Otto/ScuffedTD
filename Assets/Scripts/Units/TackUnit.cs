@@ -9,20 +9,12 @@ namespace Units
     {
         
         #region fields
-        private GameObject _target;
         [SerializeField]
         private GameObject _projectile;
-        private bool _isSelected;
-        private AbstractUpgradeContainer _abstractUpgradeContainer;
-        private bool _placed;
-        private int _price = 350;
-        private UIManager _uiManager;
+        protected AbstractUpgradeContainer _abstractUpgradeContainer;
         private TackUpgrade _currentUpgrade;
-        private const float BASE_ATTACK_SPEED = 1.25f;
         [HideInInspector]
         public float _rotationAmount;
-        private int _targetingStyle;
-        private Animation _anim;
         #endregion
         
         protected override void Awake() {
@@ -65,13 +57,10 @@ namespace Units
             set => _target = value;
         }
         
-        public override bool isSelected {
-            get => _isSelected;
-            protected set => _isSelected = value;
-        }
+        
         public override AbstractUpgradeContainer abstractUpgradeContainer {
             get => _abstractUpgradeContainer;
-            set => _abstractUpgradeContainer = value;
+            protected set => _abstractUpgradeContainer = value;
         }
 
         public override bool placed {
@@ -98,7 +87,7 @@ namespace Units
             set => _currentUpgrade = (TackUpgrade)value;
         }
 
-        public override float baseAttackSpeed => BASE_ATTACK_SPEED;
+        public override float baseAttackSpeed => 1.25f;
 
         public override int targetingStyle {
             get => _targetingStyle;

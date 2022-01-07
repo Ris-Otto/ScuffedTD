@@ -1,5 +1,6 @@
 ﻿using Enemies;
 using Helpers;
+using Units;
 using UnityEngine;
 
 namespace Projectiles
@@ -20,10 +21,6 @@ namespace Projectiles
                 ResetThis();
         }
 
-        protected void CalculateProjectilePropertiesOnNonNormalReturnValue(int dieValue) {
-
-        }
-
         public virtual void ComputeMovementFromOther() {
             
         }
@@ -33,7 +30,7 @@ namespace Projectiles
         }
         
         protected bool IsTargetActive() {
-            return target != null;
+            return target != null && target.activeSelf;
         }
 
         protected virtual void Hit(Collider2D col) {
@@ -41,7 +38,7 @@ namespace Projectiles
                 ResetThis();
             }
             else {
-                Listener.Income(col.gameObject.GetComponent<AbstractEnemy>().DieOverload(this, damage));
+                Listener.Income(col.gameObject.GetComponent<AbstractEnemy>().Die(this, damage));
                 hasCollided = true;
                 pierce--;
             }
@@ -61,6 +58,11 @@ namespace Projectiles
         }
 
         protected abstract GameObject target {
+            get;
+            set;
+        }
+
+        public abstract AbstractUnit Master {
             get;
             set;
         }

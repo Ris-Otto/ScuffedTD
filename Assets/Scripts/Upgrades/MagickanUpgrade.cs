@@ -24,7 +24,7 @@ namespace Upgrades
         }
         
         public MagickanUpgrade(string upgradeName, int damage, int pierce, float range, float secondsPerAttackModifier,
-            int price, float projectileSpeed, [NotNull] DamageType damageType, int shotCount) {
+            int price, float projectileSpeed, DamageType damageType, int shotCount) {
             _upgradeName = upgradeName;
             _damage = damage;
             _pierce = pierce;
@@ -33,7 +33,7 @@ namespace Upgrades
             _projectileSpeed = projectileSpeed;
             _price = price;
             _shotCount = shotCount;
-            _damageType = damageType ?? throw new ArgumentNullException(nameof(damageType), "DamageType can't be null");
+            _damageType = damageType;
         }
         
         public MagickanUpgrade(string upgradeName, int damage, int pierce, float range, float secondsPerAttackModifier,
@@ -68,7 +68,7 @@ namespace Upgrades
             _pierce += next.pierce;
             _range += next.range; 
             _secondsPerAttackModifier = next.secondsPerAttackModifier * secondsPerAttackModifier;
-            _damageType = next.damageType ?? _damageType;
+            _damageType = next.damageType;
             _projectileSpeed += next.projectileSpeed;
             MagickanUpgrade gu = (MagickanUpgrade) next;
             _shotCount += gu._shotCount;

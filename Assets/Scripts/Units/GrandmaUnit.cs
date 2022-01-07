@@ -11,15 +11,9 @@ namespace Units
         #region fields
         [SerializeField]
         private GameObject projectileUnit;
-        private AbstractUpgradeContainer _abstractUpgradeContainer;
-        private bool _placed;
-        private bool _isSelected;
         private EnemyListener _listener;
-        private int _price;
-        private UIManager _uiManager;
         private GrandmaUpgrade _currentUpgrade;
-        private const float BASE_ATTACK_SPEED = 1f;
-        private int _targetingStyle;
+        private AbstractUpgradeContainer _abstractUpgradeContainer;
         #endregion
         
         protected override void Awake() {
@@ -31,11 +25,13 @@ namespace Units
         private void MakeChild() {
             projectileUnit = Instantiate(projectileUnit, gameObject.transform);
             projectileUnit.GetComponent<GrandmaProjectile>().SendParams(_currentUpgrade, _listener);
+            projectileUnit.GetComponent<GrandmaProjectile>().Master = this;
         }
 
         public override void MakeUpgrade(IUpgrade upgrade) {
             currentUpgrade.CumulateUpgrades(upgrade);
             price += upgrade.price;
+            CanAccessCamo = upgrade.hasAccessToCamo;
             projectileUnit.GetComponent<GrandmaProjectile>().SendParams(_currentUpgrade, _listener);
         }
 
@@ -57,13 +53,10 @@ namespace Units
             set;
         }
 
-        public override bool isSelected {
-            get => _isSelected;
-            protected set => _isSelected = value;
-        }
+        
         public override AbstractUpgradeContainer abstractUpgradeContainer {
             get => _abstractUpgradeContainer;
-            set => _abstractUpgradeContainer = value;
+            protected set => _abstractUpgradeContainer = value;
         }
 
         public override Animation Anim {
@@ -91,7 +84,7 @@ namespace Units
             set => _currentUpgrade = (GrandmaUpgrade)value;
         }
 
-        public override float baseAttackSpeed => BASE_ATTACK_SPEED;
+        public override float baseAttackSpeed => 1f;
 
 
         public override int targetingStyle {

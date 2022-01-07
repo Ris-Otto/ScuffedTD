@@ -24,7 +24,8 @@ namespace Enemies
             _spriteRenderer = GetComponent<SpriteRenderer>();
         }
 
-        protected override int ComputeOnHitBehaviourOverload(Projectile projectile, int remainingDamage) {
+        protected override int ComputeOnHitBehaviour(Projectile projectile, int remainingDamage) {
+            if (IsCamo && !projectile.Master.CanAccessCamo) return 0;
             if (remainingDamage <= 0) return 0;
             if(remainingDamage >= Enemy.totalHealth) {
                 ResetThis();
@@ -32,7 +33,7 @@ namespace Enemies
             }
             selfHealth -= remainingDamage;
             if (selfHealth <= 0) {
-                AbstractEnemy[] es = InstantiateChildrenOnConditionsMet(Enemy.directChildren, projectile);
+                AbstractEnemy[] es = InstantiateChildren(Enemy.directChildren, projectile);
                 ResetThis();
                 return PassOnDamageToChild(projectile, remainingDamage-1, es[0]) + 1;
             }
@@ -62,7 +63,7 @@ namespace Enemies
             get => lastProjectile;
             set => lastProjectile = value;
         }
-        protected override ScriptableDamageType DamageType => enemy.damageType;
+        protected override ScriptableDamageType damageType => enemy.damageType;
 
         protected override float timeToSave {
             get => _timeToSave;

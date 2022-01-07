@@ -9,6 +9,6 @@ namespace Units
     {
         public AbstractUpgradeContainer UpgradeContainer;
         public UIManager UIManager;
-        public float BaseAttackSpeed;
+        public int price;
     }
 }

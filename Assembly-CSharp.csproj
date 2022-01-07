@@ -60,7 +60,6 @@
      <Compile Include="Assets\Scripts\Units\Guns\TackGun.cs" />
      <Compile Include="Assets\Scripts\Helpers\UIManager.cs" />
      <Compile Include="Assets\Scripts\Units\TackUnit.cs" />
-     <Compile Include="Assets\Scripts\Helpers\ButtonManager.cs" />
      <Compile Include="Assets\Scripts\Upgrades\TackUpgradeContainer.cs" />
      <Compile Include="Assets\Scripts\Units\MagickanUnit.cs" />
      <Compile Include="Assets\Scripts\Upgrades\RocketUpgradeContainer.cs" />
@@ -85,7 +84,6 @@
      <Compile Include="Assets\Scripts\Projectiles\Projectile.cs" />
      <Compile Include="Assets\Scripts\Enemies\CeramicBehaviour.cs" />
      <Compile Include="Assets\Scripts\Enemies\EnemyBehaviour.cs" />
-     <Compile Include="Assets\Scripts\Helpers\EventSender.cs" />
      <Compile Include="Assets\Scripts\Helpers\CreateRange.cs" />
      <Compile Include="Assets\Scripts\Upgrades\MagickanUpgrade.cs" />
      <Compile Include="Assets\Scripts\Units\Footprint.cs" />
@@ -126,7 +124,6 @@
      <Compile Include="Assets\Scripts\Projectiles\Explosion.cs" />
      <Compile Include="Assets\Scripts\Helpers\ISelectable.cs" />
      <Compile Include="Assets\Scripts\Projectiles\GrandmaProjectile.cs" />
-     <Compile Include="Assets\Scripts\Helpers\UnitPathfinding.cs" />
      <Compile Include="Assets\Scripts\Helpers\RoundInformation.cs" />
      <Compile Include="Assets\Scripts\Enemies\Enemy.cs" />
      <Compile Include="Assets\Scripts\Helpers\UpgradeManager.cs" />
@@ -135,7 +132,6 @@
      <Compile Include="Assets\Scripts\Enemies\WhiteBehaviour.cs" />
      <Compile Include="Assets\Scripts\Units\RocketGuyUnit.cs" />
      <Compile Include="Assets\Scripts\Enemies\AbstractEnemy.cs" />
-     <Compile Include="Assets\Scripts\Helpers\StartToFastForward.cs" />
      <Compile Include="Assets\Scripts\Enemies\BlackBehaviour.cs" />
      <Compile Include="Assets\Scripts\Helpers\IMouseUser.cs" />
      <Compile Include="Assets\ZSmartTile\Classes\ZST_MapManager.cs" />

@@ -1,4 +1,5 @@
 using Helpers;
+using Units;
 using UnityEngine;
 using Upgrades;
 
@@ -12,6 +13,7 @@ namespace Projectiles
         private int _damage;
         private float _range;
         private long _ID;
+        private AbstractUnit _master;
 
         public override void SendParams(IUpgrade upgrade, EnemyListener listener) {
             _listener = listener;
@@ -33,6 +35,11 @@ namespace Projectiles
 
         protected override float projectileSpeed { get; set; }
         protected override GameObject target { get; set; }
+        
+        public override AbstractUnit Master {
+            get;
+            set;
+        }
         protected override Vector2 dir { get; set; }
 
         public override int damage {

@@ -32,7 +32,6 @@ namespace Units.Guns
         }
 
         protected void ConfigureTransform(GameObject p) {
-            //Apparently it's inefficient to call a GameObjects Transform component repeatedly. Sorta don't care cuz I'm cool but oh well.
             Transform transform1 = transform;
             transform1.parent = p.transform;
             transform1.position = p.transform.position;
@@ -73,6 +72,7 @@ namespace Units.Guns
         protected virtual Vector3 ConfigureProjectile<T>(GameObject p, out Vector2 direction, out Projectile projectile) where T : Projectile {
             Vector3 position = ConfigureProjectileTransform(out direction);
             projectile = p.GetComponent<T>();
+            projectile.Master = ParentUnit;
             return position;
         }
 
@@ -82,7 +82,7 @@ namespace Units.Guns
         }
         
         protected abstract float Time { get; set; }
-        
+
         protected abstract float AttackSpeed { get; }
 
         protected abstract GameObject Target { get; set; }
@@ -92,9 +92,7 @@ namespace Units.Guns
         protected abstract GameObject Parent { get; set; }
         
         protected abstract IUpgrade Upgrade { get; set; }
-        
-        protected abstract bool UsesSecondary { get; }
-        
+
         protected abstract EnemyListener Listener { get; set; }
         
         protected abstract ProjectilePooler Pooler { get; set; }

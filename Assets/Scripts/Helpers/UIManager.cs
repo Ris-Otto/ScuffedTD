@@ -1,6 +1,7 @@
 using System.Linq;
 using TMPro;
 using Units;
+using Units.Guns;
 using UnityEngine;
 using UnityEngine.UI;
 using Upgrades;
@@ -41,7 +42,7 @@ namespace Helpers
                 "Pierce: " + unit.currentUpgrade.pierce + "\n" +
                 "P.Speed: " + unit.currentUpgrade.projectileSpeed + "\n" +
                 "Range: " + unit.currentUpgrade.range + "\n" +
-                "Atk/s: " + 1/(unit.currentUpgrade.secondsPerAttackModifier*unit.baseAttackSpeed) + "\n" +
+                "Atk/s: " + /*1/unit.GetComponent<Gun>().AttackSpeed + */"\n" +
                 "Value: " + unit.GetSellValue();
             //usch helvete
             _firstTreeText.text = container.GetUpgrade(1) == null

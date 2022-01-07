@@ -27,8 +27,15 @@ namespace DataStructures
     {
         
         private readonly List<Wave> _wavesList;
+        private readonly int camoWave;
 
         public Round(IEnumerable<Wave> listOfWaves) {
+            _wavesList = new List<Wave>();
+            _wavesList.AddRange(listOfWaves);
+        }
+        
+        public Round(IEnumerable<Wave> listOfWaves, int camoWave) {
+            this.camoWave = camoWave;
             _wavesList = new List<Wave>();
             _wavesList.AddRange(listOfWaves);
         }

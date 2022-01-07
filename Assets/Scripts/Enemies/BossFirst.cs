@@ -21,14 +21,14 @@ namespace Enemies
             selfHealth = Enemy.selfHealth;
         }
 
-        protected override int ComputeOnHitBehaviourOverload(Projectile projectile, int remainingDamage) {
+        protected override int ComputeOnHitBehaviour(Projectile projectile, int remainingDamage) {
             if (selfHealth > 0) {
                 selfHealth -= remainingDamage;
                 return 0;
             }
             ResetThis();
             //Executive decision to not carry over damage to BossChildren
-            InstantiateChildrenOnConditionsMet(Enemy.directChildren, projectile);
+            InstantiateChildren(Enemy.directChildren, projectile);
             return 1;
         }
         
@@ -52,7 +52,7 @@ namespace Enemies
         }
         
         public override Enemy Enemy => enemy;
-        protected override ScriptableDamageType DamageType => enemy.damageType;
+        protected override ScriptableDamageType damageType => enemy.damageType;
 
         protected override float timeToSave {
             get => _timeToSave;

@@ -32,7 +32,7 @@ namespace Upgrades
         }
 
         public TackUpgrade(string upgradeName, int damage, int pierce, float range, float secondsPerAttackModifier,
-            int price, float projectileSpeed, int attackType, int shotCount, [NotNull] DamageType damageType) {
+            int price, float projectileSpeed, int attackType, int shotCount, DamageType damageType) {
             _upgradeName = upgradeName;
             _damage = damage;
             _pierce = pierce;
@@ -42,7 +42,7 @@ namespace Upgrades
             _attackType = attackType;
             _price = price;
             _shotCount = shotCount;
-            _damageType = damageType ?? throw new ArgumentNullException(nameof(damageType), "DamageType can't be null");
+            _damageType = damageType;
         }
 
         public TackUpgrade() {
@@ -64,8 +64,8 @@ namespace Upgrades
             _range += next.range;
             _secondsPerAttackModifier 
                 = next.secondsPerAttackModifier * secondsPerAttackModifier;
-            _damageType = next.damageType ?? _damageType;
-            var forShotCountOnly = (TackUpgrade) next;
+            _damageType = next.damageType;
+            TackUpgrade forShotCountOnly = (TackUpgrade) next;
             _shotCount += forShotCountOnly.Shot_count;
             _projectileSpeed += next.projectileSpeed;
             _attackType += forShotCountOnly.Attack_type;

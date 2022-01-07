@@ -41,7 +41,7 @@ namespace Units.Guns
             set => _upgrade = value;
         }
         
-        protected override bool UsesSecondary => false;
+        protected virtual bool UsesSecondary => false;
 
         protected override GameObject Parent {
             get => _parent;

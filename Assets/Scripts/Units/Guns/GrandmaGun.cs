@@ -48,6 +48,7 @@ namespace Units.Guns
                 GameObject p = Pooler.SpawnFromPool(Name, transform.position, Quaternion.identity);
                 Vector3 position = ConfigureProjectile<T>(p, out Vector2 direction, out Projectile tp);
                 if(i != 0) direction = RotateVector(direction, i);
+                tp.Master = _parentUnit.Master;
                 ShootProjectile(tp, direction, position);
             }
         }
@@ -82,7 +83,7 @@ namespace Units.Guns
             set => _time = value;
         }
         
-        protected override bool UsesSecondary => false;
+        protected virtual bool UsesSecondary => false;
 
         protected override IUpgrade Upgrade {
             get => (GrandmaUpgrade)_upgrade;

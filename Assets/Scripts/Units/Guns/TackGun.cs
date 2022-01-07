@@ -23,7 +23,7 @@ namespace Units.Guns
             TackUpgrade up = (TackUpgrade) _upgrade;
             for (int i = 0; i < up.Shot_count; i++) {
                 GameObject p = Pooler.SpawnFromPool(Name, transform.position, Quaternion.identity);
-                var position = ConfigureProjectile<T>(p, out Vector2 direction, out Projectile projectile);
+                Vector3 position = ConfigureProjectile<T>(p, out Vector2 direction, out Projectile projectile);
                 if(i != 0) direction = RotateVector(direction, i);
                 ShootProjectile(projectile, direction, position);
             }
@@ -54,7 +54,7 @@ namespace Units.Guns
             set => _target = value;
         }
         
-        protected override bool UsesSecondary => false;
+        protected virtual bool UsesSecondary => false;
 
         protected override float Time {
             get => _time;

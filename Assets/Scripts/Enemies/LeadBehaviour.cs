@@ -13,18 +13,20 @@ namespace Enemies
         public Enemy enemy;
         private Vector3 _spawnOffset;
         private float _timeToSave;
+        private bool _isCamo;
 
         private new void Awake() {
             base.Awake();
         }
 
-        protected override int ComputeOnHitBehaviourOverload(Projectile projectile, int remainingDamage) {
+        protected override int ComputeOnHitBehaviour(Projectile projectile, int remainingDamage) {
+            if (IsCamo && !projectile.Master.CanAccessCamo) return 0;
             if (remainingDamage <= 0) return 0;
             if(remainingDamage >= Enemy.totalHealth) {
                 ResetThis();
                 return Enemy.totalHealth;
             }
-            AbstractEnemy[] es = InstantiateChildrenOnConditionsMet(Enemy.directChildren, projectile);
+            AbstractEnemy[] es = InstantiateChildren(Enemy.directChildren, projectile);
             ResetThis();
             if (!es[0].IsAppropriateDamageType(projectile)) return 1;
             return PassOnDamageToChild(projectile, remainingDamage-1, es[0]) + 1;
@@ -49,7 +51,7 @@ namespace Enemies
             set => _et = value;
         }
         
-        protected override ScriptableDamageType DamageType => enemy.damageType;
+        protected override ScriptableDamageType damageType => enemy.damageType;
 
         public override Enemy Enemy => enemy;
 

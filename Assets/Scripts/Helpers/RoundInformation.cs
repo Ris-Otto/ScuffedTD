@@ -11,10 +11,14 @@ namespace Helpers
     {
         private Round _nextRound;
         public static RoundInformation Instance;
+        private static Economics eco;
 
+
+        //Well... Started out as a placeholder bloonspawner-class but ended up like this I'm so sorry
         private void Awake() {
             if (Instance == null) 
                 Instance = this;
+            eco = GameObject.FindGameObjectWithTag("EconomicsHandler").GetComponent<Economics>();
         }
 
         
@@ -24,7 +28,6 @@ namespace Helpers
         }
 
         public static void RoundEnd() {
-            Economics eco = GameObject.FindGameObjectWithTag("EconomicsHandler").GetComponent<Economics>();
             eco.ReceiveIncome(75);
         }
 
@@ -47,13 +50,13 @@ namespace Helpers
         private void TestRound() {
             //TESTESTESTESTESTESTESTESTESTESTESTESTESTESTEST
             _nextRound = new Round(new List<Wave> {
-                new Wave(0.5f, new List<BloonType> {new BloonType("Purple", 5, 1f)}),
+                new Wave(0.5f, new List<BloonType> {new BloonType("Purple", 5, 1f)}, 0),
             });
         }
 
         private void Round1() {
             _nextRound = new Round((new List<Wave> {
-                new Wave(3f, new List<BloonType> {new BloonType("Red", 20, 0.5f)})
+                new Wave(3f, new List<BloonType> {new BloonType("Red", 20, 0.5f)}, 3)
             }));
         }
 

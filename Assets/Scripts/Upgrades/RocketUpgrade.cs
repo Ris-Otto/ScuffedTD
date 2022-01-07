@@ -30,7 +30,7 @@ namespace Upgrades
             _explosionRadius = explosionRadius;
             _maxPop = maxPop;
             _price = price;
-            _damageType = damageType ?? throw new ArgumentNullException(nameof(damageType), "DamageType can't be null");
+            _damageType = damageType;
         }
 
         public RocketUpgrade(string upgradeName, int damage, int pierce, float range, float secondsPerAttackModifier,
@@ -65,7 +65,7 @@ namespace Upgrades
             _range += next.range;
             _secondsPerAttackModifier 
                 = next.secondsPerAttackModifier * secondsPerAttackModifier;
-            _damageType = next.damageType ?? _damageType;
+            _damageType = next.damageType;
             _projectileSpeed += next.projectileSpeed;
         }
 

@@ -14,6 +14,7 @@ namespace Enemies
         public Enemy enemy;
         private Vector3 _spawnOffset;
         private float _timeToSave;
+        private bool _isCamo;
 
         private new void Awake() {
             base.Awake();
@@ -40,7 +41,7 @@ namespace Enemies
 
 
         public override Enemy Enemy => enemy;
-        protected override ScriptableDamageType DamageType => enemy.damageType;
+        protected override ScriptableDamageType damageType => enemy.damageType;
 
         protected override float timeToSave {
             get => _timeToSave;
@@ -50,6 +51,11 @@ namespace Enemies
         protected override Vector3 savedPos {
             get => _spawnOffset;
             set => _spawnOffset = value;
+        }
+        
+        public override bool IsCamo {
+            get => _isCamo;
+            set => _isCamo = value;
         }
         
         #endregion

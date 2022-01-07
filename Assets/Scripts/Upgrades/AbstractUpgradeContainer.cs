@@ -54,13 +54,13 @@ namespace Upgrades
         public IUpgrade GetUpgrade(int tree) {
             IUpgrade toReturn = null;
             try {
-                if (tree == 1 && treeOneEnum.Current != null) {
+                if (tree == 1 && treeOneEnum.Current != null) 
                     toReturn = (IUpgrade)treeOneEnum.Value;
-                }
-                else {
+                
+                else 
                     if(treeTwoEnum.Current != null)
                         toReturn = (IUpgrade)treeTwoEnum.Value;
-                }
+                
             }
             catch (InvalidOperationException) {
                 
@@ -74,7 +74,11 @@ namespace Upgrades
                     return up.GetBuyValue();
                 treeTwoDict.TryGetValue(lastUpgrade.ToString(), out IUpgrade up1);
                 return up1.GetBuyValue();
-            } catch (NullReferenceException ) {
+            }
+            catch (NullReferenceException) {
+                return 0;
+            }
+            catch (ArgumentNullException) {
                 return 0;
             }
         }

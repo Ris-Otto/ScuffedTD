@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Helpers
+namespace Units
 {
     public interface IPlaceable
     {

@@ -1,4 +1,4 @@
-namespace Helpers
+namespace Units
 {
     public interface IMoneyObject
     {

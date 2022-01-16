@@ -1,4 +1,4 @@
-using Helpers;
+using Managers;
 using Projectiles;
 using UnityEngine;
 using Upgrades;
@@ -21,14 +21,14 @@ namespace Units.Guns
 
         
         protected override void HandleProjectileSpawn<T>() {
-            GooberUpgrade up = (GooberUpgrade) _upgrade;
+            if (!(_upgrade is GooberUpgrade up)) return;
             for (int i = 0; i < up.shotCount; i++) {
                 GameObject p = Pooler.SpawnFromPool(Name, transform.position, Quaternion.identity);
                 Vector3 position = ConfigureProjectile<T>(p, out Vector2 direction, out Projectile tp);
-                if(i != 0) direction = RotateVector(direction, i % 2 == 0 ,SHOT_ROTATION);
+                if (i != 0) direction = RotateVector(direction, i % 2 == 0, SHOT_ROTATION);
                 tp.Master = _parentGoober;
                 tp.SendParams(Upgrade, _listener);
-                tp.SeekTarget(Target, direction , position);
+                tp.SeekTarget(Target, direction, position);
             }
         }
 
@@ -72,8 +72,6 @@ namespace Units.Guns
             get => _parentGoober;
             set => _parentGoober = (GooberUnit)value;
         }
-        
-        protected virtual bool UsesSecondary => false;
 
         protected override EnemyListener Listener {
             get => _listener;

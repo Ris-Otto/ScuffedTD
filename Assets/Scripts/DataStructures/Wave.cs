@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Enemies;
-using Helpers;
+using Managers;
 using UnityEngine;
 
 namespace DataStructures

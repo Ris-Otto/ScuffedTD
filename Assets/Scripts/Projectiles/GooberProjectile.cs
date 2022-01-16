@@ -1,7 +1,8 @@
 ﻿using Enemies;
-using Helpers;
+using Managers;
 using Units;
 using UnityEngine;
+using Upgrades;
 using Random = UnityEngine.Random;
 
 namespace Projectiles
@@ -11,7 +12,6 @@ namespace Projectiles
         
         #region fields
         private float _projectileSpeed;
-        private GameObject _target;
         private Vector2 _dir;
         private Vector2 _spawnedAt;
         private float _range;

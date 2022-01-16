@@ -1,12 +1,11 @@
 using System.Linq;
 using TMPro;
 using Units;
-using Units.Guns;
 using UnityEngine;
 using UnityEngine.UI;
 using Upgrades;
 
-namespace Helpers
+namespace Managers
 {
     public class UIManager : MonoBehaviour {
         

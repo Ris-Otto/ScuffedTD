@@ -1,7 +1,6 @@
-﻿using Units;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace Helpers
+namespace Managers
 {
     public class RoundManager : MonoBehaviour
     {

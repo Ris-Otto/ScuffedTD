@@ -1,6 +1,6 @@
 using UnityEngine.EventSystems;
 
-namespace Helpers
+namespace Units
 {
     public interface ISelectable : IEventSystemHandler {
 

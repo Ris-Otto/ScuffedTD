@@ -4,7 +4,7 @@ using Units;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace Helpers
+namespace Managers
 {
     public class UnitManager : MonoBehaviour, IUndoableAction<AbstractUnit>
     {

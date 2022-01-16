@@ -4,7 +4,7 @@ using System.Diagnostics.CodeAnalysis;
 using DataStructures;
 using UnityEngine;
 
-namespace Helpers
+namespace Managers
 {
     [SuppressMessage("ReSharper", "CommentTypo")]
     public class RoundInformation : MonoBehaviour

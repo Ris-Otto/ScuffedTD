@@ -1,7 +1,6 @@
-using System;
 using UnityEngine;
 
-namespace Helpers
+namespace Managers
 {
     public class EnemyListener : MonoBehaviour
     {

@@ -1,7 +1,8 @@
 using System;
-using Helpers;
+using Managers;
 using Projectiles;
 using UnityEngine;
+using Upgrades;
 
 namespace Units.Guns
 {
@@ -40,8 +41,6 @@ namespace Units.Guns
             get => _upgrade;
             set => _upgrade = value;
         }
-        
-        protected virtual bool UsesSecondary => false;
 
         protected override GameObject Parent {
             get => _parent;

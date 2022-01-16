@@ -4,7 +4,7 @@ using Units;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Helpers
+namespace Managers
 {
     public class ActiveObjectsTracker : MonoBehaviour {
     

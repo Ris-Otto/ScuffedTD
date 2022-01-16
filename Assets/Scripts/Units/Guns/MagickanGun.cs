@@ -1,6 +1,7 @@
-using Helpers;
+using Managers;
 using Projectiles;
 using UnityEngine;
+using Upgrades;
 
 namespace Units.Guns
 {
@@ -34,8 +35,6 @@ namespace Units.Guns
             set => _time = value;
         }
 
-        protected virtual bool UsesSecondary => false;
-        
         protected override IUpgrade Upgrade {
             get => _upgrade;
             set => _upgrade = value;

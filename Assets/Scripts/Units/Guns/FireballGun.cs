@@ -1,7 +1,8 @@
 using System.Linq.Expressions;
-using Helpers;
+using Managers;
 using Projectiles;
 using UnityEngine;
+using Upgrades;
 
 namespace Units.Guns
 {
@@ -60,8 +61,6 @@ namespace Units.Guns
             get => _projectile;
             set => _projectile = value;
         }
-
-        protected virtual bool UsesSecondary => true;
 
         protected override string Name => "Fireball";
 

@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-namespace Helpers
+namespace Managers
 {
     public class ActionController : MonoBehaviour {
         public Canvas mainMenu;

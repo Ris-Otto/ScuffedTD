@@ -2,7 +2,7 @@ using Units;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Helpers
+namespace Managers
 {
     public class Economics : MonoBehaviour
     {

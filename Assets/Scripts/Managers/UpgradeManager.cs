@@ -1,11 +1,9 @@
-using System;
-using TMPro;
 using Units;
 using UnityEngine;
 using UnityEngine.UI;
 using Upgrades;
 
-namespace Helpers
+namespace Managers
 {
     public class UpgradeManager : MonoBehaviour {
 

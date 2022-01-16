@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace Helpers
+namespace Projectiles
 {
     [CreateAssetMenu(fileName = nameof(name), menuName = "ScriptableObject/DamageType")]
     public class ScriptableDamageType : ScriptableObject, IComparable<ScriptableDamageType>

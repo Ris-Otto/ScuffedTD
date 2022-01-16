@@ -1,7 +1,6 @@
-using Units;
 using UnityEngine;
 
-namespace Helpers
+namespace Units
 {
     public class CreateRange : MonoBehaviour
     {

@@ -1,6 +1,6 @@
 using System;
-using Helpers;
 using JetBrains.Annotations;
+using Projectiles;
 
 namespace Upgrades
 {

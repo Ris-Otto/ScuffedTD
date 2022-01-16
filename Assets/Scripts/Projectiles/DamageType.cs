@@ -1,9 +1,6 @@
 using System;
-using System.Text;
-using UnityEngine;
-using UnityEngine.Serialization;
 
-namespace Helpers
+namespace Projectiles
 {
     [Serializable]
     public enum DamageType

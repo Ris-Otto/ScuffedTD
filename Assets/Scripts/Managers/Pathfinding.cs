@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Helpers
+namespace Managers
 {
     public class Pathfinding : MonoBehaviour
     {

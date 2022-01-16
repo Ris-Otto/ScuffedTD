@@ -1,5 +1,5 @@
 using System;
-using Helpers;
+using Managers;
 using Projectiles;
 using UnityEngine;
 using Upgrades;
@@ -43,11 +43,11 @@ namespace Units.Guns
         }
 
         protected override void HandleProjectileSpawn<T>() {
-            GrandmaUpgrade up = (GrandmaUpgrade) _upgrade;
+            if (!(_upgrade is GrandmaUpgrade up)) return;
             for (int i = 0; i < up.shotCount; i++) {
                 GameObject p = Pooler.SpawnFromPool(Name, transform.position, Quaternion.identity);
                 Vector3 position = ConfigureProjectile<T>(p, out Vector2 direction, out Projectile tp);
-                if(i != 0) direction = RotateVector(direction, i);
+                if (i != 0) direction = RotateVector(direction, i);
                 tp.Master = _parentUnit.Master;
                 ShootProjectile(tp, direction, position);
             }

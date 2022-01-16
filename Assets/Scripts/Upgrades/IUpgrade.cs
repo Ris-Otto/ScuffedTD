@@ -1,4 +1,7 @@
-namespace Helpers
+using Projectiles;
+using Units;
+
+namespace Upgrades
 {
     public interface IUpgrade : IMoneyObject
     {

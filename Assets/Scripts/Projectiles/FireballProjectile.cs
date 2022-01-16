@@ -1,6 +1,6 @@
 using System;
 using Enemies;
-using Helpers;
+using Managers;
 using Units;
 using Unity.Mathematics;
 using UnityEngine;
@@ -14,7 +14,6 @@ namespace Projectiles
         
         #region fields
         private float _projectileSpeed;
-        private GameObject _target;
         public Vector2 _dir;
         private Vector2 _spawnedAt;
         [SerializeField] private float _range;

@@ -1,8 +1,7 @@
-using System;
 using Units;
 using UnityEngine;
 
-namespace Helpers
+namespace Managers
 {
     public class GridThing : MonoBehaviour, ISelectable
     {

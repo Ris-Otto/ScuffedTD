@@ -1,4 +1,4 @@
-using Helpers;
+using Managers;
 using Projectiles;
 using UnityEngine;
 using Upgrades;
@@ -20,7 +20,7 @@ namespace Units.Guns
         
 
         protected override void HandleProjectileSpawn<T>() {
-            TackUpgrade up = (TackUpgrade) _upgrade;
+            if (!(_upgrade is TackUpgrade up)) return;
             for (int i = 0; i < up.Shot_count; i++) {
                 GameObject p = Pooler.SpawnFromPool(Name, transform.position, Quaternion.identity);
                 Vector3 position = ConfigureProjectile<T>(p, out Vector2 direction, out Projectile projectile);
@@ -53,8 +53,6 @@ namespace Units.Guns
             get => _target;
             set => _target = value;
         }
-        
-        protected virtual bool UsesSecondary => false;
 
         protected override float Time {
             get => _time;

@@ -1,5 +1,5 @@
 using Enemies;
-using Helpers;
+using Managers;
 using Units;
 using UnityEngine;
 using Upgrades;
@@ -11,8 +11,6 @@ namespace Projectiles
     {
         [SerializeField]
         private float _projectileSpeed;
-        [SerializeField]
-        private GameObject _target;
         private Vector2 _dir;
         [SerializeField]
         private Vector2 _spawnedAt;

@@ -56,7 +56,7 @@ namespace Managers
 
         private void Round1() {
             _nextRound = new Round((new List<Wave> {
-                new Wave(3f, new List<BloonType> {new BloonType("Red", 20, 0.5f)}, 3)
+                new Wave(3f, new List<BloonType> {new BloonType("Red", 20, 0.5f)})
             }));
         }
 

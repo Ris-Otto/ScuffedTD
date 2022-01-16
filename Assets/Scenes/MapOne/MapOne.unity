@@ -3685,7 +3685,7 @@ PrefabInstance:
     - target: {fileID: 3098879334594212548, guid: a3e48e58cf9634c439651b92420df08e,
         type: 3}
       propertyPath: m_Name
-      value: EnemyPooler
+      value: EnemySpawner
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a3e48e58cf9634c439651b92420df08e, type: 3}

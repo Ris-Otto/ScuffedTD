@@ -30,7 +30,7 @@ namespace Units
         }
     
         public override void MakeUpgrade(IUpgrade upgrade) {
-            currentUpgrade.CumulateUpgrades(upgrade);
+            currentUpgrade.CumulateUpgrades(upgrade, currentUpgrade);
             price += upgrade.price;
             _rotationAmount = 2*(Mathf.PI / _currentUpgrade.Shot_count);
         }
@@ -88,13 +88,7 @@ namespace Units
         }
 
         public override float baseAttackSpeed => 1.25f;
-
-        public override int targetingStyle {
-            get => _targetingStyle;
-            set => _targetingStyle = value;
-        }
         
-        protected override CreateRange Range => GetComponentInChildren<CreateRange>();
 
         #endregion
     }

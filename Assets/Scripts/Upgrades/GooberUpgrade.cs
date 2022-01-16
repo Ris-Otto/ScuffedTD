@@ -1,6 +1,7 @@
 using System;
 using Helpers;
 using JetBrains.Annotations;
+using UnityEngine;
 
 namespace Upgrades
 {
@@ -49,9 +50,9 @@ namespace Upgrades
         
         }
 
-        public void CumulateUpgrades(IUpgrade next) {
+        public void CumulateUpgrades(IUpgrade next, IUpgrade last) {
             _upgradeName = next.upgradeName;
-            _hasAccessToCamo = next.hasAccessToCamo ? next.hasAccessToCamo : _hasAccessToCamo;
+            _hasAccessToCamo = next.hasAccessToCamo ? next.hasAccessToCamo : last.hasAccessToCamo;
             _damage += next.damage;
             _pierce += next.pierce;
             _range += next.range;

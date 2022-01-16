@@ -4,7 +4,8 @@ namespace Helpers
     {
         
         public string ToString();
-        public void CumulateUpgrades(IUpgrade next);
+
+        public void CumulateUpgrades(IUpgrade next, IUpgrade last);
 
         public float secondsPerAttackModifier { get; }
         public int damage { get; }

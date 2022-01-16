@@ -78,18 +78,6 @@ namespace Units
 
         public override Animation Anim => _anim;
 
-        public override int targetingStyle {
-            get => _targetingStyle;
-            set => _targetingStyle = value;
-        }
-
-        protected override CreateRange Range => GetComponentInChildren<CreateRange>();
-
-        public override bool CanAccessCamo {
-            get => _canAccessCamo;
-            protected set => _canAccessCamo = value;
-        }
-
         #endregion
 
     }

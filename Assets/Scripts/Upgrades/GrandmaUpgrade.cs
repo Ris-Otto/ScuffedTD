@@ -55,10 +55,11 @@ namespace Upgrades
             _gun = gun;
         }
 
-        public void CumulateUpgrades(IUpgrade next) {
+        public void CumulateUpgrades(IUpgrade next, IUpgrade last) {
             _upgradeName = next.upgradeName;
             _damage += next.damage != 0 ? next.damage : 0;
             _range += next.range != 0 ? next.range : 0;
+            _hasAccessToCamo = next.hasAccessToCamo ? next.hasAccessToCamo : last.hasAccessToCamo;
             _secondsPerAttackModifier 
                 = next.secondsPerAttackModifier != 0 ? next.secondsPerAttackModifier : 1 * (secondsPerAttackModifier);
             _damageType = next.damageType;

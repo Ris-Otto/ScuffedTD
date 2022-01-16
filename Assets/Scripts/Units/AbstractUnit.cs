@@ -10,9 +10,9 @@ using Upgrades;
 
 namespace Units
 {
-    public abstract class AbstractUnit : MonoBehaviour, IMoneyObject, ISelectable, IPlaceable, IMouseUser
+    public abstract class AbstractUnit : MonoBehaviour, IMoneyObject, ISelectable, IPlaceable, IMouseUser, ISource
     {
-        protected bool _canAccessCamo;
+        private bool _canAccessCamo;
         private bool _isSelected;
         protected bool _placed;
         protected GameObject _target;
@@ -20,6 +20,7 @@ namespace Units
         protected Animation _anim;
         protected int _price;
         protected UIManager _uiManager;
+        private int _targetingStyle1;
 
         protected virtual void Awake() {
             InvokeRepeating(nameof(BeforePlaceUnit), 0f, Time.deltaTime);
@@ -42,9 +43,9 @@ namespace Units
         protected abstract void InitialiseUnitParameters();
         
         public virtual void MakeUpgrade(IUpgrade upgrade) {
-            currentUpgrade.CumulateUpgrades(upgrade);
+            currentUpgrade.CumulateUpgrades(upgrade, currentUpgrade);
             price += upgrade.price;
-            CanAccessCamo = upgrade.hasAccessToCamo;
+            CanAccessCamo = currentUpgrade.hasAccessToCamo;
         }
 
         #region Targeting
@@ -263,20 +264,20 @@ namespace Units
 
         private static ActiveObjectsTracker et 
             => GameObject.FindGameObjectWithTag("Pooler").GetComponent<ActiveObjectsTracker>();
-        
-        
-        public abstract int targetingStyle {
-            get;
-            set;
+
+
+        public int targetingStyle {
+            get => _targetingStyle1;
+            set => _targetingStyle1 = value;
         }
 
         public virtual bool IsHangar => false;
 
-        protected abstract CreateRange Range { get; }
+        private CreateRange Range => GetComponentInChildren<CreateRange>();
 
-        public virtual bool CanAccessCamo {
+        public bool CanAccessCamo {
             get => _canAccessCamo;
-            protected set => _canAccessCamo = value;
+            set => _canAccessCamo = value;
         }
 
         #endregion

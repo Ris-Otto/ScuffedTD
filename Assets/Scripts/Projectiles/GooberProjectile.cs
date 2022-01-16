@@ -22,7 +22,6 @@ namespace Projectiles
         public ScriptableDamageType _damageType;
         private Animation anim;
         private long _ID;
-        private AbstractUnit _master;
         #endregion
     
         private void Awake() {
@@ -83,16 +82,6 @@ namespace Projectiles
         protected override float projectileSpeed {
             get => _projectileSpeed;
             set => _projectileSpeed = value;
-        }
-
-        protected override GameObject target {
-            get => _target;
-            set => _target = value;
-        }
-        
-        public override AbstractUnit Master {
-            get => _master;
-            set => _master = value;
         }
 
         protected override Vector2 dir {

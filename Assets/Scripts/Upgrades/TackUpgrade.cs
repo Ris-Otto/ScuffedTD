@@ -56,12 +56,12 @@ namespace Upgrades
             return 0;
         }
 
-
-        public void CumulateUpgrades(IUpgrade next) {
+        public void CumulateUpgrades(IUpgrade next, IUpgrade last) {
             _upgradeName = next.upgradeName;
             _damage += next.damage;
             _pierce += next.pierce;
             _range += next.range;
+            _hasAccessToCamo = next.hasAccessToCamo ? next.hasAccessToCamo : last.hasAccessToCamo;
             _secondsPerAttackModifier 
                 = next.secondsPerAttackModifier * secondsPerAttackModifier;
             _damageType = next.damageType;
@@ -72,8 +72,8 @@ namespace Upgrades
         }
 
         public override string ToString() { return _upgradeName; }
-    
-        public int Attack_type => _attackType;
+
+        private int Attack_type => _attackType;
 
         public int damage => _damage;
 

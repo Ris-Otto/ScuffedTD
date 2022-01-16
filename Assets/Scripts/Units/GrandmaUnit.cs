@@ -29,9 +29,9 @@ namespace Units
         }
 
         public override void MakeUpgrade(IUpgrade upgrade) {
-            currentUpgrade.CumulateUpgrades(upgrade);
+            currentUpgrade.CumulateUpgrades(upgrade, currentUpgrade);
             price += upgrade.price;
-            CanAccessCamo = upgrade.hasAccessToCamo;
+            CanAccessCamo = currentUpgrade.hasAccessToCamo;
             projectileUnit.GetComponent<GrandmaProjectile>().SendParams(_currentUpgrade, _listener);
         }
 
@@ -85,14 +85,6 @@ namespace Units
         }
 
         public override float baseAttackSpeed => 1f;
-
-
-        public override int targetingStyle {
-            get => _targetingStyle;
-            set => _targetingStyle = value;
-        }
-
-        protected override CreateRange Range => GetComponentInChildren<CreateRange>();
 
         #endregion
     }

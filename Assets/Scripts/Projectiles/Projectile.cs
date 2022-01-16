@@ -7,6 +7,10 @@ namespace Projectiles
 {
     public abstract class Projectile : MonoBehaviour
     {
+
+        private ISource _master;
+        private GameObject _target;
+
         public void SeekTarget(GameObject obj, Vector2 shootDirection, Vector2 pos) {
             if(obj == null) return;
             spawnedAt = pos;
@@ -57,14 +61,14 @@ namespace Projectiles
             set;
         }
 
-        protected abstract GameObject target {
-            get;
-            set;
+        protected GameObject target {
+            get => _target;
+            set => _target = value;
         }
 
-        public abstract AbstractUnit Master {
-            get;
-            set;
+        public ISource Master {
+            get => _master;
+            set => _master = value;
         }
 
         protected abstract Vector2 dir {

@@ -24,7 +24,6 @@ namespace Projectiles
         private long _ID;
         private float _timeToLive;
         private float _time;
-        private AbstractUnit _master;
         #endregion
 
         protected override void ComputeMovement() {
@@ -79,16 +78,6 @@ namespace Projectiles
         protected override float projectileSpeed {
             get => _projectileSpeed;
             set => _projectileSpeed = value;
-        }
-
-        protected override GameObject target {
-            get => _target;
-            set => _target = value;
-        }
-        
-        public override AbstractUnit Master {
-            get;
-            set;
         }
 
         protected override Vector2 dir {

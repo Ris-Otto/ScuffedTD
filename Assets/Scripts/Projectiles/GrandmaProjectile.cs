@@ -16,7 +16,6 @@ namespace Projectiles
         #region fields
         public GameObject secondaryProjectile;
         private GrandmaUpgrade _currentUpgrade;
-        private GameObject _target;
         private AbstractUnit Hangar;
         private float _range;
         private Vector3 _moveTarget;
@@ -158,11 +157,6 @@ namespace Projectiles
             set => _projectileSpeed = value;
         }
 
-        protected override GameObject target {
-            get => _target;
-            set => _target = value;
-        }
-
         protected override Vector2 dir { get; set; }
         public override int damage {
             get => _damage;
@@ -180,11 +174,6 @@ namespace Projectiles
         protected override Vector2 spawnedAt { get; set; }
         public override ScriptableDamageType DamageType => _damageType;
         protected override bool hasCollided { get; set; }
-
-        public override AbstractUnit Master {
-            get;
-            set;
-        }
 
         public override long ID => _ID;
 

@@ -26,7 +26,6 @@ namespace Projectiles
         [SerializeField]
         private ScriptableDamageType _damageType;
         private long _ID;
-        private AbstractUnit _master;
 
         private void Awake() {
             spawnedAt = transform.position;
@@ -78,16 +77,6 @@ namespace Projectiles
         protected override float projectileSpeed {
             get => _projectileSpeed;
             set => _projectileSpeed = value;
-        }
-
-        protected override GameObject target {
-            get => _target;
-            set => _target = value;
-        }
-        
-        public override AbstractUnit Master {
-            get;
-            set;
         }
 
         protected override Vector2 dir {

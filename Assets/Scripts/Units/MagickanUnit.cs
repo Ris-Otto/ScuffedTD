@@ -55,7 +55,7 @@ namespace Units
 
         public override void MakeUpgrade(IUpgrade upgrade) {
             MagickanUpgrade up = (MagickanUpgrade) upgrade;
-            currentUpgrade.CumulateUpgrades(upgrade);
+            currentUpgrade.CumulateUpgrades(upgrade, currentUpgrade);
             price += upgrade.price;
             switch (up.newProjectile) {
                 case "Fireball":
@@ -125,12 +125,6 @@ namespace Units
 
         public override float baseAttackSpeed => 1f;
         
-        public override int targetingStyle {
-            get => _targetingStyle;
-            set => _targetingStyle = value;
-        }
-        
-        protected override CreateRange Range => GetComponentInChildren<CreateRange>();
 
         #endregion
     }

@@ -84,13 +84,7 @@ namespace Units
 
         public override float baseAttackSpeed => 1.25f;
 
-
-        public override int targetingStyle {
-            get => _targetingStyle;
-            set => _targetingStyle = value;
-        }
         
-        protected override CreateRange Range => GetComponentInChildren<CreateRange>();
 
         #endregion
     }

@@ -28,7 +28,7 @@ namespace Managers
             _log = Managers.Log.Instance;
         }
         
-        private void Update() {
+        private void FixedUpdate() {
             if (_health > 0) return;
             _log.Logger.Log(LogType.Log, "Game over");
             _log.DisableLogger();

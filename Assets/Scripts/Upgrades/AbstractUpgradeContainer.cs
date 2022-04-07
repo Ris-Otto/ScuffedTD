@@ -107,5 +107,7 @@ namespace Upgrades
             get;
             set;
         }
+
+        public new string name => lastUpgrade.upgradeName;
     }
 }

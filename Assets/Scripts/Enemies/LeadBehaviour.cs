@@ -20,9 +20,9 @@ namespace Enemies
         }
 
         protected override int ComputeOnHitBehaviour(Projectile projectile, int remainingDamage) {
-            if (IsCamo && !projectile.Master.CanAccessCamo) return 0;
             if (remainingDamage <= 0) return 0;
             if(remainingDamage >= Enemy.totalHealth) {
+                projectile.Master.AddToKills(Enemy.totalHealth);
                 ResetThis();
                 return Enemy.totalHealth;
             }

@@ -30,10 +30,6 @@ namespace Units
             Anim.Play();
             ComputeRotation();
         }
-        
-        private void OnDrawGizmos() {
-            Gizmos.DrawWireSphere(transform.position, _currentUpgrade.range);
-        }
 
         protected override void InitialiseUnitParameters() {
             _currentUpgrade = new GooberUpgrade("default", 1, 2, 3f, 1, 250, 30f, 1);

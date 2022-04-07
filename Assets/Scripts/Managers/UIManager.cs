@@ -1,6 +1,7 @@
 using System.Linq;
 using TMPro;
 using Units;
+using Units.Guns;
 using UnityEngine;
 using UnityEngine.UI;
 using Upgrades;
@@ -18,6 +19,7 @@ namespace Managers
         public TextMeshProUGUI displayStats;
         private Text _firstTreeText;
         private Text _secondTreeText;
+        public TextMeshProUGUI displayHealth;
         public TextMeshProUGUI displayRound;
         
         private char newLine;
@@ -69,6 +71,10 @@ namespace Managers
             foreach (Button btn in GetComponents<Button>()) { 
                 btn.enabled = false;
             }*/
+        }
+
+        public void DisplayHealth(int health) {
+            displayHealth.text = health.ToString();
         }
 
         private AbstractUnit GetSelectedUnit() {

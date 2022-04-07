@@ -9,7 +9,7 @@ namespace DataStructures
     public class Wave
     {
         private readonly List<BloonType> _bloons;
-        private readonly float _timeUntilNext;
+        private readonly float _timeUntilNext; //time-out tills nästa våg
         private readonly Vector3 spawnPoint;
         private readonly int camoPos = -1;
         
@@ -26,10 +26,11 @@ namespace DataStructures
             spawnPoint = GameObject.FindGameObjectWithTag("Pooler").transform.position;
         }
 
+        //Coroutine
         public IEnumerator SpawnEnemies(BloonType type) {
             for (int i = 0; i < type.Amount; i++) {
                 if (i == camoPos) {
-                    yield return SpawnSpecialistEnemy(type);
+                    yield return SpawnSpecialistEnemy(type); //gäller tills vidare enbart kamoflageballonger
                 }
                 yield return SpawnEnemy(type);
             }
@@ -41,8 +42,10 @@ namespace DataStructures
         }
         
         private YieldInstruction SpawnSpecialistEnemy(BloonType type) {
+            //AbstractEnemy är vår template för fiender
             AbstractEnemy e = Object.Instantiate(type.Type, spawnPoint, Quaternion.identity).GetComponent<AbstractEnemy>();
-            e.SetCamo(ActiveObjectsTracker.Instance, true);
+            //ActiveObjectsTracker är en Singleton som håller koll på torn och fiender
+            e.SetCamo(ActiveObjectsTracker.Instance, true); //snuskig work-around p.g.a. dålig hjärna
             return new WaitForSeconds(type.Interval);
         }
         

@@ -62,8 +62,11 @@ namespace Enemies
         private void GetNextWaypoint() {
             if (waypointIdx < Pathfinding.Waypoints.Length - 1) 
                 waypointIdx++;
-            else 
+            else {
+                HealthManager.Instance.OnEnemyPassedThrough(this);
                 ResetThis();
+            }
+                
         }
         
         #endregion
@@ -76,6 +79,7 @@ namespace Enemies
         
         protected virtual int ComputeOnHitBehaviour(Projectile projectile, int remainingDamage) {
             if (remainingDamage <= 0) return 0;
+            if (remainingDamage >= Enemy.selfHealth) projectile.Master.AddToKills(1);
             if(remainingDamage >= Enemy.totalHealth) {
                 ResetThis();
                 return Enemy.totalHealth;
@@ -100,6 +104,9 @@ namespace Enemies
         }
 
         public virtual bool IsAppropriateDamageType(Projectile projectile) {
+            if (IsCamo) {
+                Debug.Log("bajs");
+            }
             if (IsCamo && !projectile.Master.CanAccessCamo) {
                 projectile.pierce++;
                 return false;

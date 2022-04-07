@@ -23,6 +23,7 @@ namespace Enemies
 
         protected override int ComputeOnHitBehaviour(Projectile projectile, int remainingDamage) {
             if (selfHealth > 0) {
+                projectile.Master.AddToKills(1);
                 selfHealth -= remainingDamage;
                 return 0;
             }

@@ -19,7 +19,7 @@ namespace Units
         [SerializeField]
         private GameObject _secondaryProjectile;
         private MagickanUpgrade _currentUpgrade;
-        protected AbstractUpgradeContainer _abstractUpgradeContainer;
+        private AbstractUpgradeContainer _abstractUpgradeContainer;
         [SerializeField]
         private GameObject _tertiaryProjectile;
         private GameObject[] pathTiles;
@@ -34,7 +34,7 @@ namespace Units
         private void InitialisePathTargets() {
             List<GameObject> objList = GameObject.FindGameObjectsWithTag("Placeable").ToList();
             IEnumerable<GameObject> removalList = 
-                objList.Where(tile => Vector3.Distance(transform.position, tile.transform.position) <= _currentUpgrade.range);
+                objList.Where(tile => Vector3.Distance(placement, tile.transform.position) <= _currentUpgrade.range);
             /*foreach (GameObject tile in objList.Where(tile => Vector3.Distance(transform.position, tile.transform.position) > _currentUpgrade.range)) {
                 removalList.Remove(tile);
             }*/
@@ -49,10 +49,7 @@ namespace Units
             _anim.Play();
             ComputeRotation();
         }
-
-        private void OnDrawGizmos() {
-            Gizmos.DrawWireSphere(transform.position, _currentUpgrade.range);
-        }
+        
 
         public override void MakeUpgrade(IUpgrade upgrade) {
             MagickanUpgrade up = (MagickanUpgrade) upgrade;
@@ -70,7 +67,10 @@ namespace Units
         
         public override void BeforePlaceUnit() {
             if (placed) {
-                transform.position = cam.ScreenToWorldPoint(GetMousePos(5f));
+                Transform transform1;
+                (transform1 = transform).position = cam.ScreenToWorldPoint(GetMousePos(5f));
+                placement = transform1.position;
+                _log.Logger.Log(LogType.Log, $"2: {name} - placed at: {placement}");
                 //This was probably stealing at least some processing power so made it initially more expensive
                 //but invocation is cancelled at time of placement
                 InitialisePathTargets();
@@ -82,7 +82,13 @@ namespace Units
         }
 
         protected override void InitialiseUnitParameters() {
-            _currentUpgrade = new MagickanUpgrade("default", 1, 2, 3, 1, 450, 25f, DamageType.FIRE, 1);
+            _currentUpgrade = new MagickanUpgrade("default", 1,
+                2, 3,
+                1,
+                450,
+                25f,
+                DamageType.FIRE,
+                1);
             _price = _currentUpgrade.price;
         }
 

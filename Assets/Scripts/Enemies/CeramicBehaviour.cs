@@ -25,7 +25,6 @@ namespace Enemies
         }
 
         protected override int ComputeOnHitBehaviour(Projectile projectile, int remainingDamage) {
-            if (IsCamo && !projectile.Master.CanAccessCamo) return 0;
             if (remainingDamage <= 0) return 0;
             if(remainingDamage >= Enemy.totalHealth) {
                 ResetThis();
@@ -33,10 +32,12 @@ namespace Enemies
             }
             selfHealth -= remainingDamage;
             if (selfHealth <= 0) {
+                projectile.Master.AddToKills(1);
                 AbstractEnemy[] es = InstantiateChildren(Enemy.directChildren, projectile);
                 ResetThis();
                 return PassOnDamageToChild(projectile, remainingDamage-1, es[0]) + 1;
             }
+            //Cannot penetrate ceramic bloons
             projectile.ResetProjectileFromEnemy();
             return 0;
         }

@@ -33,7 +33,7 @@ namespace Upgrades
         }
 
         public override bool TryApplyUpgrade(string upgradeName, AbstractUnit b, int tree, int money, out IUpgrade thisUpgrade) {
-            IUpgrade current = new GooberUpgrade(); //TODO change
+            IUpgrade current = _lastUpgrade;
             if(tree == 1) {
                 if(treeOneDict.TryGetValue(upgradeName, out IUpgrade upgrade)) {
                     if(money < upgrade.GetBuyValue()) {

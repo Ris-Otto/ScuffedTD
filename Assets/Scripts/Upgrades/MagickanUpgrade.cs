@@ -96,6 +96,8 @@ namespace Upgrades
         public int price => _price;
 
         public string upgradeName => _upgradeName;
+        
+        public string name => _upgradeName;
 
         public float projectileSpeed => _projectileSpeed;
         

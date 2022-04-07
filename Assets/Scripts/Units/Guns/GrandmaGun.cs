@@ -8,53 +8,47 @@ namespace Units.Guns
 {
     public class GrandmaGun : Gun
     {
-        private GameObject _projectile;
-        private ProjectilePooler _pooler;
-        private GameObject _target;
-        private float _time;
-        private IUpgrade _upgrade;
-        private GameObject _parent;
+        
         private GrandmaProjectile _parentUnit;
-        private EnemyListener _listener;
+
         private const float BASE_ATTACK_SPEED = 1;
 
         protected override void ConfigureGun(GameObject p) {
             ConfigureTransform(p);
-            ParentUnit1 = Parent.GetComponent<GrandmaProjectile>();
-            Upgrade = ParentUnit1.currentUpgrade;
+            ParentUnit1 = _parent.GetComponent<GrandmaProjectile>();
+            _upgrade = ParentUnit1.currentUpgrade;
         }
 
-        private new void Update() {
+        private new void FixedUpdate() {
             ComputeShooting<Projectile>(ParentUnit1.TargetEnemy());
         }
 
         protected override void ComputeShooting<T>(GameObject target) {
-            Time += UnityEngine.Time.deltaTime;
-            if (!(Time > AttackSpeed)) return;
-            Target = target;
-            Shoot<T>();
+            _time += Time.deltaTime;
+            if (!(_time > AttackSpeed)) return;
+            Shoot<T>(target);
         }
 
-        protected override void Shoot<T>() {
-            if (Target == null) return;
+        protected override void Shoot<T>(GameObject target) {
+            if (target == null) return;
             ParentUnit1.ComputeMovementFromOther();
-            HandleProjectileSpawn<T>();
-            Time = 0.0f;
+            HandleProjectileSpawn<T>(target);
+            _time = 0.0f;
         }
 
-        protected override void HandleProjectileSpawn<T>() {
+        protected override void HandleProjectileSpawn<T>(GameObject target) {
             if (!(_upgrade is GrandmaUpgrade up)) return;
             for (int i = 0; i < up.shotCount; i++) {
-                GameObject p = Pooler.SpawnFromPool(Name, transform.position, Quaternion.identity);
-                Vector3 position = ConfigureProjectile<T>(p, out Vector2 direction, out Projectile tp);
+                GameObject p = _pooler.SpawnFromPool(Name, transform.position, Quaternion.identity);
+                Vector3 position = ConfigureProjectile<T>(p, target, out Vector2 direction, out Projectile tp);
                 if (i != 0) direction = RotateVector(direction, i);
                 tp.Master = _parentUnit.Master;
-                ShootProjectile(tp, direction, position);
+                ShootProjectile(tp, direction, position, target);
             }
         }
 
-        protected override Vector3 ConfigureProjectileTransform(out Vector2 direction) {
-            Vector3 position = Parent.transform.position;
+        protected override Vector3 ConfigureProjectileTransform(GameObject target, out Vector2 direction) {
+            Vector3 position = _parent.transform.position;
             direction = Vector2.up;
             return position;
         }
@@ -66,34 +60,8 @@ namespace Units.Guns
         }
 
         #region getset
-        protected override ProjectilePooler Pooler {
-            get => _pooler;
-            set => _pooler = value;
-        }
 
-        protected override float AttackSpeed => BASE_ATTACK_SPEED * Upgrade.secondsPerAttackModifier;
-
-        protected override GameObject Target {
-            get => _target;
-            set => _target = value;
-        }
-
-        protected override float Time {
-            get => _time;
-            set => _time = value;
-        }
-        
-        protected virtual bool UsesSecondary => false;
-
-        protected override IUpgrade Upgrade {
-            get => (GrandmaUpgrade)_upgrade;
-            set => _upgrade = value;
-        }
-
-        protected override GameObject Parent {
-            get => _parent;
-            set => _parent = value;
-        }
+        protected override float AttackSpeed => BASE_ATTACK_SPEED * _upgrade.secondsPerAttackModifier;
 
         protected override AbstractUnit ParentUnit {
             get;
@@ -103,11 +71,6 @@ namespace Units.Guns
         private GrandmaProjectile ParentUnit1 {
             get => _parentUnit;
             set => _parentUnit = value;
-        }
-
-        protected override EnemyListener Listener {
-            get => _listener;
-            set => _listener = value;
         }
 
         protected override GameObject Projectile {

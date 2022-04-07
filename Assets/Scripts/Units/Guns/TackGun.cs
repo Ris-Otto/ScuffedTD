@@ -8,29 +8,22 @@ namespace Units.Guns
     public class TackGun : Gun
     {
         
-        private GameObject _projectile;
-        private ProjectilePooler _pooler;
-        private GameObject _target;
-        private float _time;
-        private IUpgrade _upgrade;
-        private GameObject _parent;
         private TackUnit _parentUnit;
-        private EnemyListener _listener;
         private const float BASE_ATTACK_SPEED = 1;
         
 
-        protected override void HandleProjectileSpawn<T>() {
+        protected override void HandleProjectileSpawn<T>(GameObject target) {
             if (!(_upgrade is TackUpgrade up)) return;
             for (int i = 0; i < up.Shot_count; i++) {
-                GameObject p = Pooler.SpawnFromPool(Name, transform.position, Quaternion.identity);
-                Vector3 position = ConfigureProjectile<T>(p, out Vector2 direction, out Projectile projectile);
+                GameObject p = _pooler.SpawnFromPool(Name, transform.position, Quaternion.identity);
+                Vector3 position = ConfigureProjectile<T>(p, target, out Vector2 direction, out Projectile projectile);
                 if(i != 0) direction = RotateVector(direction, i);
-                ShootProjectile(projectile, direction, position);
+                ShootProjectile(projectile, direction, position, target);
             }
         }
 
-        protected override Vector3 ConfigureProjectileTransform(out Vector2 direction) {
-            Vector3 position = Parent.transform.position;
+        protected override Vector3 ConfigureProjectileTransform(GameObject target, out Vector2 direction) {
+            Vector3 position = _parent.transform.position;
             direction = Vector2.up;
             return position;
         }
@@ -42,41 +35,12 @@ namespace Units.Guns
         }
 
         #region getset
-        protected override ProjectilePooler Pooler {
-            get => _pooler;
-            set => _pooler = value;
-        }
 
         protected override float AttackSpeed => BASE_ATTACK_SPEED * _upgrade.secondsPerAttackModifier;
-
-        protected override GameObject Target {
-            get => _target;
-            set => _target = value;
-        }
-
-        protected override float Time {
-            get => _time;
-            set => _time = value;
-        }
-
-        protected override IUpgrade Upgrade {
-            get => (TackUpgrade)_upgrade;
-            set => _upgrade = value;
-        }
-
-        protected override GameObject Parent {
-            get => _parent;
-            set => _parent = value;
-        }
 
         protected override AbstractUnit ParentUnit {
             get => _parentUnit;
             set => _parentUnit = (TackUnit)value;
-        }
-
-        protected override EnemyListener Listener {
-            get => _listener;
-            set => _listener = value;
         }
 
         protected override GameObject Projectile {

@@ -47,7 +47,8 @@ namespace Projectiles
                 ResetThis();
                 return;
             }
-            transform.rotation = Quaternion.LookRotation(Vector3.forward, (Vector3)RotateVector(target.transform.position-transform.position));
+            transform.rotation = Quaternion.LookRotation(Vector3.forward,
+                (Vector3)RotateVector(target.transform.position-transform.position));
             transform.Translate
                 (dir.normalized * (projectileSpeed * Time.deltaTime), Space.World);
         }

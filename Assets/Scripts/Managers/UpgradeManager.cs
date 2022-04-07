@@ -11,10 +11,12 @@ namespace Managers
         public int tree;
         private ActiveObjectsTracker _activeObjects;
         private UIManager _uiManager;
+        private Log _log;
     
         private void Start() {
             _uiManager = GameObject.FindGameObjectWithTag("Canvas").GetComponent<UIManager>();
             _activeObjects = ActiveObjectsTracker.Instance;
+            _log = Log.Instance;
         }
 
         public AbstractUpgradeContainer OnUpgradeClicked(int money, Button button) {
@@ -28,10 +30,13 @@ namespace Managers
         }
 
         private bool CanApplyUpgrade(int money, Button button, AbstractUnit unit, AbstractUpgradeContainer container) {
-            if (!container.TryApplyUpgrade(_uiManager.GetText(button), unit, tree, money, out IUpgrade upgrade))
+            if (!container.TryApplyUpgrade(_uiManager.GetText(button), unit, tree, money, out IUpgrade upgrade)) {
                 return true;
+            }
+                
             Text buttonTextComponent = _uiManager.GetTextComponent(button);
             container.lastUpgrade = upgrade;
+            _log.Logger.Log(LogType.Log, $"3: Upgraded {unit.name}, Tree: {tree}");
             ApplyTextToButton(container, buttonTextComponent);
             return false;
 
@@ -56,8 +61,8 @@ namespace Managers
             }
             return null;
         }
-    
-    
-    
+
+
+        
     }
 }

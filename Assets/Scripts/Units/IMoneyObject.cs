@@ -4,6 +4,8 @@ namespace Units
     {
         public int GetBuyValue();
         public int GetSellValue();
+        
+        public string name { get; }
 
     }
 }

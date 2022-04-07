@@ -91,6 +91,8 @@ namespace Upgrades
         public float explosionRadius => _explosionRadius;
         public int maxPop => _maxPop;
         
+        public string name => _upgradeName;
+        
         public bool hasAccessToCamo => _hasAccessToCamo;
     }
 }

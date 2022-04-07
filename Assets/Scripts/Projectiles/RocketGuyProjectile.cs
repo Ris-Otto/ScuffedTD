@@ -52,7 +52,6 @@ namespace Projectiles
 
         private void AffectExplosionColliders() {
             Collider2D[] cols =
-                // ReSharper disable once Unity.PreferNonAllocApi
                 Physics2D.OverlapCircleAll(target.transform.position, _explosionRadius, 1 << LayerMask.NameToLayer("Enemy"));
             if(cols.Length > _maxPop)
                 for (int i = 0; i < _maxPop; i++) {

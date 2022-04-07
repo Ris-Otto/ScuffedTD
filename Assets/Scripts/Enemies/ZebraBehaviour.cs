@@ -23,26 +23,6 @@ namespace Enemies
             return projectile.DamageType.damageType != DamageType.ICE && projectile.DamageType.damageType != DamageType.EXPLOSIVE; //TODO XD
         }
 
-        /*protected override int ComputeOnHitBehaviour(Projectile projectile) {
-            int pop = projectile.damage;
-            if (pop >= enemy.totalHealth) {
-                ResetThis();
-                return enemy.totalHealth;
-            }
-            if (pop >= 2) {
-                GameObject[] children = 
-                    {enemy.children[enemy.children.Length - 1], enemy.children[enemy.children.Length - (2)]};
-                InstantiateMultipleChildrenOnConditionsMet(children, projectile);
-                ResetThis();
-                return pop;
-            }
-            GameObject[] childrens =
-                {enemy.children[enemy.children.Length - 1], enemy.children[enemy.children.Length - (pop+1)]};
-            InstantiateMultipleChildrenOnConditionsMet(childrens, projectile);
-            ResetThis();
-            return pop;
-        }*/
-
 
 
         #region getset

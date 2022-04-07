@@ -1,7 +1,10 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using DataStructures;
+using Extension;
+using Units;
 using UnityEngine;
 
 namespace Managers
@@ -11,7 +14,11 @@ namespace Managers
     {
         private Round _nextRound;
         public static RoundInformation Instance;
+        private static ActiveObjectsTracker aot;
         private static Economics eco;
+        private Log _log;
+        private int _currentRound;
+        private HealthManager _manager;
 
 
         //Well... Started out as a placeholder bloonspawner-class but ended up like this I'm so sorry
@@ -19,20 +26,37 @@ namespace Managers
             if (Instance == null) 
                 Instance = this;
             eco = GameObject.FindGameObjectWithTag("EconomicsHandler").GetComponent<Economics>();
+            Log.Instance = null;
+            _log = new Log();
+            _log = Log.Instance;
+            _log.Logger.logEnabled = true;
+            aot = ActiveObjectsTracker.Instance;
+            _manager = GameObject.FindGameObjectWithTag("Canvas").GetComponent<HealthManager>();
+            
         }
-
         
         public void RoundStart(int round) {
+            _manager.AddLogger();
             ConfigureRound(round);
+            _log.Logger.Log(LogType.Log, $"0: Round {_currentRound}");
             StartCoroutine(Spawn(_nextRound.Get));
         }
 
         public static void RoundEnd() {
-            eco.ReceiveIncome(75);
+            eco.ReceiveIncome(100 + Instance._currentRound);
+            Instance._log.Logger.Log(LogType.Log, $"1: Round end cumulative income: {eco.CumulativeMoney}");
+            
+            foreach (GameObject obj in FindObjectsOfType<GameObject>()) {
+                ILoggable loggable;
+                if ((loggable = obj.GetInterface<ILoggable>()) == null) continue;
+                loggable.Log();
+            }
+            
         }
 
         private void ConfigureRound(int round) {
             Invoke("Round" +round, 0.001f);
+            _currentRound = round-1;
         }
 
         private IEnumerator Spawn(IEnumerable<Wave> waves) {
@@ -41,7 +65,7 @@ namespace Managers
                 yield return new WaitForSeconds(t.TimeUntilNext());
             }
         }
-        //
+        
         private void Start() {
             //TestRound();
             Round1();

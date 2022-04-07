@@ -92,6 +92,8 @@ namespace Upgrades
 
         public string upgradeName => _upgradeName;
 
+        public string name => _upgradeName;
+
         public float projectileSpeed => _projectileSpeed;
 
         public bool hasAccessToCamo => _hasAccessToCamo;

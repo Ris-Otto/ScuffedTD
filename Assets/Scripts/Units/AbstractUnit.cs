@@ -10,17 +10,20 @@ using Upgrades;
 
 namespace Units
 {
-    public abstract class AbstractUnit : MonoBehaviour, IMoneyObject, ISelectable, IPlaceable, IMouseUser, ISource
+    public abstract class AbstractUnit : MonoBehaviour, IMoneyObject, ISelectable, IPlaceable, IMouseUser, ISource, ILoggable
     {
+        
         private bool _canAccessCamo;
         private bool _isSelected;
         protected bool _placed;
         protected GameObject _target;
-        protected int _targetingStyle;
         protected Animation _anim;
         protected int _price;
         protected UIManager _uiManager;
+        private int _pops;
+        protected Log _log;
         private int _targetingStyle1;
+        protected Vector3 placement;
 
         protected virtual void Awake() {
             InvokeRepeating(nameof(BeforePlaceUnit), 0f, Time.deltaTime);
@@ -28,9 +31,10 @@ namespace Units
             target = null;
             isSelected = false;
             abstractUpgradeContainer = GetComponent<AbstractUpgradeContainer>();
+            _log = Managers.Log.Instance;
             InitialiseUnitParameters();
         }
-        
+
         protected void GenerateGun<T>(GameObject projectile) where T : Gun {
             GameObject gameObj = new GameObject {name = projectile.name + "Gun"};
             Gun thisGun = gameObj.AddComponent<T>();
@@ -48,62 +52,90 @@ namespace Units
             CanAccessCamo = currentUpgrade.hasAccessToCamo;
         }
 
+        public void AddToKills(int kill) {
+            _pops += kill;
+        }
+
+        public virtual void Log() {
+            _log.Logger.Log(LogType.Log, $"2: {name} - Cumulative Pops: {_pops}");
+        }
+
         #region Targeting
-
+        
         public GameObject TargetEnemy(int style = 0) {
-            target = null;
-            AbstractEnemy[] eb = CanAccessCamo ? et.AllEnemies : et.NonCamo;
+            
+            IEnumerable<AbstractEnemy> eb = (CanAccessCamo ? et.AllEnemies : et.NonCamo)
+                .Where(enemy =>
+                Vector3.Distance(enemy.transform.position, transform.position) < currentUpgrade.range);
 
-            switch (style) {
-                default:
-                    TargetFirstEnemy(eb);
-                    break;
-                case 0:
-                    TargetFirstEnemy(eb);
-                    break;
-                case 1:
-                    TargetLastEnemy(eb);
-                    break;
-                case 2:
-                    TargetStrongestEnemy(eb);
-                    break;
-                case 3:
-                    TargetClosestEnemy(eb);
-                    break;
+            GameObject ret = style switch {
+                0 => TargetFirstEnemy(eb),
+                1 => TargetLastEnemy(eb),
+                2 => TargetStrongestEnemy(eb),
+                3 => TargetClosestEnemy(eb),
+                _ => null
+            };
+
+            return target = ret;
+        }
+        
+        private GameObject TargetLastEnemy(IEnumerable<AbstractEnemy> eb) {
+            float current = Mathf.Infinity;
+            GameObject ret = null;
+            foreach (AbstractEnemy e in eb) {
+                float dist = e.distanceTravelled;
+                if (dist > current) continue;
+                current = dist;
+                ret = e.gameObject;
             }
-            return target;
+            return ret;
+        }
+        
+        private GameObject TargetStrongestEnemy(IEnumerable<AbstractEnemy> eb) {
+            
+            float current = Mathf.NegativeInfinity;
+            List<AbstractEnemy> ebn = eb.ToList();
+
+
+            foreach (AbstractEnemy e in eb) {
+                float health = e.Enemy.totalHealth;
+                if (health < current) {
+                    ebn.Remove(e);
+                    continue;
+                }
+                current = health;
+            }
+            return TargetFirstEnemy(ebn);
+        }
+        
+        private GameObject TargetClosestEnemy(IEnumerable<AbstractEnemy> eb) {
+            float current = Mathf.Infinity;
+            GameObject ret = null;
+            
+
+            foreach (AbstractEnemy e in eb) {
+                float dist = Vector3.Distance(e.transform.position, placement);
+                if (dist > current) continue;
+                current = dist;
+                ret = e.gameObject;
+            }
+            return ret;
+        }
+        
+        private GameObject TargetFirstEnemy(IEnumerable<AbstractEnemy> eb) {
+            float current = Mathf.NegativeInfinity;
+            GameObject ret = null;
+            
+            foreach (AbstractEnemy e in eb) {
+                float dist = e.distanceTravelled;
+                if (dist < current) continue;
+                current = dist;
+                ret = e.gameObject;
+            }
+            return ret;
         }
 
-        private void TargetFirstEnemy(IEnumerable<AbstractEnemy> eb) {
-            eb.Aggregate(Mathf.NegativeInfinity, (current, t) => 
-                GetTargetUsingCorrespondingTargetingStyle(t, t.distanceTravelled, current, 1));
-        }
-
-        private void TargetLastEnemy(IEnumerable<AbstractEnemy> eb) {
-            eb.Aggregate(Mathf.Infinity, (current, t) => 
-                GetTargetUsingCorrespondingTargetingStyle(t, t.distanceTravelled, current, -1));
-        }
-        private void TargetStrongestEnemy(IEnumerable<AbstractEnemy> eb) {
-            eb.Aggregate(Mathf.NegativeInfinity, (current, t) => 
-                GetTargetUsingCorrespondingTargetingStyle(t, t.Enemy.totalHealth, current, 1));
-        }
-        private void TargetClosestEnemy(IEnumerable<AbstractEnemy> eb) {
-            eb.Aggregate(Mathf.Infinity, (current, t) => 
-                GetTargetUsingCorrespondingTargetingStyle(t, Vector3.Distance(t.transform.position, transform.position), 
-                    current, -1));
-        }
-
-        private float GetTargetUsingCorrespondingTargetingStyle(AbstractEnemy t, float style, 
-            float toCompare, int expected) {
-            if (t.Equals(null)) return style;
-            if (style.CompareTo(toCompare) != expected || 
-                !(Vector3.Distance(t.transform.position, transform.position) < currentUpgrade.range)) return toCompare;
-            target = t.gameObject;
-            return style;
-        }
-    
         protected void ComputeRotation() {
-            target = TargetEnemy(targetingStyle);
             if (target == null) return;
             if(target.activeSelf & placed)
                 transform.rotation = Quaternion.LookRotation
@@ -115,7 +147,10 @@ namespace Units
         #region everything
         public virtual void BeforePlaceUnit() {
             if (placed) {
-                transform.position = cam.ScreenToWorldPoint(GetMousePos(5f));
+                Transform transform1;
+                (transform1 = transform).position = cam.ScreenToWorldPoint(GetMousePos(5f));
+                placement = transform1.position;
+                _log.Logger.Log(LogType.Log, $"2: {name} - placed at: {placement}");
                 CancelInvoke(nameof(BeforePlaceUnit));
                 return;
             }
@@ -172,7 +207,6 @@ namespace Units
                 uiManager.HideMenu();
                 Range.DisplayRange(false);
             }
-            
         }
 
         public void Deselect() {
@@ -182,9 +216,7 @@ namespace Units
         }
 
         public void DeselectOthers() {
-            AbstractUnit[] units = et.Units;
-            foreach (AbstractUnit t in units) 
-                if (t != this) t.Deselect();
+            foreach (AbstractUnit t in et.Units) if (!Equals(t, this)) t.Deselect();
         }
         
         public void SetSelected(bool selected) {
@@ -281,6 +313,5 @@ namespace Units
         }
 
         #endregion
-        
     }
 }

@@ -32,11 +32,6 @@ namespace Managers
         {
             m_DefaultLogHandler.LogException(exception, context);
         }
-
-        public void CloseFileStream() {
-            m_StreamWriter.Close();
-        }
-
         
 
     }

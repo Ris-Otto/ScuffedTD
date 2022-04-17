@@ -50,6 +50,6 @@ namespace DataStructures
         }
         
         public float TimeUntilNext() { return _timeUntilNext; }
-        public IEnumerable<BloonType> Get() { return _bloons; }
+        public List<BloonType> Get() { return _bloons; }
     }
 }

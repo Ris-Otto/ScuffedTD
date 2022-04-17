@@ -20,9 +20,7 @@ namespace Enemies
         }
         
         public override bool IsAppropriateDamageType(Projectile projectile) {
-            bool toReturn = damageType.damageType != DamageType.MAGIC;
-            if(!toReturn) projectile.ResetProjectileFromEnemy();
-            return toReturn;
+            return enemy.damageType.CompareTo(projectile.DamageType) != 0;
         }
 
         #region getters/setters

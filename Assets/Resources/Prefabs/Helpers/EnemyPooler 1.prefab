@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2881875076174534747}
   - component: {fileID: 3274631444890106854}
   - component: {fileID: 3274631445991520722}
+  - component: {fileID: 673709024}
   m_Layer: 9
   m_Name: EnemyPooler 1
   m_TagString: Pooler
@@ -44,6 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86f852a491937794ba3aeccc4cea8e84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  s: {fileID: 673709024}
 --- !u!114 &3274631445991520722
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -54,5 +56,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2bb5edd15c577d14db22e274ea850b02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &673709024
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3098879334594212548}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3adac257d5ae4a44a2c47656d52e39de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

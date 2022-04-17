@@ -17,6 +17,7 @@ namespace Upgrades
         private float _explosionRadius;
         private int _maxPop;
         private bool _hasAccessToCamo;
+        private int _bonusBossMultiplier;
 
 
         public RocketUpgrade(string upgradeName, int damage, int pierce, float range, float secondsPerAttackModifier,
@@ -31,10 +32,11 @@ namespace Upgrades
             _maxPop = maxPop;
             _price = price;
             _damageType = damageType;
+            _bonusBossMultiplier = 1;
         }
 
         public RocketUpgrade(string upgradeName, int damage, int pierce, float range, float secondsPerAttackModifier,
-            int price, float projectileSpeed, float explosionRadius, int maxPop) {
+            int price, float projectileSpeed, float explosionRadius, int maxPop, int bonusBossMultiplier = 1) {
             _upgradeName = upgradeName;
             _damage = damage;
             _pierce = pierce;
@@ -44,6 +46,7 @@ namespace Upgrades
             _explosionRadius = explosionRadius;
             _maxPop = maxPop;
             _price = price;
+            _bonusBossMultiplier = bonusBossMultiplier;
         }
 
         public RocketUpgrade() {
@@ -58,6 +61,7 @@ namespace Upgrades
         }
 
         public void CumulateUpgrades(IUpgrade next, IUpgrade last) {
+            RocketUpgrade ru = (RocketUpgrade)next;
             _upgradeName = next.upgradeName;
             _damage += next.damage;
             _pierce += next.pierce;
@@ -67,6 +71,7 @@ namespace Upgrades
                 = next.secondsPerAttackModifier * secondsPerAttackModifier;
             _damageType = next.damageType;
             _projectileSpeed += next.projectileSpeed;
+            if (ru != null) _bonusBossMultiplier *= ru._bonusBossMultiplier;
         }
 
         public override string ToString() {
@@ -94,5 +99,7 @@ namespace Upgrades
         public string name => _upgradeName;
         
         public bool hasAccessToCamo => _hasAccessToCamo;
+
+        public int BossMultiplier => _bonusBossMultiplier;
     }
 }

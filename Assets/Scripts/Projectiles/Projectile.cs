@@ -47,6 +47,9 @@ namespace Projectiles
                 hasCollided = true;
                 pierce--;
             }
+            if (pierce <= 0 && hasCollided) {
+                ResetThis();
+            }
         }
 
         protected virtual void ResetThis() {
@@ -104,8 +107,9 @@ namespace Projectiles
             set;
         }
 
-        public abstract long ID {
+        public virtual long ID {
             get;
+            set;
         }
 
         public abstract ScriptableDamageType DamageType {

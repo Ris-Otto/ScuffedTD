@@ -8,9 +8,9 @@ namespace Projectiles
         SHARP = 0,
         ICE = 1,
         MAGIC = 2,
-        EXPLOSIVE = 4,
-        FIRE = 8,
-        ALL = 1024
+        EXPLOSIVE = 3,
+        FIRE = 4,
+        ALL = 100
     }
 }
 

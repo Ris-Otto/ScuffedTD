@@ -14,6 +14,7 @@ namespace Managers
         private Economics _eco;
         private bool _canUndo;
         private GameObject currentObject;
+        private Log log;
 
         private void FixedUpdate() {
             if (!EventSystem.current.IsPointerOverGameObject()) return;
@@ -23,6 +24,7 @@ namespace Managers
         }
         
         private void Start() {
+            log = FindObjectOfType<Log>();
             _eco = Economics.Instance;
             _activeObjects = GameObject.FindGameObjectWithTag("Pooler").GetComponent<ActiveObjectsTracker>();
         }
@@ -76,6 +78,7 @@ namespace Managers
                 return;
             }
             _eco.UpdateMoney(u.GetBuyValue());
+            log.Logger.Log(LogType.Log, $"0: {u.name}: Purchase undone.");
             SetCanUndo(false);
             u.OnCallDestroy();
             currentObject = null;

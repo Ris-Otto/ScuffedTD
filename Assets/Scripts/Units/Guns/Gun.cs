@@ -79,7 +79,7 @@ namespace Units.Guns
             return position;
         }
         
-        protected virtual Vector3 ConfigureProjectile<T>(GameObject p, GameObject target, out Vector2 direction,
+        protected Vector3 ConfigureProjectile<T>(GameObject p, GameObject target, out Vector2 direction,
             out Projectile projectile) where T : Projectile {
             Vector3 position = ConfigureProjectileTransform(target, out direction);
             projectile = p.GetComponent<T>();

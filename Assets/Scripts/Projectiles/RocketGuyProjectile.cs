@@ -1,4 +1,5 @@
 using Enemies;
+using JetBrains.Annotations;
 using Managers;
 using Units;
 using UnityEngine;
@@ -26,6 +27,7 @@ namespace Projectiles
         public ScriptableDamageType _damageType;
         private int _maxPop;
         private long _ID;
+        private int _bonusBossMultiplier;
         #endregion
     
         private void Awake() {
@@ -51,15 +53,26 @@ namespace Projectiles
         }
 
         private void AffectExplosionColliders() {
+            
+            int Dmg(Collider2D col) {
+                if (col.gameObject.GetComponent<AbstractEnemy>() is BossFirst) 
+                    return damage * _bonusBossMultiplier;
+                return damage;
+            }
+            
             Collider2D[] cols =
                 Physics2D.OverlapCircleAll(target.transform.position, _explosionRadius, 1 << LayerMask.NameToLayer("Enemy"));
             if(cols.Length > _maxPop)
                 for (int i = 0; i < _maxPop; i++) {
-                    _listener.Income(cols[i].gameObject.GetComponent<AbstractEnemy>().Die(this, damage));
+                    Master.AddToKills(_listener.Income
+                    (cols[i].gameObject.GetComponent<AbstractEnemy>().Die
+                        (this, Dmg(cols[i]))));
                 }
             else {
                 foreach (Collider2D aCollider in cols) {
-                    _listener.Income(aCollider.gameObject.GetComponent<AbstractEnemy>().Die(this, damage));
+                    Master.AddToKills(_listener.Income
+                        (aCollider.gameObject.GetComponent<AbstractEnemy>().Die
+                            (this, Dmg(aCollider))));
                 }
             }
         }
@@ -75,6 +88,7 @@ namespace Projectiles
             //_damageType = rocketUpgrade.damageType;
             _maxPop = rocketUpgrade.maxPop;
             _explosionRadius = rocketUpgrade.explosionRadius;
+            _bonusBossMultiplier = rocketUpgrade.BossMultiplier;
         }
 
         private void OnTriggerEnter2D(Collider2D col) {

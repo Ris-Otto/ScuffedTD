@@ -16,17 +16,26 @@ namespace Managers
         [SerializeField]
         private Button goober, rocket, tack, magickan, mommo, upgrade1, upgrade2, sell;
         private Text _moneyText;
-        public static Economics Instance;
+        private static Economics _instance;
         private int _cumulativeMoney;
         private Log _log;
+
+        public static Economics Instance {
+            get {
+                if (_instance == null) {
+                    _instance = FindObjectOfType<Economics>();
+                }
+
+                return _instance;
+            }
+        }
 
 
         public void Awake() {
             _moneyText = mainCanvas.GetComponentInChildren<Text>();
             UpdateMoney(650);
             InitialiseButtons();
-            _log = Log.Instance;
-            if (Instance == null) Instance = this;
+            _log = FindObjectOfType<Log>();
         }
 
         private void InitialiseButtons() {

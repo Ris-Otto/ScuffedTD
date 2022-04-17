@@ -34,9 +34,12 @@ namespace Managers
             }
         }
 
+        public void FullRoundSpawned() {
+            _hasAdded = true;
+        }
+
         public void OnEnemySpawn(AbstractEnemy e) {
             if (!e.IsCamo) {
-                _hasAdded = true;
                 _enemies.Add(e);
                 _allEnemies.Add(e);
             }
@@ -57,7 +60,7 @@ namespace Managers
         public void RemoveEnemy(AbstractEnemy e) {
             if(_enemies.Contains(e))
                 _enemies.Remove(e);
-            _allEnemies.Add(e);
+            _allEnemies.Remove(e);
         }
 
         public void RemoveUnit(AbstractUnit u) {

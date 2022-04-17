@@ -99,9 +99,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _projectileSpeed: 20
-  _target: {fileID: 0}
   _spawnedAt: {x: -5.1633086, y: -2.2555504}
-  _range: 3
+  _range: 1.5
   _hasCollided: 0
   _damageType: {fileID: 11400000, guid: 3e1afd88865971345b0366027ae74399, type: 2}
 --- !u!58 &-9139471454470005741
@@ -119,7 +118,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.49999997
+  m_Radius: 0.5
 --- !u!50 &4530235435105606886
 Rigidbody2D:
   serializedVersion: 4

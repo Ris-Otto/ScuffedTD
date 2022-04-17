@@ -1,7 +1,5 @@
-using Managers;
 using Projectiles;
 using UnityEngine;
-using Upgrades;
 
 namespace Units.Guns
 {
@@ -40,6 +38,8 @@ namespace Units.Guns
         private Vector3 ConfigureProjectile<T>(GameObject p, GameObject target, out Projectile projectile) where T : Projectile {
             Vector3 position = ConfigureProjectileTransform(target);
             projectile = p.GetComponent<T>();
+            projectile.Master = ParentUnit;
+            Debug.Log(projectile.Master);
             return position;
         }
 
@@ -57,8 +57,6 @@ namespace Units.Guns
             get => _projectile;
             set => _projectile = value;
         }
-
-        protected virtual bool UsesSecondary => true;
 
         protected override string Name => "WoF";
 

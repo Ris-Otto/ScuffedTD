@@ -62,12 +62,13 @@ namespace Projectiles
         }
         
         protected override void Hit(Collider2D col) {
+            Debug.Log(col.name);
             _listener.Income(col.gameObject.GetComponent<AbstractEnemy>().Die(this, damage));
         }
 
         
-        private void OnTriggerStay2D(Collider2D other) {
-            if (!(_time > 0.1f)) return;
+        private void OnTriggerEnter2D(Collider2D other) {
+            if (!(_time > 0.05f)) return;
             _ID = GetID();
             Hit(other);
             _time = 0.0f;

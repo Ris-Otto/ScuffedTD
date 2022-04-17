@@ -53,7 +53,7 @@ namespace Projectiles
             }
             else {
                 try {
-                    _listener.Income(col.gameObject.GetComponent<AbstractEnemy>().Die(this, damage));
+                    Master.AddToKills(_listener.Income(col.gameObject.GetComponent<AbstractEnemy>().Die(this, damage)));
                     _hasCollided = true;
                     pierce--;
                 }

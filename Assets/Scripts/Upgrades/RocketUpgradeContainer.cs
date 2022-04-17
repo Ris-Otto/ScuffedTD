@@ -15,17 +15,23 @@ namespace Upgrades
 
         void Awake() {
             RocketUpgrade upgrade11 = new RocketUpgrade
-                ("Bigger Bombs", 0, 0, 0, 1, 300, 0f, 2, 6, DamageType.EXPLOSIVE);
+                ("Bigger Bombs", 0, 0, 0, 1, 300, 0f, 2, 6);
             RocketUpgrade upgrade12 = new RocketUpgrade
                 ("Heavy Bombs", 1, 0, 0, 1, 555, 0f, 0, 10);
+            RocketUpgrade upgrade13 = new RocketUpgrade
+                ("Massive Bombs",1, 0, 0, 1f, 1000, 0f, 2, 15);
             RocketUpgrade upgrade21 = new RocketUpgrade
                 ("Faster Reload", 0, 0, 0, 0.75f, 210, 0f, 0, 0);
             RocketUpgrade upgrade22 = new RocketUpgrade
                 ("Missile Launcher", 0, 0, 1, 0.80f, 555, 10f, 0, 0);
+            RocketUpgrade upgrade23 = new RocketUpgrade
+                ("BossMan", 0, 0, 0, 0.80f, 1500, 10f, 0, 0, 10);
             Initialise(1, upgrade11);
             Initialise(1, upgrade12);
+            Initialise(1, upgrade13);
             Initialise(2, upgrade21);
             Initialise(2, upgrade22);
+            Initialise(2, upgrade23);
             treeOneEnum = treeOneDict.GetEnumerator();
             treeTwoEnum = treeTwoDict.GetEnumerator();
             GetNextUpgrade(1);

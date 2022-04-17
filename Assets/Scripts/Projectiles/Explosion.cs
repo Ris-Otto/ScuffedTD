@@ -19,7 +19,9 @@ namespace Projectiles
         }
 
         public void setDuration(float duration) {
-            mainModule.duration = 0.1f*duration;
+            //mainModule.duration = 0.1f*duration;
+            var minMax = new ParticleSystem.MinMaxCurve(0.1f * duration);
+            mainModule.startLifetime = minMax;
         }
     }
 }

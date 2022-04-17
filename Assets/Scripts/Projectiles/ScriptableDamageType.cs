@@ -12,7 +12,16 @@ namespace Projectiles
         public new string name;
 
         public int CompareTo(ScriptableDamageType other) {
-            return damageType.CompareTo(other.damageType);
+            return CompareTo(other.damageType);
+        }
+
+        private int CompareTo(DamageType type) {
+            if (damageType > type) {
+                return 1;
+            }
+            if(damageType < type) return -1;
+            
+            return 0;
         }
     }
 }

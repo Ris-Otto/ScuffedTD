@@ -31,7 +31,7 @@ namespace Units
             target = null;
             isSelected = false;
             abstractUpgradeContainer = GetComponent<AbstractUpgradeContainer>();
-            _log = Managers.Log.Instance;
+            _log = FindObjectOfType<Log>();
             InitialiseUnitParameters();
         }
 

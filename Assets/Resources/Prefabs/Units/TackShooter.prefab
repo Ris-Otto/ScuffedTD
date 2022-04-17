@@ -280,7 +280,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d51ec929a0e8c44cb7106e5dddec7cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _projectile: {fileID: 0}
+  _projectile: {fileID: 2337159667766271514, guid: 5fbfed36498217445b6bd0e8641d47ce,
+    type: 3}
   _rotationAmount: 0
 --- !u!114 &-7674828501410651922
 MonoBehaviour:

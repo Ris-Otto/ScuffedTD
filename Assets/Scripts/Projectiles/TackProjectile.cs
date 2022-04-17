@@ -1,3 +1,4 @@
+using System;
 using Enemies;
 using Managers;
 using Units;
@@ -59,12 +60,12 @@ namespace Projectiles
         }
 
         protected override void Hit(Collider2D col) {
-            if (!IsTargetActive()) return;
+            //if (!IsTargetActive()) return;
             if (pierce <= 0 && _hasCollided) {
                 ResetThis();
             }
             else {
-                _listener.Income(col.gameObject.GetComponent<AbstractEnemy>().Die(this, damage));
+                Master.AddToKills(_listener.Income(col.gameObject.GetComponent<AbstractEnemy>().Die(this, damage)));
                 _hasCollided = true;
                 pierce--;
             }
@@ -109,6 +110,7 @@ namespace Projectiles
         
         public override long ID {
             get => _ID;
+            set => _ID = value;
         }
     
         #endregion

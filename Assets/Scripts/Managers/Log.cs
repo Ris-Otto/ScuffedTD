@@ -4,13 +4,13 @@ using UnityEngine;
 
 namespace Managers
 {
-    public class Log
+    public class Log : MonoBehaviour
     {
 
-        private readonly ILogger _logger;
+        private ILogger _logger;
         public static Log Instance;
 
-        public Log() {
+        public void Awake() {
             if (Instance != null) return;
             _logger = new Logger(new LogHandler());
             Instance = this;
@@ -21,7 +21,6 @@ namespace Managers
 
         public void DisableLogger() {
             _logger.logEnabled = false;
-            
         }
 
     }

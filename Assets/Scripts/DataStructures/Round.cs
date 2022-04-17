@@ -28,7 +28,7 @@ namespace DataStructures
     public class Round
     {
         
-        private readonly List<Wave> _wavesList;
+        private readonly List<Wave> _wavesList = new List<Wave>();
         private readonly int camoWave;
 
         public Round(IEnumerable<Wave> listOfWaves) {
@@ -38,15 +38,14 @@ namespace DataStructures
         
         public Round(IEnumerable<Wave> listOfWaves, int camoWave) {
             this.camoWave = camoWave;
-            _wavesList = new List<Wave>();
             _wavesList.AddRange(listOfWaves);
         }
 
-        public static IEnumerator SpawnWave(Wave wave) {
+        public IEnumerator SpawnWave(Wave wave) {
             return wave.Get().Select(wave.SpawnEnemies).GetEnumerator();
         }
         
-        public IEnumerable<Wave> Get => _wavesList;
+        public List<Wave> Get => _wavesList;
 
 
     }

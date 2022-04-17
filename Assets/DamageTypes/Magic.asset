@@ -12,6 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e356c19034c92f643892701cac32fca7, type: 3}
   m_Name: Magic
   m_EditorClassIdentifier: 
-  damageType:
-    damageType: 2
+  damageType: 2
   name: Magic

@@ -14,10 +14,15 @@ namespace Units.Guns
 
         protected override void HandleProjectileSpawn<T>(GameObject target) {
             if (!(_upgrade is TackUpgrade up)) return;
+            //Specific to multi-shot units
+            //int _ID = Random.Range(0, 100000);
+            
             for (int i = 0; i < up.Shot_count; i++) {
                 GameObject p = _pooler.SpawnFromPool(Name, transform.position, Quaternion.identity);
                 Vector3 position = ConfigureProjectile<T>(p, target, out Vector2 direction, out Projectile projectile);
                 if(i != 0) direction = RotateVector(direction, i);
+                //Specific to multi-shot units, bit slower but oh well
+                //projectile.GetComponent<TackProjectile>().ID = _ID;
                 ShootProjectile(projectile, direction, position, target);
             }
         }

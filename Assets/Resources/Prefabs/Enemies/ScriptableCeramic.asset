@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0eaeff01ead66fc468c87761b6164b1f, type: 3}
   m_Name: ScriptableCeramic
   m_EditorClassIdentifier: 
-  speed: 1
+  speed: 2.8
   totalHealth: 104
   selfHealth: 10
   damageType: {fileID: 11400000, guid: 202782fbbb7efe0459e9cb792fccab0a, type: 2}

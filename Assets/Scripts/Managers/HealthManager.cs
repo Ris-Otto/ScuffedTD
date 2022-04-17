@@ -25,7 +25,7 @@ namespace Managers
         }
 
         public void AddLogger() {
-            _log = Managers.Log.Instance;
+            _log = FindObjectOfType<Log>();
         }
         
         private void FixedUpdate() {

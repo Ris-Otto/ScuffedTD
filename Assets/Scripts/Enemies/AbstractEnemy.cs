@@ -1,3 +1,4 @@
+using System;
 using Managers;
 using Projectiles;
 using UnityEngine;
@@ -6,11 +7,27 @@ namespace Enemies
 {
     public abstract class AbstractEnemy : MonoBehaviour
     {
+        [SerializeField]
+        private bool _lock;
+
+        private bool spawned;
+
+        private Collider2D _collider2D;
+        
         protected void Awake() {
+            _collider2D = GetComponent<Collider2D>();
+            _collider2D.enabled = false;
+            spawned = false;
             waypointIdx = 0;
             distanceTravelled = 0;
             et = ActiveObjectsTracker.Instance;
             SendThisHasSpawnedToActiveObjectsTracker(et);
+        }
+
+        private void OnEnable() {
+            if (waypointIdx >= 1) {
+                _collider2D.enabled = true;
+            }
         }
 
         #region SendMessages methods
@@ -47,8 +64,7 @@ namespace Enemies
             Vector2 dir = targetPos - pos;
             transform.Translate(dir.normalized * (Enemy.speed * Time.deltaTime), Space.World);
             if(HasReachedTarget(targetPos)) GetNextWaypoint();
-            distanceTravelled += 0.01f*Enemy.speed;
-            
+            distanceTravelled += Time.deltaTime*Enemy.speed;
         }
 
         private void SavePos(Vector3 pos) {
@@ -60,8 +76,12 @@ namespace Enemies
         }
 
         private void GetNextWaypoint() {
-            if (waypointIdx < Pathfinding.Waypoints.Length - 1) 
+            if (waypointIdx < Pathfinding.Waypoints.Length - 1) {
                 waypointIdx++;
+                if (spawned || waypointIdx < 1) return;
+                spawned = true;
+                _collider2D.enabled = true;
+            }
             else {
                 HealthManager.Instance.OnEnemyPassedThrough(this);
                 ResetThis();
@@ -73,19 +93,26 @@ namespace Enemies
         
         #region onHit-methods
         
-        protected static int PassOnDamageToChild(Projectile projectile, int remainingDamage, AbstractEnemy e) {
+        protected int PassOnDamageToChild(Projectile projectile, int remainingDamage, AbstractEnemy e) {
             return e.KillChild(projectile, remainingDamage);
         }
         
         protected virtual int ComputeOnHitBehaviour(Projectile projectile, int remainingDamage) {
-            if (remainingDamage <= 0) return 0;
-            if (remainingDamage >= Enemy.selfHealth) projectile.Master.AddToKills(1);
+            _lock = true;
+            if (remainingDamage <= 0) {
+                _lock = false;
+                return 0;
+            }
+            
             if(remainingDamage >= Enemy.totalHealth) {
+                //projectile.Master.AddToKills(Enemy.totalHealth);
                 ResetThis();
                 return Enemy.totalHealth;
             }
+
             AbstractEnemy[] es = InstantiateChildren(Enemy.directChildren, projectile);
             ResetThis();
+            
             return PassOnDamageToChild(projectile, remainingDamage-1, es[0]) + 1;
         }
 
@@ -94,19 +121,27 @@ namespace Enemies
         }
 
         private int KillChild(Projectile projectile, int remainingDamage) {
+            
             return IsAppropriateDamageType(projectile) ? ComputeOnHitBehaviour(projectile, remainingDamage) : 0;
         }
 
+        
         private bool CantBePoppedByProjectile(Projectile projectile) {
-            bool toReturn = LastProjectile != null && LastProjectile.ID.Equals(projectile.ID);
-            if (!toReturn) projectile.pierce++;
-            return toReturn;
+            bool ret = _lock;
+            if (ret) {
+                projectile.pierce++;
+                return true;
+            }
+            ret = LastProjectile != null;
+            if (ret) {
+                ret = LastProjectile.ID.Equals(projectile.ID);
+                if (!ret) projectile.pierce++;
+                return ret;
+            }
+            return false;
         }
 
         public virtual bool IsAppropriateDamageType(Projectile projectile) {
-            if (IsCamo) {
-                Debug.Log("bajs");
-            }
             if (IsCamo && !projectile.Master.CanAccessCamo) {
                 projectile.pierce++;
                 return false;
@@ -117,15 +152,16 @@ namespace Enemies
         }
         
         private bool ProjectileHasAppropriateParameters(Projectile projectile) {
-            if (LastProjectile == null) return IsAppropriateDamageType(projectile);
+            //if (LastProjectile == null) return IsAppropriateDamageType(projectile);
             return !CantBePoppedByProjectile(projectile) && IsAppropriateDamageType(projectile);
         }
 
         protected void ResetThis() {
-            Instantiate(Enemy.popObject, transform.position, Quaternion.identity);
             SendThisHasDiedToActiveObjectsTracker(et);
             GameObject o;
             (o = gameObject).SetActive(false);
+            Instantiate(Enemy.popObject, transform.position, Quaternion.identity);
+            
             Destroy(o, 0.1f);
         }
 
@@ -143,6 +179,7 @@ namespace Enemies
             e.LastProjectile = projectile;
             e.waypointIdx = waypointIdx;
             e.distanceTravelled = distanceTravelled;
+            e._lock = false;
             return e;
         }
 

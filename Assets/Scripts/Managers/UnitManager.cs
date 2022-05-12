@@ -78,7 +78,7 @@ namespace Managers
                 return;
             }
             _eco.UpdateMoney(u.GetBuyValue());
-            log.Logger.Log(LogType.Log, $"0: {u.name}: Purchase undone.");
+            log.Logger.Log(LogType.Log, $"; ; ; {u.name}");
             SetCanUndo(false);
             u.OnCallDestroy();
             currentObject = null;

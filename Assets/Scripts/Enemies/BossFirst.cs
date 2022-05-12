@@ -1,3 +1,4 @@
+using System;
 using Managers;
 using Projectiles;
 using UnityEngine;
@@ -24,15 +25,12 @@ namespace Enemies
         protected override int ComputeOnHitBehaviour(Projectile projectile, int remainingDamage) {
             selfHealth -= remainingDamage;
             if ( selfHealth > 0) {
-                projectile.Master.AddToKills(5);
-                
-                Debug.Log(selfHealth);
                 return 0;
             }
             ResetThis();
             //Executive decision to not carry over damage to BossChildren
             InstantiateChildren(Enemy.directChildren, projectile);
-            return 1;
+            return 5;
         }
         
         #region getters/setters

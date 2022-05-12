@@ -1,5 +1,6 @@
 using Managers;
 using Projectiles;
+using Units;
 using UnityEngine;
 
 namespace Enemies
@@ -20,7 +21,9 @@ namespace Enemies
         }
         
         public override bool IsAppropriateDamageType(Projectile projectile) {
-            return enemy.damageType.CompareTo(projectile.DamageType) != 0;
+            if (!(projectile.Master is MagickanUnit)) return enemy.damageType.CompareTo(projectile.DamageType) != 0;
+            projectile.ResetProjectileFromEnemy();
+            return false;
         }
 
         #region getters/setters

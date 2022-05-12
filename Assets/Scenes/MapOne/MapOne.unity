@@ -700,6 +700,21 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 898193782256051997, guid: 838844074ab56f34993ae7c8cc39ce8e,
+        type: 3}
+      propertyPath: m_text
+      value: Magickan 450
+      objectReference: {fileID: 0}
+    - target: {fileID: 898193782256051997, guid: 838844074ab56f34993ae7c8cc39ce8e,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 898193782256051997, guid: 838844074ab56f34993ae7c8cc39ce8e,
+        type: 3}
+      propertyPath: m_fontSizeBase
+      value: 16
+      objectReference: {fileID: 0}
     - target: {fileID: 2439988286834578826, guid: 838844074ab56f34993ae7c8cc39ce8e,
         type: 3}
       propertyPath: m_IsActive
@@ -708,7 +723,77 @@ PrefabInstance:
     - target: {fileID: 2863481919751504478, guid: 838844074ab56f34993ae7c8cc39ce8e,
         type: 3}
       propertyPath: m_text
-      value: TackShooter
+      value: Tack 350
+      objectReference: {fileID: 0}
+    - target: {fileID: 2863481919751504478, guid: 838844074ab56f34993ae7c8cc39ce8e,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 2863481919751504478, guid: 838844074ab56f34993ae7c8cc39ce8e,
+        type: 3}
+      propertyPath: m_fontSizeBase
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 3962908963573636894, guid: 838844074ab56f34993ae7c8cc39ce8e,
+        type: 3}
+      propertyPath: m_text
+      value: HerrKanin 250
+      objectReference: {fileID: 0}
+    - target: {fileID: 3962908963573636894, guid: 838844074ab56f34993ae7c8cc39ce8e,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 3962908963573636894, guid: 838844074ab56f34993ae7c8cc39ce8e,
+        type: 3}
+      propertyPath: m_fontStyle
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3962908963573636894, guid: 838844074ab56f34993ae7c8cc39ce8e,
+        type: 3}
+      propertyPath: m_lineSpacing
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3962908963573636894, guid: 838844074ab56f34993ae7c8cc39ce8e,
+        type: 3}
+      propertyPath: m_fontSizeBase
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 3962908963573636894, guid: 838844074ab56f34993ae7c8cc39ce8e,
+        type: 3}
+      propertyPath: m_overflowMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3962908963573636894, guid: 838844074ab56f34993ae7c8cc39ce8e,
+        type: 3}
+      propertyPath: m_characterSpacing
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3962908963573636894, guid: 838844074ab56f34993ae7c8cc39ce8e,
+        type: 3}
+      propertyPath: m_enableAutoSizing
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3962908963573636894, guid: 838844074ab56f34993ae7c8cc39ce8e,
+        type: 3}
+      propertyPath: m_paragraphSpacing
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3962908963573636894, guid: 838844074ab56f34993ae7c8cc39ce8e,
+        type: 3}
+      propertyPath: m_VerticalAlignment
+      value: 512
+      objectReference: {fileID: 0}
+    - target: {fileID: 3962908963573636894, guid: 838844074ab56f34993ae7c8cc39ce8e,
+        type: 3}
+      propertyPath: m_enableWordWrapping
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3962908963573636894, guid: 838844074ab56f34993ae7c8cc39ce8e,
+        type: 3}
+      propertyPath: m_HorizontalAlignment
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4825301487443675574, guid: 838844074ab56f34993ae7c8cc39ce8e,
         type: 3}
@@ -765,6 +850,23 @@ PrefabInstance:
       propertyPath: cam
       value: 
       objectReference: {fileID: 519420031}
+    - target: {fileID: 6603383173720412958, guid: 838844074ab56f34993ae7c8cc39ce8e,
+        type: 3}
+      propertyPath: m_text
+      value: 'RocketMan 480
+
+'
+      objectReference: {fileID: 0}
+    - target: {fileID: 6603383173720412958, guid: 838844074ab56f34993ae7c8cc39ce8e,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 6603383173720412958, guid: 838844074ab56f34993ae7c8cc39ce8e,
+        type: 3}
+      propertyPath: m_fontSizeBase
+      value: 16
+      objectReference: {fileID: 0}
     - target: {fileID: 9221444055676043501, guid: 838844074ab56f34993ae7c8cc39ce8e,
         type: 3}
       propertyPath: cam

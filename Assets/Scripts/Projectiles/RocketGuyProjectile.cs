@@ -19,7 +19,6 @@ namespace Projectiles
         private float _range;
         private int _popCount;
         private int _pierce;
-        private EnemyListener _listener;
         private bool _hasCollided;
         public GameObject explosion;
         private float _explosionRadius;
@@ -30,7 +29,8 @@ namespace Projectiles
         private int _bonusBossMultiplier;
         #endregion
     
-        private void Awake() {
+        protected override void Awake() {
+            base.Awake();
             spawnedAt = transform.position;
             pierce = 1;
         }
@@ -44,33 +44,32 @@ namespace Projectiles
         }
 
         protected override void Hit(Collider2D col) {
-            if (!IsTargetActive()) return;
-            if (_hasCollided) return;
+            //if (!IsTargetActive()) return;
             AffectExplosionColliders();
-            _hasCollided = true;
-            Instantiate(explosion, target.transform.position, Quaternion.identity);
+            Instantiate(explosion, transform.position, Quaternion.identity);
             ResetThis();
         }
 
         private void AffectExplosionColliders() {
             
             int Dmg(Collider2D col) {
-                if (col.gameObject.GetComponent<AbstractEnemy>() is BossFirst) 
-                    return damage * _bonusBossMultiplier;
+                AbstractEnemy e = col.gameObject.GetComponent<AbstractEnemy>();
+                if (e is BossFirst) 
+                    return (int)(0.07 * e.Enemy.selfHealth);
                 return damage;
             }
             
             Collider2D[] cols =
-                Physics2D.OverlapCircleAll(target.transform.position, _explosionRadius, 1 << LayerMask.NameToLayer("Enemy"));
+                Physics2D.OverlapCircleAll(transform.position, _explosionRadius, 1 << LayerMask.NameToLayer("Enemy"));
             if(cols.Length > _maxPop)
                 for (int i = 0; i < _maxPop; i++) {
-                    Master.AddToKills(_listener.Income
+                    kills +=(_listener.Income
                     (cols[i].gameObject.GetComponent<AbstractEnemy>().Die
                         (this, Dmg(cols[i]))));
                 }
             else {
                 foreach (Collider2D aCollider in cols) {
-                    Master.AddToKills(_listener.Income
+                    kills +=(_listener.Income
                         (aCollider.gameObject.GetComponent<AbstractEnemy>().Die
                             (this, Dmg(aCollider))));
                 }
@@ -108,7 +107,7 @@ namespace Projectiles
             set => _dir = value;
         }
 
-        public override int damage {
+        protected override int damage {
             get => _popCount;
             set => _popCount = value;
         }

@@ -12,10 +12,12 @@ namespace DataStructures
         private readonly float _timeUntilNext; //time-out tills nästa våg
         private readonly Vector3 spawnPoint;
         private readonly int camoPos = -1;
+        private float waveLength;
         
         public Wave(float timeUntilNext, List<BloonType> types) {
             _timeUntilNext = timeUntilNext;
             _bloons = types;
+            waveLength = _bloons[0].Amount * _bloons[0].Interval;
             spawnPoint = GameObject.FindGameObjectWithTag("Pooler").transform.position;
         }
 
@@ -49,7 +51,9 @@ namespace DataStructures
             return new WaitForSeconds(type.Interval);
         }
         
-        public float TimeUntilNext() { return _timeUntilNext; }
-        public List<BloonType> Get() { return _bloons; }
+        public float TimeUntilNext => _timeUntilNext; 
+        public List<BloonType> Get => _bloons; 
+
+        public float WaveLength => waveLength;
     }
 }

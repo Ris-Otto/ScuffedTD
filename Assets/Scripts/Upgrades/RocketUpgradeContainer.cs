@@ -13,17 +13,17 @@ namespace Upgrades
         private IDictionaryEnumerator _treeTwoEnum;
         private IUpgrade _lastUpgrade;
 
-        void Awake() {
+        private void Awake() {
             RocketUpgrade upgrade11 = new RocketUpgrade
-                ("Bigger Bombs", 0, 0, 0, 1, 300, 0f, 2, 6);
+                ("Bigger Bombs", 0, 0, 0, 1, 300, 0f, 0.2f, 10);
             RocketUpgrade upgrade12 = new RocketUpgrade
-                ("Heavy Bombs", 1, 0, 0, 1, 555, 0f, 0, 10);
+                ("Heavy Bombs", 1, 0, 0, 1, 520, 0f, 0f, 15);
             RocketUpgrade upgrade13 = new RocketUpgrade
-                ("Massive Bombs",1, 0, 0, 1f, 1000, 0f, 2, 15);
+                ("Massive Bombs",1, 0, 0, 1f, 1200, 0f, 0.2f, 25);
             RocketUpgrade upgrade21 = new RocketUpgrade
                 ("Faster Reload", 0, 0, 0, 0.75f, 210, 0f, 0, 0);
             RocketUpgrade upgrade22 = new RocketUpgrade
-                ("Missile Launcher", 0, 0, 1, 0.80f, 555, 10f, 0, 0);
+                ("Missile Launcher", 0, 0, 1, 0.80f, 340, 10f, 0, 0);
             RocketUpgrade upgrade23 = new RocketUpgrade
                 ("BossMan", 0, 0, 0, 0.80f, 1500, 10f, 0, 0, 10);
             Initialise(1, upgrade11);

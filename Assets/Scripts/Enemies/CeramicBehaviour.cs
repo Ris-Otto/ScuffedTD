@@ -31,15 +31,15 @@ namespace Enemies
                 return Enemy.totalHealth;
             }
             selfHealth -= remainingDamage;
-            if (selfHealth <= 0) {
-                projectile.Master.AddToKills(1);
-                AbstractEnemy[] es = InstantiateChildren(Enemy.directChildren, projectile);
-                ResetThis();
-                return PassOnDamageToChild(projectile, remainingDamage-1, es[0]) + 1;
+            if (selfHealth > 0) {
+                projectile.ResetProjectileFromEnemy();
+                return 0;
             }
-            //Cannot penetrate ceramic bloons
-            projectile.ResetProjectileFromEnemy();
-            return 0;
+
+            _lock = true;
+            AbstractEnemy[] es = InstantiateChildren(Enemy.directChildren, projectile);
+            ResetThis();
+            return PassOnDamageToChild(projectile, remainingDamage-1, es[0]) + 1;
         }
         
         #region getset

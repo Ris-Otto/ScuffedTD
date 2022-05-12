@@ -1,4 +1,5 @@
-﻿using Enemies;
+﻿using System;
+using Enemies;
 using Managers;
 using Units;
 using UnityEngine;
@@ -10,19 +11,25 @@ namespace Projectiles
     {
 
         private ISource _master;
-        private GameObject _target;
+        //private GameObject _target;
+        protected int kills;
+        protected EnemyListener _listener;
+
+        protected virtual void Awake() {
+            kills = 0;
+        }
 
         public void SeekTarget(GameObject obj, Vector2 shootDirection, Vector2 pos) {
             if(obj == null) return;
             spawnedAt = pos;
-            target = obj;
+            //target = obj;
             dir = shootDirection;
         }
 
         protected abstract void ComputeMovement(); 
         
         protected virtual void CheckIfOutsideRange() {
-            if (Vector3.Distance(transform.position, spawnedAt) > (range + 2)) 
+            if (Vector3.Distance(transform.position, spawnedAt) > (range*2)) 
                 ResetThis();
         }
 
@@ -33,28 +40,18 @@ namespace Projectiles
         public virtual void ResetProjectileFromEnemy() {
             ResetThis();
         }
-        
-        protected bool IsTargetActive() {
-            return target != null && target.activeSelf;
-        }
 
         protected virtual void Hit(Collider2D col) {
-            if (pierce <= 0 && hasCollided) {
-                ResetThis();
-            }
-            else {
-                Listener.Income(col.gameObject.GetComponent<AbstractEnemy>().Die(this, damage));
-                hasCollided = true;
-                pierce--;
-            }
-            if (pierce <= 0 && hasCollided) {
-                ResetThis();
-            }
+            kills += _listener.Income(col.gameObject.GetComponent<AbstractEnemy>().Die(this, damage));
+            hasCollided = true;
+            if (pierce-- <= 0 && hasCollided) ResetThis();
         }
 
         protected virtual void ResetThis() {
-            hasCollided = false;
             gameObject.SetActive(false);
+            Master.AddToKills(kills);
+            kills = 0;
+            hasCollided = false;
         }
 
         public abstract void SendParams(IUpgrade upgrade, EnemyListener listener);
@@ -65,10 +62,7 @@ namespace Projectiles
             set;
         }
 
-        protected GameObject target {
-            get => _target;
-            set => _target = value;
-        }
+        
 
         public ISource Master {
             get => _master;
@@ -80,7 +74,7 @@ namespace Projectiles
             set;
         }
 
-        public abstract int damage {
+        protected abstract int damage {
             get;
             set;
         }
@@ -100,7 +94,10 @@ namespace Projectiles
             set;
         }
 
-        private EnemyListener Listener => GetComponent<EnemyListener>();
+        protected virtual EnemyListener Listener {
+            get;
+            set;
+        }
 
         protected abstract bool hasCollided {
             get;

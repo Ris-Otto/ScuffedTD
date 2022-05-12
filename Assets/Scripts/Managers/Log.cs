@@ -14,7 +14,7 @@ namespace Managers
             if (Instance != null) return;
             _logger = new Logger(new LogHandler());
             Instance = this;
-
+            _logger.Log(LogType.Log, "Round; Buy; Sell; Undo; Upgrade; Place; Pops; Health; Money;");
         }
 
         public ILogger Logger => _logger;

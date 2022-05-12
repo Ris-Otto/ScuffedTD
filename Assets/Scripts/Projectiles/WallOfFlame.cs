@@ -17,7 +17,6 @@ namespace Projectiles
         private float _range;
         private int _damage;
         private int _pierce;
-        private EnemyListener _listener;
         private bool _hasCollided;
         public ScriptableDamageType _damageType;
         private long _ID;
@@ -46,7 +45,8 @@ namespace Projectiles
             base.ResetThis();
         }
 
-        protected void Awake() {
+        protected override void Awake() {
+            base.Awake();
             _timeToLive = 0f;
             _time = 0f;
         }
@@ -54,6 +54,7 @@ namespace Projectiles
         public override void SendParams(IUpgrade upgrade, EnemyListener listener) {
             _ID = Random.Range(0, 100000);
             _listener = listener;
+            _pierce = upgrade.pierce * 5;
             damage = 1;
         }
         
@@ -62,8 +63,10 @@ namespace Projectiles
         }
         
         protected override void Hit(Collider2D col) {
-            Debug.Log(col.name);
-            _listener.Income(col.gameObject.GetComponent<AbstractEnemy>().Die(this, damage));
+            kills += _listener.Income(col.gameObject.GetComponent<AbstractEnemy>().Die(this, damage));
+            if (pierce-- <= 0) {
+                ResetThis();
+            }
         }
 
         
@@ -85,7 +88,7 @@ namespace Projectiles
             set => _dir = value;
         }
 
-        public override int damage {
+        protected override int damage {
             get => _damage;
             set => _damage = value;
         }

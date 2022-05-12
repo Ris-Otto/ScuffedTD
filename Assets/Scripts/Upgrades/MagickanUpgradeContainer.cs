@@ -16,20 +16,24 @@ namespace Upgrades
 
         private void Awake() {
             MagickanUpgrade upgrade11 = new MagickanUpgrade
-                ("Intense Magic", 0, 2, 0, 0.8f, 255, 10);
+                ("Intense Magic", 0, 1, 0, 0.8f, 255, 10);
             MagickanUpgrade upgrade12 = new MagickanUpgrade
-                ("Arcane Blast", 1, 0, 0, 1, 510, 0);
+                ("Arcane Blast", 1, 0, 0, 1, 720, 0);
+            MagickanUpgrade upgrade13 = new MagickanUpgrade
+                ("Arcane Mastery", 1, 2, 0, 1f, 1560, 0);
             MagickanUpgrade upgrade21 = new MagickanUpgrade
-                ("Fireball", "Fireball", 280);
+                ("Fireball", "Fireball", 480);
             MagickanUpgrade upgrade22 = new MagickanUpgrade
                 ("Wall of Flame", "WoF", 970);
-            MagickanUpgrade upgrade13 = new MagickanUpgrade
-                ("Arcane Mastery", 1, 1, 1, 0.5f, 1560, 0);
+            MagickanUpgrade upgrade23 = new MagickanUpgrade
+                ("Cosmic Insight", 0, 0, 1, 0.5f, 1000, 0);
+            
             Initialise(1, upgrade11);
             Initialise(1, upgrade12);
             Initialise(1, upgrade13);
             Initialise(2, upgrade21);
             Initialise(2, upgrade22);
+            Initialise(2, upgrade23);
             treeOneEnum = treeOneDict.GetEnumerator();
             treeTwoEnum = treeTwoDict.GetEnumerator();
             GetNextUpgrade(1);

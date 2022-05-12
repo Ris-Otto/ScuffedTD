@@ -19,14 +19,14 @@ namespace Projectiles
         private float _range;
         private int _popCount;
         private int _pierce;
-        private EnemyListener _listener;
         [SerializeField]
         private bool _hasCollided;
         [SerializeField]
         private ScriptableDamageType _damageType;
         private long _ID;
 
-        private void Awake() {
+        protected override void Awake() {
+            base.Awake();
             spawnedAt = transform.position;
         }
 
@@ -42,7 +42,7 @@ namespace Projectiles
     
         protected override void CheckIfOutsideRange() {
             if (Vector3.Distance(transform.position, spawnedAt) > (range + range*0.25)) 
-                gameObject.SetActive(false);
+                ResetThis();
         }
 
         private void OnTriggerEnter2D(Collider2D other) {
@@ -65,9 +65,11 @@ namespace Projectiles
                 ResetThis();
             }
             else {
-                Master.AddToKills(_listener.Income(col.gameObject.GetComponent<AbstractEnemy>().Die(this, damage)));
+                kills +=(_listener.Income(col.gameObject.GetComponent<AbstractEnemy>().Die(this, damage)));
                 _hasCollided = true;
-                pierce--;
+            }
+            if (--pierce <= 0 && hasCollided) {
+                ResetThis();
             }
         }
 
@@ -83,7 +85,7 @@ namespace Projectiles
             set => _dir = value;
         }
 
-        public override int damage {
+        protected override int damage {
             get => _popCount;
             set => _popCount = value;
         }

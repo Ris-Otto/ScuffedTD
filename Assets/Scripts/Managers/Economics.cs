@@ -19,6 +19,8 @@ namespace Managers
         private static Economics _instance;
         private int _cumulativeMoney;
         private Log _log;
+        private const int TestMoney = 100000;
+        private const int StartMoney = 650;
 
         public static Economics Instance {
             get {
@@ -33,7 +35,7 @@ namespace Managers
 
         public void Awake() {
             _moneyText = mainCanvas.GetComponentInChildren<Text>();
-            UpdateMoney(650);
+            UpdateMoney(StartMoney);
             InitialiseButtons();
             _log = FindObjectOfType<Log>();
         }
@@ -52,14 +54,16 @@ namespace Managers
         private void Buy(IMoneyObject moneyObject) {
             if(moneyObject == null) return;
             if (!(moneyObject is IUpgrade)) 
-                _log.Logger.Log(LogType.Log, $"3: Bought {moneyObject.name} for {moneyObject.GetBuyValue()}");
+                _log.Logger.Log(LogType.Log, $"; {moneyObject.name}:{moneyObject.GetBuyValue()};");
+            
+            
             
             UpdateMoney(-moneyObject.GetBuyValue());
         }
 
         private void Sell(AbstractUnit unit) {
             UpdateMoney(unit.GetSellValue());
-            _log.Logger.Log(LogType.Log, $"3: Sold {unit.name} for {unit.GetSellValue()}");
+            _log.Logger.Log(LogType.Log, $"; ; {unit.name}:{unit.GetSellValue()}");
             unit.OnCallDestroy();
             upgradeCanvas.GetComponent<UIManager>().HideMenu();
         }

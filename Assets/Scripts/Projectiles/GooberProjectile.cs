@@ -17,14 +17,14 @@ namespace Projectiles
         private float _range;
         private int _damage;
         private int _pierce;
-        private EnemyListener _listener;
         private bool _hasCollided;
         public ScriptableDamageType _damageType;
         private Animation anim;
         private long _ID;
         #endregion
     
-        private void Awake() {
+        protected override void Awake() {
+            base.Awake();
             anim = GetComponentInChildren<Animation>();
             spawnedAt = transform.position;
         }
@@ -43,25 +43,18 @@ namespace Projectiles
         }
     
         protected override void CheckIfOutsideRange() {
-            if (Vector3.Distance(transform.position, spawnedAt) > (range + range*0.5f)) 
+            if (Vector3.Distance(transform.position, spawnedAt) > (range + 0.6f*range)) 
                 ResetThis();
         }
         
-        protected override void Hit(Collider2D col) {
-            if (pierce <= 0 && hasCollided) {
+        /*protected override void Hit(Collider2D col) {
+            kills += _listener.Income(col.gameObject.GetComponent<AbstractEnemy>().Die(this, damage));
+            _hasCollided = true;
+            if (--pierce <= 0 && hasCollided) {
                 ResetThis();
             }
-            else {
-                pierce--;
-                Master.AddToKills(_listener.Income(col.gameObject.GetComponent<AbstractEnemy>().Die(this, damage)));
-                hasCollided = true;
-            }
-        }
+        }*/
         
-        protected override void ResetThis() {
-            hasCollided = false;
-            gameObject.SetActive(false);
-        }
 
         public override void SendParams(IUpgrade upgrade, EnemyListener listener) {
             _ID = Random.Range(0, 100000);
@@ -89,7 +82,7 @@ namespace Projectiles
             set => _dir = value;
         }
 
-        public override int damage {
+        protected override int damage {
             get => _damage;
             set => _damage = value;
         }

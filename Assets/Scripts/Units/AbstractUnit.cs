@@ -53,11 +53,13 @@ namespace Units
         }
 
         public void AddToKills(int kill) {
+            Debug.Log(kill);
             _pops += kill;
         }
 
         public virtual void Log() {
-            _log.Logger.Log(LogType.Log, $"2: {name} - Cumulative Pops: {_pops}");
+            _log.Logger.Log(LogType.Log, $"; ; ; ; ; ; {name}:{_pops}");
+            
         }
 
         #region Targeting
@@ -95,7 +97,6 @@ namespace Units
             
             float current = Mathf.NegativeInfinity;
             List<AbstractEnemy> ebn = eb.ToList();
-
 
             foreach (AbstractEnemy e in eb) {
                 float health = e.Enemy.totalHealth;
@@ -150,7 +151,7 @@ namespace Units
                 Transform transform1;
                 (transform1 = transform).position = cam.ScreenToWorldPoint(GetMousePos(5f));
                 placement = transform1.position;
-                _log.Logger.Log(LogType.Log, $"2: {name} - placed at: {placement}");
+                _log.Logger.Log(LogType.Log, $"; ; ; ; ; {placement}");
                 CancelInvoke(nameof(BeforePlaceUnit));
                 return;
             }

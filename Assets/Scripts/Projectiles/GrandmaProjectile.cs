@@ -20,12 +20,10 @@ namespace Projectiles
         private float _range;
         private Vector3 _moveTarget;
         private ActiveObjectsTracker et;
-        private EnemyListener _listener;
         private float _moveSpeed;
         public ScriptableDamageType _damageType;
         private int _damage;
         public float _rotationAmount;
-        private float _time;
         private float _projectileSpeed;
         private Animation _anim;
         private List<Vector2> _availableTargets; //x = -9 to 7; y = -5 to 2;
@@ -33,9 +31,9 @@ namespace Projectiles
         private CircleCollider2D myCollider;
         #endregion
 
-        private void Awake() {
+        protected override void Awake() {
+            base.Awake();
             Hangar = GetStation();
-            _time = 0.0f;
             et = ActiveObjectsTracker.Instance;
             _moveSpeed = 1f;
             _damage = 1;
@@ -61,7 +59,7 @@ namespace Projectiles
         }
 
         public GameObject TargetEnemy() {
-            target = null;
+            //target = null;
             AbstractEnemy[] eb = et.NonCamo;
             return eb.Length == 0 ? null : eb[0].gameObject;
         }
@@ -78,7 +76,6 @@ namespace Projectiles
         }
 
         private void FixedUpdate() {
-            _time += Time.deltaTime;
             ComputeMovement();
         }
 
@@ -158,7 +155,8 @@ namespace Projectiles
         }
 
         protected override Vector2 dir { get; set; }
-        public override int damage {
+
+        protected override int damage {
             get => _damage;
             set => _damage = value;
         }

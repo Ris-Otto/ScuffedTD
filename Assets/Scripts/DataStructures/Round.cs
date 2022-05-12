@@ -42,7 +42,22 @@ namespace DataStructures
         }
 
         public IEnumerator SpawnWave(Wave wave) {
-            return wave.Get().Select(wave.SpawnEnemies).GetEnumerator();
+            return wave.Get.Select(wave.SpawnEnemies).GetEnumerator();
+        }
+
+        public float RoundLength() {
+            int max = _wavesList.Count;
+            float ret = 0;
+            ret += _wavesList[0].Get[0].Amount * _wavesList[0].Get[0].Interval;
+            if (max == 1) return ret;
+            for (int i = 1; i < max; i++) {
+                //if(_wavesList[i-1].TimeUntilNext >= _wavesList[i].WaveLength) 
+                    ret += _wavesList[i].WaveLength - _wavesList[i-1].TimeUntilNext;
+                //else 
+                //    ret += /*_wavesList[i].WaveLength*/ _wavesList[i].TimeUntilNext;
+            }
+
+            return ret;
         }
         
         public List<Wave> Get => _wavesList;

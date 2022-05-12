@@ -43,7 +43,7 @@ namespace Managers
         public void Log() {
             int loss = _healthLastRound - _health;
             if (loss == 0) return;
-            _log.Logger.Log(LogType.Log, $"0: Lost {loss} hit points, current hit points: {_health}");
+            _log.Logger.Log(LogType.Log, $"; ; ; ; ; ; ; {loss}:{_health}");
             _healthLastRound = _health;
         }
     }

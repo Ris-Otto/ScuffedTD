@@ -36,7 +36,7 @@ namespace Managers
                 
             Text buttonTextComponent = _uiManager.GetTextComponent(button);
             container.lastUpgrade = upgrade;
-            _log.Logger.Log(LogType.Log, $"3: Upgraded {unit.name}, Tree: {tree}");
+            //_log.Logger.Log(LogType.Log, $"{unit.name}; {tree}");
             ApplyTextToButton(container, buttonTextComponent);
             return false;
 

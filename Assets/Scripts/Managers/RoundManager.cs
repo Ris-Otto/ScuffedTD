@@ -25,6 +25,11 @@ namespace Managers
 
         public void StartRound() {
             if (!canStartRound) {
+                if (Time.timeScale.Equals(1)) {
+                    Time.timeScale = 2;
+                    return;
+                }
+                Time.timeScale = 1;
                 return;
             }
             ui.DisplayRound("Round " + CurrentRound);

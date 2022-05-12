@@ -98,6 +98,7 @@
      <Compile Include="Assets\Scripts\Projectiles\RoFProjectile.cs" />
      <Compile Include="Assets\Scripts\Units\Guns\FireballGun.cs" />
      <Compile Include="Assets\Scripts\Enemies\BossFirst.cs" />
+     <Compile Include="Assets\Scripts\Managers\RoundOverTimer.cs" />
      <Compile Include="Assets\Scripts\Units\GooberUnit.cs" />
      <Compile Include="Assets\Scripts\Managers\LoggableAttribute.cs" />
      <Compile Include="Assets\Scripts\Managers\UnitManager.cs" />
@@ -139,7 +140,6 @@
      <Compile Include="Assets\Scripts\Enemies\BlackBehaviour.cs" />
      <Compile Include="Assets\Scripts\Units\IMouseUser.cs" />
      <Compile Include="Assets\ZSmartTile\Classes\ZST_MapManager.cs" />
-     <Compile Include="Assets\Scripts\Managers\RoundOverTimer.cs" />
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />

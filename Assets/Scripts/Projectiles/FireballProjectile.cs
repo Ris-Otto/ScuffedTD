@@ -19,7 +19,6 @@ namespace Projectiles
         [SerializeField] private float _range;
         [SerializeField] private int _damage;
         [SerializeField] private int _pierce;
-        private EnemyListener _listener;
         private bool _hasCollided;
         public ScriptableDamageType _damageType;
         private float _shotRotation;
@@ -27,7 +26,8 @@ namespace Projectiles
         private long _ID;
         #endregion
 
-        private void Awake() {
+        protected override void Awake() {
+            base.Awake();
             _shotRotation = Mathf.PI / 2f;
         }
         
@@ -43,24 +43,24 @@ namespace Projectiles
         }
         
         protected override void ComputeMovement() {
-            if (!target.activeSelf) {
-                ResetThis();
+           /* if (!target.activeSelf) {
+                Hit(null);
                 return;
-            }
+            }*/
             transform.rotation = Quaternion.LookRotation(Vector3.forward,
-                (Vector3)RotateVector(target.transform.position-transform.position));
+                (Vector3)RotateVector(dir));
             transform.Translate
                 (dir.normalized * (projectileSpeed * Time.deltaTime), Space.World);
         }
         
 
         protected override void CheckIfOutsideRange() {
-            if (!IsTargetActive()) {
+            /*if (!IsTargetActive()) {
                 Vector3 position = transform.position;
                 AffectExplosionColliders(position);
                 Instantiate(explosion, position, Quaternion.identity);
                 ResetThis();
-            }
+            }*/
             if (Vector3.Distance(transform.position, spawnedAt) > (range*1.5f))
                 ResetThis();
         }
@@ -70,7 +70,7 @@ namespace Projectiles
             _ID = Random.Range(0, 100000);
             _listener = listener;
             MagickanUpgrade magick = (MagickanUpgrade) upgrade;
-            damage = 3;
+            damage = (int)(magick.damage*1.5);
             pierce = 1;
             range = magick.range;
             projectileSpeed = 35f;
@@ -82,15 +82,15 @@ namespace Projectiles
         
         protected override void Hit(Collider2D col) {
             AffectExplosionColliders();
-            Instantiate(explosion, target.transform.position, Quaternion.identity);
+            Instantiate(explosion, transform.position, Quaternion.identity);
             ResetThis();
         }
         
         private void AffectExplosionColliders() {
             Collider2D[] cols =
-                Physics2D.OverlapCircleAll(target.transform.position, 1, LayerMask.GetMask("Enemy"));
+                Physics2D.OverlapCircleAll(transform.position, 1, LayerMask.GetMask("Enemy"));
             foreach (Collider2D aCollider in cols) {
-                _listener.Income(aCollider.gameObject.GetComponent<AbstractEnemy>().Die(this, damage));
+                kills += _listener.Income(aCollider.gameObject.GetComponent<AbstractEnemy>().Die(this, damage));
             }
         }
         
@@ -113,7 +113,7 @@ namespace Projectiles
             set => _dir = value;
         }
 
-        public override int damage {
+        protected override int damage {
             get => _damage;
             set => _damage = value;
         }

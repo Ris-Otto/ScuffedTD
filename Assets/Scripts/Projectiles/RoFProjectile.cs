@@ -9,7 +9,6 @@ namespace Projectiles
     {
         [SerializeField]
         private ScriptableDamageType _damageType;
-        private EnemyListener _listener;
         private int _damage;
         private float _range;
         private long _ID;
@@ -36,7 +35,7 @@ namespace Projectiles
 
         protected override Vector2 dir { get; set; }
 
-        public override int damage {
+        protected override int damage {
             get => _damage;
             set => _damage = value;
         }

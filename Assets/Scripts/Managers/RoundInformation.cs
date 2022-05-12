@@ -7,6 +7,7 @@ using System.Linq;
 using System.Timers;
 using DataStructures;
 using Extension;
+using Projectiles;
 using UnityEngine;
 using UnityEngine.Events;
 using Debug = UnityEngine.Debug;
@@ -49,15 +50,18 @@ namespace Managers
         }
         
         public void RoundStart(int round) {
-            StartCoroutine(Spawn(_nextRound.Get));
+            StartCoroutine(Spawn(_nextRound));
             ConfigureRound(round);
-            _log.Logger.Log(LogType.Log, $"0: Round {_currentRound}");
+            _log.Logger.Log(LogType.Log, $"{_currentRound};");
             
         }
 
         public static void RoundEnd() {
+            foreach (Projectile p in FindObjectsOfType<Projectile>()) {
+                p.ResetProjectileFromEnemy();
+            }
             eco.ReceiveIncome(100 + Instance._currentRound);
-            Instance._log.Logger.Log(LogType.Log, $"1: Round end cumulative income: {eco.CumulativeMoney}");
+            Instance._log.Logger.Log(LogType.Log, $"{Instance._currentRound}; ; ; ; ; ; ; ; {eco.CumulativeMoney};");
             
             foreach (GameObject obj in FindObjectsOfType<GameObject>()) {
                 ILoggable loggable;
@@ -72,31 +76,25 @@ namespace Managers
             _currentRound = round-1;
         }
 
-        private IEnumerator Spawn(List<Wave> waves) {
-            double totTime = 0;
-            foreach (Wave w in _nextRound.Get) {
-                totTime = w.Get().
-                    Aggregate(totTime,
-                        (current, b) => current + (b.Amount * b.Interval + w.TimeUntilNext()));
-            }
-            s.StartTimer(totTime);
+        private IEnumerator Spawn(Round round) {
+            List<Wave> waves = round.Get;
             foreach (Wave t in waves) {
-                StartCoroutine(_nextRound.SpawnWave(t));
-                yield return new WaitForSeconds(t.TimeUntilNext());
+                StartCoroutine(round.SpawnWave(t));
+                yield return new WaitForSeconds(t.TimeUntilNext);
             }
-            yield return new WaitUntil(() => s.Timer());
             aot.FullRoundSpawned();
         }
 
         private void Start() {
-            TestRound();
-            //Round1();
+            //TestRound();
+            Round1();
+            //Round40();
         }
 
         private void TestRound() {
             _nextRound = new Round(new List<Wave> {
                 //new Wave(15f, new List<BloonType> {new BloonType("Ceramic", 5, 1f)}),
-                new Wave(0f, new List<BloonType> {new BloonType("BossTemp", 1, 1f)})
+                new Wave(0f, new List<BloonType> {new BloonType("Purple", 20, 1.5f)})
             });
         }
 
@@ -131,16 +129,16 @@ namespace Managers
 
         private void Round5() {
             _nextRound = new Round(new List<Wave> {
-                new Wave(1f, new List<BloonType> {new BloonType("Red", 5, 0.5f),}),
-                new Wave(6f, new List<BloonType> {new BloonType("Blue", 13, 0.4f),}),
+                new Wave(1f, new List<BloonType> {new BloonType("Red", 10, 0.5f),}),
+                new Wave(4f, new List<BloonType> {new BloonType("Blue", 13, 0.4f),}),
                 new Wave(0f, new List<BloonType> {new BloonType("Blue", 14, 0.3f),})
             });
         }
 
         private void Round6() {
             _nextRound = new Round(new List<Wave> {
-                new Wave(4f, new List<BloonType> {new BloonType("Red", 15, 0.5f),}),
-                new Wave(3f, new List<BloonType> {new BloonType("Blue", 15, 0.4f),}),
+                new Wave(3f, new List<BloonType> {new BloonType("Red", 15, 0.5f),}),
+                new Wave(2f, new List<BloonType> {new BloonType("Blue", 15, 0.4f),}),
                 new Wave(0f, new List<BloonType> {new BloonType("Green", 4, 0.2f),})
             });
         }
@@ -171,9 +169,9 @@ namespace Managers
 
         private void Round10() {
             _nextRound = new Round((new List<Wave> {
-                new Wave(10f, new List<BloonType> {new BloonType("Blue", 25, 0.5f)}),
-                new Wave(10f, new List<BloonType> {new BloonType("Blue", 27, 0.4f)}),
-                new Wave(7f, new List<BloonType> {new BloonType("Blue", 25, 0.3f)}),
+                new Wave(5f, new List<BloonType> {new BloonType("Blue", 25, 0.2f)}),
+                new Wave(7f, new List<BloonType> {new BloonType("Blue", 27, 0.3f)}),
+                new Wave(5f, new List<BloonType> {new BloonType("Blue", 25, 0.3f)}),
                 new Wave(0f, new List<BloonType> {new BloonType("Blue", 25, 0.2f)}),
             }));
         }
@@ -181,8 +179,8 @@ namespace Managers
         private void Round11() {
             _nextRound = new Round((new List<Wave> {
                 new Wave(1f, new List<BloonType> {new BloonType("Red", 6, 0.5f)}),
-                new Wave(3f, new List<BloonType> {new BloonType("Blue", 12, 0.8f)}),
-                new Wave(0f, new List<BloonType> {new BloonType("Yellow", 3, 0.7f)}),
+                new Wave(3f, new List<BloonType> {new BloonType("Blue", 12, 0.6f)}),
+                new Wave(0f, new List<BloonType> {new BloonType("Yellow", 15, 0.7f)}),
                 new Wave(0f, new List<BloonType> {new BloonType("Green", 12, 0.3f)}),
             }));
         }
@@ -191,11 +189,11 @@ namespace Managers
             _nextRound = new Round((new List<Wave> {
                 new Wave(1f, new List<BloonType> {new BloonType("Blue", 5, 0.7f)}),
                 new Wave(0f, new List<BloonType> {new BloonType("Blue", 5, 0.7f)}),
-                new Wave(1f, new List<BloonType> {new BloonType("Yellow", 3, 1f)}),
+                new Wave(1f, new List<BloonType> {new BloonType("Yellow", 5, 0.6f)}),
                 new Wave(1f, new List<BloonType> {new BloonType("Blue", 5, 0.7f)}),
-                new Wave(3f, new List<BloonType> {new BloonType("Green", 7, 0.8f)}),
-                new Wave(0f, new List<BloonType> {new BloonType("Green", 3, 0.6f)}),
-                new Wave(0f, new List<BloonType> {new BloonType("Yellow", 2, 0.8f)}),
+                new Wave(3f, new List<BloonType> {new BloonType("Green", 7, 0.6f)}),
+                new Wave(0f, new List<BloonType> {new BloonType("Green", 15, 0.6f)}),
+                new Wave(0f, new List<BloonType> {new BloonType("Yellow", 3, 0.8f)}),
             }));
         }
         
@@ -225,20 +223,20 @@ namespace Managers
         
         private void Round15() {
             _nextRound = new Round((new List<Wave> {
-                new Wave(3f, new List<BloonType> {new BloonType("Red", 30, 0.7f)}), 
+                new Wave(3f, new List<BloonType> {new BloonType("Blue", 20, 0.5f)}), 
                 new Wave(2f, new List<BloonType> {new BloonType("Blue", 7, 1f)}),
-                new Wave(5f, new List<BloonType> {new BloonType("Green", 10, 1.5f)}),
-                new Wave(0f, new List<BloonType> {new BloonType("Blue", 8, 0.2f)}),
-                new Wave(2f, new List<BloonType> {new BloonType("Yellow", 9, 0.6f)}),
-                new Wave(0f, new List<BloonType> {new BloonType("Red", 19, 0.3f)}),
+                new Wave(4f, new List<BloonType> {new BloonType("Green", 10, 0.8f)}),
+                new Wave(0f, new List<BloonType> {new BloonType("Green", 8, 0.2f)}),
+                new Wave(2f, new List<BloonType> {new BloonType("Yellow", 13, 0.6f)}),
+                new Wave(0f, new List<BloonType> {new BloonType("Red", 10, 0.3f)}),
             }));
         }
         
         private void Round16() {
             _nextRound = new Round((new List<Wave> {
-                new Wave(1f, new List<BloonType> {new BloonType("Red", 20, 0.5f)}), 
+                new Wave(1f, new List<BloonType> {new BloonType("Red", 30, 0.2f)}), 
                 new Wave(0f, new List<BloonType> {new BloonType("Blue", 15, 0.4f)}),
-                new Wave(2f, new List<BloonType> {new BloonType("Pink", 5, 0.5f)}),
+                new Wave(2f, new List<BloonType> {new BloonType("Pink", 7, 0.5f)}),
                 new Wave(0f, new List<BloonType> {new BloonType("Green", 12, 0.7f)}),
                 new Wave(0f, new List<BloonType> {new BloonType("Yellow", 10, 0.5f)}),
             }));
@@ -257,7 +255,7 @@ namespace Managers
         private void Round18() {
             _nextRound = new Round(new List<Wave> {
                 new Wave(1.05f, new List<BloonType> {new BloonType("Green", 20, 0.7f)}),
-                new Wave(14f, new List<BloonType> {new BloonType("Green", 20, 0.7f)}),
+                new Wave(10f, new List<BloonType> {new BloonType("Green", 20, 0.7f)}),
                 new Wave(0.6f, new List<BloonType> {new BloonType("Green", 20, 0.4f)}),
                 new Wave(0f, new List<BloonType> {new BloonType("Green", 20, 0.4f)}),
             });
@@ -268,7 +266,7 @@ namespace Managers
                 new Wave(0f, new List<BloonType> {new BloonType("Pink", 15, 0.8f)}),
                 new Wave(6f, new List<BloonType> {new BloonType("Yellow", 20, 0.5f)}),
                 new Wave(0.1f, new List<BloonType> {new BloonType("Green", 5, 0.4f)}),
-                new Wave(0f, new List<BloonType> {new BloonType("Green", 5, 0.4f)}),
+                new Wave(0f, new List<BloonType> {new BloonType("Green", 10, 0.4f)}),
             });
         }
 
@@ -281,34 +279,34 @@ namespace Managers
         private void Round21() {
             _nextRound = new Round(new List<Wave> {
                 new Wave(0f, new List<BloonType> {new BloonType("Yellow", 40, 0.4f)}),
-                new Wave(0f, new List<BloonType> {new BloonType("Pink", 14, 0.7f)}),
+                new Wave(0f, new List<BloonType> {new BloonType("Pink", 20, 0.6f)}),
             });
         }
         
         private void Round22() {
             _nextRound = new Round(new List<Wave> {
-                new Wave(0f, new List<BloonType> {new BloonType("White", 16, 0.6f)}),
+                new Wave(0f, new List<BloonType> {new BloonType("White", 16, 0.4f)}),
             });
         }
         
         private void Round23() {
             _nextRound = new Round(new List<Wave> {
-                new Wave(0.5f, new List<BloonType> {new BloonType("White", 7, 0.5f)}),
+                new Wave(0.8f, new List<BloonType> {new BloonType("White", 7, 0.5f)}),
                 new Wave(0f, new List<BloonType> {new BloonType("Black", 7, 0.5f)}),
             });
         }
         
         private void Round24() {
             _nextRound = new Round(new List<Wave> {
-                new Wave(0.4f, new List<BloonType> {new BloonType("Blue", 20, 0.5f)}),
-                new Wave(0f, new List<BloonType> {new BloonType("Green"/*(Camo)*/, 1, 1f)}),
+                new Wave(0.4f, new List<BloonType> {new BloonType("Yellow", 20, 0.5f)}),
+                new Wave(0f, new List<BloonType> {new BloonType("Green"/*(Camo)*/, 100, 0.3f)}),
             });
         }
         
         private void Round25() {
             _nextRound = new Round(new List<Wave> {
                 new Wave(10f, new List<BloonType> {new BloonType("Yellow", 25, 0.4f)}),
-                new Wave(0f, new List<BloonType> {new BloonType("Purple", 7, 0.5f)}),
+                new Wave(0f, new List<BloonType> {new BloonType("Purple", 10, 0.5f)}),
             });
         }
         
@@ -321,9 +319,9 @@ namespace Managers
         
         private void Round27() {
             _nextRound = new Round(new List<Wave> {
-                new Wave(0.5f, new List<BloonType> {new BloonType("Red", 100, 0.2f)}),
-                new Wave(3f, new List<BloonType> {new BloonType("Blue", 60, 0.5f)}),
-                new Wave(5f, new List<BloonType> {new BloonType("Green", 45, 0.4f)}),
+                new Wave(0.5f, new List<BloonType> {new BloonType("Red", 50, 0.2f)}),
+                new Wave(3f, new List<BloonType> {new BloonType("Blue", 100, 0.3f)}),
+                new Wave(5f, new List<BloonType> {new BloonType("Green", 60, 0.4f)}),
                 new Wave(0f, new List<BloonType> {new BloonType("Yellow", 45, 0.3f)}),
             });
         }
@@ -336,7 +334,7 @@ namespace Managers
         
         private void Round29() {
             _nextRound = new Round(new List<Wave> {
-                new Wave(0f, new List<BloonType> {new BloonType("Yellow", 65, 0.3f)}),
+                new Wave(0f, new List<BloonType> {new BloonType("Pink", 65, 0.2f)}),
             });
         }
         
@@ -365,8 +363,8 @@ namespace Managers
         
         private void Round33() {
             _nextRound = new Round(new List<Wave> {
-                new Wave(2f, new List<BloonType> {new BloonType("Red"/*Camo*/, 20, 0.7f)}),
-                new Wave(0f, new List<BloonType> {new BloonType("Yellow"/*Camo*/, 13, 0.7f)}),
+                new Wave(2f, new List<BloonType> {new BloonType("Purple"/*Camo*/, 20, 0.7f)}),
+                new Wave(0f, new List<BloonType> {new BloonType("Pink"/*Camo*/, 30, 0.5f)}),
             });
         }
         
@@ -388,8 +386,8 @@ namespace Managers
         
         private void Round36() {
             _nextRound = new Round(new List<Wave> {
-                new Wave(40f, new List<BloonType> {new BloonType("Pink", 140, 0.4f)}),
-                new Wave(0f, new List<BloonType> {new BloonType("Green"/*Camo*/, 20, 0.5f)}),
+                new Wave(40f, new List<BloonType> {new BloonType("Pink", 100, 0.4f)}),
+                new Wave(0f, new List<BloonType> {new BloonType("Zebra"/*Camo*/, 15, 0.5f)}),
             });
         }
         

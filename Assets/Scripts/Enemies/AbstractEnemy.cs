@@ -8,7 +8,7 @@ namespace Enemies
     public abstract class AbstractEnemy : MonoBehaviour
     {
         [SerializeField]
-        private bool _lock;
+        protected bool _lock;
 
         private bool spawned;
 
@@ -18,8 +18,7 @@ namespace Enemies
             _collider2D = GetComponent<Collider2D>();
             _collider2D.enabled = false;
             spawned = false;
-            waypointIdx = 0;
-            distanceTravelled = 0;
+            //OnSpawned();
             et = ActiveObjectsTracker.Instance;
             SendThisHasSpawnedToActiveObjectsTracker(et);
         }
@@ -60,6 +59,7 @@ namespace Enemies
                 SavePos(pos);
                 timeToSave = 0f;
             }
+            OnSpawned();
             Vector3 targetPos = Pathfinding.Waypoints[waypointIdx].position;
             Vector2 dir = targetPos - pos;
             transform.Translate(dir.normalized * (Enemy.speed * Time.deltaTime), Space.World);
@@ -78,9 +78,6 @@ namespace Enemies
         private void GetNextWaypoint() {
             if (waypointIdx < Pathfinding.Waypoints.Length - 1) {
                 waypointIdx++;
-                if (spawned || waypointIdx < 1) return;
-                spawned = true;
-                _collider2D.enabled = true;
             }
             else {
                 HealthManager.Instance.OnEnemyPassedThrough(this);
@@ -88,7 +85,13 @@ namespace Enemies
             }
                 
         }
-        
+
+        private void OnSpawned() {
+            if (spawned || waypointIdx < 1) return;
+            spawned = true;
+            _collider2D.enabled = true;
+        }
+
         #endregion
         
         #region onHit-methods
@@ -103,16 +106,12 @@ namespace Enemies
                 _lock = false;
                 return 0;
             }
-            
             if(remainingDamage >= Enemy.totalHealth) {
-                //projectile.Master.AddToKills(Enemy.totalHealth);
                 ResetThis();
                 return Enemy.totalHealth;
             }
-
             AbstractEnemy[] es = InstantiateChildren(Enemy.directChildren, projectile);
             ResetThis();
-            
             return PassOnDamageToChild(projectile, remainingDamage-1, es[0]) + 1;
         }
 
@@ -121,7 +120,6 @@ namespace Enemies
         }
 
         private int KillChild(Projectile projectile, int remainingDamage) {
-            
             return IsAppropriateDamageType(projectile) ? ComputeOnHitBehaviour(projectile, remainingDamage) : 0;
         }
 
@@ -133,12 +131,12 @@ namespace Enemies
                 return true;
             }
             ret = LastProjectile != null;
-            if (ret) {
+            if (ret)
                 ret = LastProjectile.ID.Equals(projectile.ID);
-                if (!ret) projectile.pierce++;
-                return ret;
-            }
-            return false;
+
+            if (projectile.pierce > 0) return ret;
+            projectile.ResetProjectileFromEnemy();
+            return true;
         }
 
         public virtual bool IsAppropriateDamageType(Projectile projectile) {
@@ -176,10 +174,11 @@ namespace Enemies
         private AbstractEnemy InstantiateChild(GameObject childObject, Projectile projectile, Vector3 spawnPos) {
             AbstractEnemy e = Instantiate
                 (childObject, spawnPos, Quaternion.identity).GetComponent<AbstractEnemy>();
+            e._lock = false;
             e.LastProjectile = projectile;
             e.waypointIdx = waypointIdx;
             e.distanceTravelled = distanceTravelled;
-            e._lock = false;
+            
             return e;
         }
 

@@ -9,7 +9,7 @@ namespace Managers
     {
         private StreamWriter m_StreamWriter;
         private ILogHandler m_DefaultLogHandler = Debug.unityLogger.logHandler;
-        string filePath = Application.persistentDataPath + DateTime.Now.ToString("MM-dd-yy-hh-mm-ss") + ".txt";
+        string filePath = Application.persistentDataPath + DateTime.Now.ToString("MM-dd-yy-hh-mm-ss") + ".csv";
         
         public LogHandler() {
             

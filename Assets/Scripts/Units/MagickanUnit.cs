@@ -69,7 +69,7 @@ namespace Units
                 Transform transform1;
                 (transform1 = transform).position = cam.ScreenToWorldPoint(GetMousePos(5f));
                 placement = transform1.position;
-                _log.Logger.Log(LogType.Log, $"2: {name} - placed at: {placement}");
+                _log.Logger.Log(LogType.Log, $"; ; ; ; ; {placement}");
                 //This was probably stealing at least some processing power so made it initially more expensive
                 //but invocation is cancelled at time of placement
                 InitialisePathTargets();
@@ -86,7 +86,7 @@ namespace Units
                 1,
                 450,
                 25f,
-                DamageType.FIRE,
+                DamageType.MAGIC,
                 1);
             _price = _currentUpgrade.price;
         }

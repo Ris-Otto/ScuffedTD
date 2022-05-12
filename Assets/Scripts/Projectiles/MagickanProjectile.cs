@@ -17,22 +17,18 @@ namespace Projectiles
         private float _range;
         private int _damage;
         private int _pierce;
-        private EnemyListener _listener;
         private bool _hasCollided;
         public ScriptableDamageType _damageType;
         private long _ID;
         #endregion
 
-        private void Awake() {
+        protected override void Awake() {
+            base.Awake();
             spawnedAt = transform.position;
         }
 
         private void FixedUpdate() {
             ComputeMovement();
-        }
-
-        private void Update() {
-            if (pierce == 0) ResetThis();
         }
 
         protected override void ComputeMovement() {
@@ -41,27 +37,13 @@ namespace Projectiles
             CheckIfOutsideRange();
         }
 
-        protected override void CheckIfOutsideRange() {
-            if (Vector3.Distance(transform.position, spawnedAt) > (range + range))
-                gameObject.SetActive(false);
-        }
-
-        protected override void Hit(Collider2D col) {
-            //if (!IsTargetActive()) return;
-            if (pierce <= 0 && _hasCollided) {
+        /*protected override void Hit(Collider2D col) {
+            kills += _listener.Income(col.gameObject.GetComponent<AbstractEnemy>().Die(this, damage));
+            _hasCollided = true;
+            if (--pierce <= 0 && hasCollided) {
                 ResetThis();
             }
-            else {
-                try {
-                    Master.AddToKills(_listener.Income(col.gameObject.GetComponent<AbstractEnemy>().Die(this, damage)));
-                    _hasCollided = true;
-                    pierce--;
-                }
-                catch (NullReferenceException) {
-                    
-                }
-            }
-        }
+        }*/
         
         
         public override void SendParams(IUpgrade upgrade, EnemyListener listener) {
@@ -91,7 +73,7 @@ namespace Projectiles
             set => _dir = value;
         }
 
-        public override int damage {
+        protected override int damage {
             get => _damage;
             set => _damage = value;
         }

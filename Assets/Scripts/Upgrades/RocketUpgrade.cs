@@ -63,6 +63,7 @@ namespace Upgrades
         public void CumulateUpgrades(IUpgrade next, IUpgrade last) {
             RocketUpgrade ru = (RocketUpgrade)next;
             _upgradeName = next.upgradeName;
+            _explosionRadius += ru._explosionRadius;
             _damage += next.damage;
             _pierce += next.pierce;
             _range += next.range;
@@ -71,7 +72,7 @@ namespace Upgrades
                 = next.secondsPerAttackModifier * secondsPerAttackModifier;
             _damageType = next.damageType;
             _projectileSpeed += next.projectileSpeed;
-            if (ru != null) _bonusBossMultiplier *= ru._bonusBossMultiplier;
+            _bonusBossMultiplier *= ru._bonusBossMultiplier;
         }
 
         public override string ToString() {

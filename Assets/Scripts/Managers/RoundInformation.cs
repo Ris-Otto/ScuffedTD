@@ -1,16 +1,9 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Timers;
 using DataStructures;
 using Extension;
 using Projectiles;
 using UnityEngine;
-using UnityEngine.Events;
-using Debug = UnityEngine.Debug;
 
 namespace Managers
 {
@@ -23,15 +16,12 @@ namespace Managers
         private Log _log;
         private int _currentRound;
         private HealthManager _manager;
-        [SerializeField]
-        private RoundOverTimer s;
 
         public static RoundInformation Instance {
             get {
                 if (_instance == null) {
                     _instance = FindObjectOfType<RoundInformation>();
                 }
-
                 return _instance;
             }
         }
@@ -45,21 +35,19 @@ namespace Managers
             if(eco == null) eco = Economics.Instance;
             _manager = GameObject.FindGameObjectWithTag("Canvas").GetComponent<HealthManager>();
             _manager.AddLogger();
-            s = GetComponent<RoundOverTimer>();
-
         }
         
         public void RoundStart(int round) {
             StartCoroutine(Spawn(_nextRound));
             ConfigureRound(round);
             _log.Logger.Log(LogType.Log, $"{_currentRound};");
-            
         }
 
         public static void RoundEnd() {
-            foreach (Projectile p in FindObjectsOfType<Projectile>()) {
+
+            foreach (Projectile p in FindObjectsOfType<Projectile>()) 
                 p.ResetProjectileFromEnemy();
-            }
+            
             eco.ReceiveIncome(100 + Instance._currentRound);
             Instance._log.Logger.Log(LogType.Log, $"{Instance._currentRound}; ; ; ; ; ; ; ; {eco.CumulativeMoney};");
             
@@ -68,7 +56,6 @@ namespace Managers
                 if ((loggable = obj.GetInterface<ILoggable>()) == null) continue;
                 loggable.Log();
             }
-            
         }
 
         private void ConfigureRound(int round) {
@@ -96,6 +83,11 @@ namespace Managers
                 //new Wave(15f, new List<BloonType> {new BloonType("Ceramic", 5, 1f)}),
                 new Wave(0f, new List<BloonType> {new BloonType("Purple", 20, 1.5f)})
             });
+        }
+
+        private Round NextRound(int round) {
+
+            return null;
         }
 
         private void Round1() {

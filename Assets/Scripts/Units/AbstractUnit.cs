@@ -238,10 +238,8 @@ namespace Units
         
         
         #region getset
-        
-        protected abstract Camera cam {
-            get;
-        }
+
+        protected Camera cam => Camera.main;
 
         protected abstract GameObject target {
             get;

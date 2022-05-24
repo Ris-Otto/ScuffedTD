@@ -47,8 +47,7 @@ namespace Units
         }
 
         #region getters/setters
-        protected override Camera cam => Camera.main;
-        
+
         protected override GameObject target {
             get => _target;
             set => _target = value;

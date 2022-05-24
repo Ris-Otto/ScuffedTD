@@ -60,6 +60,7 @@
      <Compile Include="Assets\Scripts\Units\Guns\TackGun.cs" />
      <Compile Include="Assets\Scripts\Managers\UIManager.cs" />
      <Compile Include="Assets\Scripts\Units\TackUnit.cs" />
+     <Compile Include="Assets\Scripts\Projectiles\BoomerProjectile.cs" />
      <Compile Include="Assets\Scripts\Upgrades\TackUpgradeContainer.cs" />
      <Compile Include="Assets\Scripts\Units\MagickanUnit.cs" />
      <Compile Include="Assets\Scripts\Upgrades\RocketUpgradeContainer.cs" />
@@ -106,10 +107,12 @@
      <Compile Include="Assets\Scripts\Units\IMoneyObject.cs" />
      <Compile Include="Assets\Scripts\Projectiles\FireballProjectile.cs" />
      <Compile Include="Assets\Scripts\DataStructures\Round.cs" />
+     <Compile Include="Assets\Scripts\Units\Guns\BoomerGun.cs" />
      <Compile Include="Assets\Scripts\Managers\ActionController.cs" />
      <Compile Include="Assets\Scripts\Managers\HealthManager.cs" />
      <Compile Include="Assets\ZSmartTile\Components\ZST_SnapToGrid.cs" />
      <Compile Include="Assets\Scripts\Managers\LogHandler.cs" />
+     <Compile Include="Assets\Scripts\Upgrades\UpgradeContainer.cs" />
      <Compile Include="Assets\Scripts\Managers\Pathfinding.cs" />
      <Compile Include="Assets\Scripts\Projectiles\TackProjectile.cs" />
      <Compile Include="Assets\Scripts\Upgrades\GrandmaUpgradeContainer.cs" />

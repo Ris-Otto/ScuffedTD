@@ -12,7 +12,7 @@ namespace Units
         [SerializeField]
         private GameObject projectile;
         private GooberUpgrade _currentUpgrade;
-        protected AbstractUpgradeContainer _abstractUpgradeContainer;
+        private AbstractUpgradeContainer _abstractUpgradeContainer;
         #endregion
         
         protected override void Awake() {
@@ -37,8 +37,7 @@ namespace Units
         }
 
         #region getters/setters
-        protected override Camera cam => Camera.main;
-        
+
         protected override GameObject target {
             get => _target;
             set => _target = value;
